@@ -10,9 +10,8 @@ function App() {
   return (
     <>
     <BrowserRouter id="browwz">
-      <h1>Hello there!</h1>
       <Navbar />
-      <Routes>
+      <Routes id="routesContainer">
         <Route exact path='/' element={<Home />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/ueber-uns" element={<UeberUns />} />
