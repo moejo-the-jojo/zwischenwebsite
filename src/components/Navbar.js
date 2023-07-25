@@ -1,14 +1,12 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-
   return (
     <div id="navigationBar">
       <img id="navbarLogo" alt="logo" />
 
       <div id="navbarLinks">
-        <NavLink onClick={() => navigate("/about")} className="linkStyle">
+        <NavLink to="/about" className="linkStyle">
           Über uns
         </NavLink>
 
@@ -19,22 +17,32 @@ const Navbar = () => {
               Nächste
             </NavLink>
 
-            <NavLink className="linkStyle">Vergangene</NavLink>
+            <NavLink to="/vergangene-shows" className="linkStyle">
+              Vergangene
+            </NavLink>
           </div>
         </div>
 
         <div id="galerieDropdown" className="dropdown linkStyle">
           Galerie
           <div className="dropdownContent linkStyle">
-            <NavLink className="linkStyle">Bilder</NavLink>
+            <NavLink to="/fotos" className="linkStyle">
+              Fotos
+            </NavLink>
 
-            <NavLink className="linkStyle">Jingle</NavLink>
+            <NavLink to="/jingle" className="linkStyle">
+              Jingle
+            </NavLink>
           </div>
         </div>
 
-        <NavLink className="linkStyle">Kontakt</NavLink>
+        <NavLink to="/kontakt" className="linkStyle">
+          Kontakt
+        </NavLink>
 
-        <NavLink className="linkStyle">Vienna Improv</NavLink>
+        <NavLink to="vienna-improv" className="linkStyle">
+          Vienna Improv
+        </NavLink>
       </div>
     </div>
   );
