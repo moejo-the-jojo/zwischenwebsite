@@ -1,23 +1,23 @@
-import './App.css';
-import * as React from 'react';
-import About from './components/About';
-import {Route, Routes, BrowserRouter} from "react-router-dom";
-import Home from './components/Home';
-import UeberUns from './components/Ueber-uns';
-import Navbar from './components/Navbar';
+import "./App.css";
+import * as React from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import NächsteShow from "./components/NächsteShow";
 
 function App() {
   return (
     <>
-    <BrowserRouter id="browwz">
-      <Navbar />
-      <Routes id="routesContainer">
-        <Route exact path='/' element={<Home />} />
-        <Route exact path="/about" element={<About />} />
-        <Route exact path="/ueber-uns" element={<UeberUns />} />
-      </Routes>
+      <BrowserRouter id="browwz">
+        <Navbar />
+        <Routes id="routesContainer" className="contentContainer">
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/naechste-show" element={<NächsteShow />} />
+        </Routes>
       </BrowserRouter>
-      </>
+    </>
   );
 }
 

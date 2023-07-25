@@ -1,7 +1,9 @@
 #app {
+  height: 100%;
 }
 
 #root {
+  height: 100%;
 }
 
 
@@ -39,6 +41,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }
 
 .linkStyle:hover {
@@ -70,4 +73,5 @@
   height: 80vh;
   background-color: black;
   margin-top: 20vh;
+  color: white;
 }
