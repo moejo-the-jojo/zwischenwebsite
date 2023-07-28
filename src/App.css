@@ -1,7 +1,6 @@
 #root {
-  background-color: black;
+  overflow: auto;
 }
-
 
 #navigationBar {
   background-color: yellow;
@@ -9,11 +8,6 @@
   display: flex;
   cursor: default;
   position: sticky;
-  /*
-  top: 0;
-  right: 0;
-  left: 0;
-  */
   z-index: 30;
 }
 
@@ -67,19 +61,34 @@
   flex-direction: column;
 }
 
+.routesContainer {
+  position: relative;
+  height: 2000px;
+  background-color: black;
+  margin-top: 0;
+  width: 100%;
+  z-index: 10;
+  height: auto;
+  min-height: 80vh;
+}
 
 .contentContainer {
   position: relative;
-  height: 80vh;
   background-color: black;
   margin-top: 0;
   color: white;
   width: 66vw;
   margin-left: auto;
   margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  overflow: auto;
+  height: auto;
 }
 
 .content {
-  margin-left: 20vw;
-  margin-top: 20vh;
+  margin: 0;
+  grid-area: 1 / 2 / 1 / 2;
+  margin-top: 10vh;
+  height: auto;
 }

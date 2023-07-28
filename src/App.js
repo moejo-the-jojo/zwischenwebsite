@@ -16,16 +16,22 @@ function App() {
     <>
       <BrowserRouter id="browwz">
         <Navbar />
-        <Routes id="routesContainer" className="contentContainer">
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/naechste-show" element={<NächsteShow />} />
-          <Route exact path="/vergangene-shows" element={<VergangeneShows />} />
-          <Route exact path="/fotos" element={<Fotos />} />
-          <Route exact path="/jingle" element={<Jingle />} />
-          <Route exact path="/kontakt" element={<Kontakt />} />
-          <Route exact path="/vienna-improv" element={<ViennaImprov />} />
-        </Routes>
+        <div className="routesContainer">
+          <Routes id="routesContainer" className="routesContainer">
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/about" element={<About />} />
+            <Route exact path="/naechste-show" element={<NächsteShow />} />
+            <Route
+              exact
+              path="/vergangene-shows"
+              element={<VergangeneShows />}
+            />
+            <Route exact path="/fotos" element={<Fotos />} />
+            <Route exact path="/jingle" element={<Jingle />} />
+            <Route exact path="/kontakt" element={<Kontakt />} />
+            <Route exact path="/vienna-improv" element={<ViennaImprov />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </>
   );
