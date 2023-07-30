@@ -1,7 +1,9 @@
 const Jingle = () => {
   return (
     <div className="contentContainer">
-      ZWIIIIISCHENSPIIIIIELLL! wir sind das ZWIIIIISCHENSPIIIIIELLL
+      <div className="content">
+        ZWIIIIISCHENSPIIIIIELLL! wir sind das ZWIIIIISCHENSPIIIIIELLL
+      </div>
     </div>
   );
 };

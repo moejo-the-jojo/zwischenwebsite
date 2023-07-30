@@ -1,23 +1,56 @@
 import { NavLink } from "react-router-dom";
+import logo from "./logo192.png";
+import React from "react";
 
 const Navbar = () => {
+  React.useEffect(() => {
+    const button = document.getElementById("showsDropdownRoot"),
+      dropdown = document.getElementById("showsDropdown");
+    button.addEventListener("mouseover", () => {
+      dropdown.classList.add("showDropdownContent");
+    });
+
+    button.addEventListener("mouseout", () => {
+      dropdown.classList.remove("showDropdownContent");
+    });
+  }, []);
+
   return (
     <div id="navigationBar">
-      <img id="navbarLogo" alt="logo" />
-
       <div id="navbarLinks">
+        <NavLink to="/">
+          <div id="navbarLogoContainer">
+            <img src={logo} id="navbarLogo" alt="logo" />
+          </div>
+        </NavLink>
         <NavLink to="/about" className="linkStyle">
           Über uns
         </NavLink>
 
-        <div id="showsDropdown" className="dropdown linkStyle">
+        <div id="showsDropdownRoot" className="dropdown linkStyle">
           Shows
-          <div className="dropdownContent linkStyle">
-            <NavLink to="/naechste-show" className="linkStyle">
+          <div id="showsDropdown" className="dropdownContent linkStyle">
+            <NavLink
+              to="/naechste-show"
+              className="linkStyle"
+              onClick={() => {
+                document
+                  .getElementById("showsDropdown")
+                  .classList.remove("showDropdownContent");
+              }}
+            >
               Nächste
             </NavLink>
 
-            <NavLink to="/vergangene-shows" className="linkStyle">
+            <NavLink
+              to="/vergangene-shows"
+              className="linkStyle"
+              onClick={() => {
+                document
+                  .getElementById("showsDropdown")
+                  .classList.remove("showDropdownContent");
+              }}
+            >
               Vergangene
             </NavLink>
           </div>

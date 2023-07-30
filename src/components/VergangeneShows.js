@@ -1,5 +1,9 @@
 const VergangeneShows = () => {
-  return <div className="contentContainer">alte Shows hier einfügen</div>;
+  return (
+    <div className="contentContainer">
+      <div className="content">alte Shows hier einfügen</div>
+    </div>
+  );
 };
 
 export default VergangeneShows;

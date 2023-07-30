@@ -1,7 +1,9 @@
 const Kontakt = () => {
   return (
     <div className="contentContainer">
-      <h1>Email hier</h1>
+      <div className="content">
+        <h1>Email hier</h1>
+      </div>
     </div>
   );
 };
