@@ -3,7 +3,21 @@ import logo from "./logo192.png";
 import React from "react";
 
 const Navbar = () => {
+  const dropdownHandling = (container, content) => {
+    const button = document.getElementById(container),
+      dropdown = document.getElementById(content);
+    button.addEventListener("mouseover", () => {
+      dropdown.classList.add("showDropdownContent");
+    });
+
+    button.addEventListener("mouseout", () => {
+      dropdown.classList.remove("showDropdownContent");
+    });
+  };
+
   React.useEffect(() => {
+    dropdownHandling("showsDropdownRoot", "showsDropdown");
+    /*
     const button = document.getElementById("showsDropdownRoot"),
       dropdown = document.getElementById("showsDropdown");
     button.addEventListener("mouseover", () => {
@@ -12,7 +26,12 @@ const Navbar = () => {
 
     button.addEventListener("mouseout", () => {
       dropdown.classList.remove("showDropdownContent");
-    });
+    }); 
+    */
+  }, []);
+
+  React.useEffect(() => {
+    dropdownHandling("galerieDropdownRoot", "galerieDropdown");
   }, []);
 
   return (
@@ -29,7 +48,7 @@ const Navbar = () => {
 
         <div id="showsDropdownRoot" className="dropdown linkStyle">
           Shows
-          <div id="showsDropdown" className="dropdownContent linkStyle">
+          <div id="showsDropdown" className="dropdownContent">
             <NavLink
               to="/naechste-show"
               className="linkStyle"
@@ -53,17 +72,44 @@ const Navbar = () => {
             >
               Vergangene
             </NavLink>
+            <NavLink
+              to="/calender"
+              className="linkStyle"
+              onClick={() => {
+                document
+                  .getElementById("showsDropdown")
+                  .classList.remove("showDropdownContent");
+              }}
+            >
+              Kalender
+            </NavLink>
           </div>
         </div>
 
-        <div id="galerieDropdown" className="dropdown linkStyle">
+        <div id="galerieDropdownRoot" className="dropdown linkStyle">
           Galerie
-          <div className="dropdownContent linkStyle">
-            <NavLink to="/fotos" className="linkStyle">
+          <div id="galerieDropdown" className="dropdownContent">
+            <NavLink
+              to="/fotos"
+              className="linkStyle"
+              onClick={() => {
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContent");
+              }}
+            >
               Fotos
             </NavLink>
 
-            <NavLink to="/jingle" className="linkStyle">
+            <NavLink
+              to="/jingle"
+              className="linkStyle"
+              onClick={() => {
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContent");
+              }}
+            >
               Jingle
             </NavLink>
           </div>

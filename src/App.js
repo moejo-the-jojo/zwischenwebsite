@@ -10,6 +10,7 @@ import Fotos from "./components/Fotos";
 import Jingle from "./components/Jingle";
 import Kontakt from "./components/Kontakt";
 import ViennaImprov from "./components/ViennaImprov";
+import Kalender from "./components/Kalender";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               path="/vergangene-shows"
               element={<VergangeneShows />}
             />
+            <Route exact path="/calender" element={<Kalender />} />
             <Route exact path="/fotos" element={<Fotos />} />
             <Route exact path="/jingle" element={<Jingle />} />
             <Route exact path="/kontakt" element={<Kontakt />} />
