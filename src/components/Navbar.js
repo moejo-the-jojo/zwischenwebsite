@@ -28,7 +28,7 @@ const Navbar = () => {
       <div id="navbarLinks">
         <NavLink to="/">
           <div id="navbarLogoContainer">
-            <img src={logo} id="navbarLogo" alt="logo" />
+            <img eager src={logo} id="navbarLogo" alt="logo" />
           </div>
         </NavLink>
         <NavLink to="/about" className="linkStyle">
