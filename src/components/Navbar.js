@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import logo from "./logo192.png";
 import React from "react";
+import logo from "../pictures/ZwischenspielLogo.png";
 
 const Navbar = () => {
   const dropdownHandling = (container, content) => {
@@ -17,17 +17,6 @@ const Navbar = () => {
 
   React.useEffect(() => {
     dropdownHandling("showsDropdownRoot", "showsDropdown");
-    /*
-    const button = document.getElementById("showsDropdownRoot"),
-      dropdown = document.getElementById("showsDropdown");
-    button.addEventListener("mouseover", () => {
-      dropdown.classList.add("showDropdownContent");
-    });
-
-    button.addEventListener("mouseout", () => {
-      dropdown.classList.remove("showDropdownContent");
-    }); 
-    */
   }, []);
 
   React.useEffect(() => {

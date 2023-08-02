@@ -13,11 +13,27 @@ import ViennaImprov from "./components/ViennaImprov";
 import Kalender from "./components/Kalender";
 
 function App() {
+  React.useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        document.getElementById("navigationBar").style.height = "10vh";
+        document.getElementById("realRoutesContainer").style.minHeight = "90vh";
+        console.log(document.getElementById("navigationBar"));
+      } else if (window.scrollY === 0) {
+        setTimeout(() => {
+          document.getElementById("navigationBar").style.height = "20vh";
+          document.getElementById("realRoutesContainer").style.minHeight =
+            "80vh";
+        }, 10);
+      }
+    });
+  }, []);
+
   return (
     <>
       <BrowserRouter id="browwz">
         <Navbar />
-        <div className="routesContainer">
+        <div id="realRoutesContainer" className="routesContainer">
           <Routes id="routesContainer" className="routesContainer">
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />

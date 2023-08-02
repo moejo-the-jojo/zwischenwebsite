@@ -9,7 +9,12 @@
   display: flex;
   cursor: default;
   position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
   z-index: 30;
+  transition: all 500ms;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 #navbarLogo {
@@ -27,19 +32,21 @@
   width: 100%;
   justify-content: space-evenly;
   align-items: flex-end;
-  background-color: red;
+  background-color: orange;
   text-align: center;
 }
 
 .linkStyle {
-  background-color: yellow;
-  height: 40px;
+  background-color:yellow;
+  /* height: 40px; */
+  height: 5vh;
   width: 100%;
   margin: 0;
   padding: 0;
   text-decoration: none;
   color: black;
-  line-height: 40px;
+  /* line-height: 40px; */
+  line-height: 5vh;
 }
 
 .linkStyle:hover {
@@ -53,7 +60,8 @@
 
 .dropdownContent {
   position: absolute;
-  top: 40px;
+  /* top: 40px; */
+  top: 5vh;
   height: 0;
   width: 100%;
   z-index: 2;
@@ -70,7 +78,8 @@
 
 .showDropdownContent {
   /* mehr compatibilitystuff! */
-  height: 120px;
+  /* height: 120px; */
+  height: 15vh;
   transition: all 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   -moz-transition: all 0.3s;
@@ -79,7 +88,7 @@
 
 .routesContainer {
   position: relative;
-  height: 2000px;
+  height: 100vh;
   background-color: black;
   margin-top: 0;
   width: 100%;
@@ -115,7 +124,7 @@
 }
 
 #kalenderContainer {
-  color: red;
+  color: black;
   background-color: white;
   border-radius: 10px;
   justify-content: center;
