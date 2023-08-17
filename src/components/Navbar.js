@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 import logo from "../pictures/ZwischenspielLogo.png";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const dropdownHandling = (container, content) => {
     const button = document.getElementById(container),
       dropdown = document.getElementById(content);
@@ -23,12 +23,16 @@ const Navbar = () => {
     dropdownHandling("galerieDropdownRoot", "galerieDropdown");
   }, []);
 
+  React.useEffect(() => {
+    document.getElementById("navbarLogoContainer").appendChild(props.testLog);
+  }, []);
+
   return (
     <div id="navigationBar">
       <div id="navbarLinks">
         <NavLink to="/">
           <div id="navbarLogoContainer">
-            <img eager src={logo} id="navbarLogo" alt="logo" />
+            {/* <img eager src={logo} id="navbarLogo" alt="logo" /> */}
           </div>
         </NavLink>
         <NavLink to="/about" className="linkStyle">
