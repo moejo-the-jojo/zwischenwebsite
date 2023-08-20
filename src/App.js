@@ -11,7 +11,7 @@ import Jingle from "./components/Jingle";
 import Kontakt from "./components/Kontakt";
 import ViennaImprov from "./components/ViennaImprov";
 import Kalender from "./components/Kalender";
-import waitOnLogo from "./pictures/ZwischenspielLogo.png";
+import logoSrc from "./pictures/ZwischenspielLogo.png";
 
 function App() {
   React.useEffect(() => {
@@ -30,51 +30,43 @@ function App() {
     });
   }, []);
 
-  const [imageIsLoaded, setImageIsLoaded] = React.useState(false);
-
-  let bliblablub = React.useRef(false);
+  const [imageLogo, setImageLogo] = React.useState();
 
   React.useEffect(() => {
-    bliblablub.current = true;
-  }, [imageIsLoaded]);
+    const promise = new Promise((resolve, reject) => {
+      const logoImage = new Image();
+      logoImage.src = logoSrc;
+      logoImage.id = "navbarLogo";
+      logoImage.onload = resolve(logoImage);
+      logoImage.onerror = reject(new Error("something went wrong.."));
+    });
 
-  const loadedLogo = new Image();
-
-  React.useEffect(() => {
-    loadedLogo.src = waitOnLogo;
-    loadedLogo.id = "navbarLogo";
-    setImageIsLoaded(true);
+    promise.then((result) => setImageLogo(result));
   }, []);
 
-  React.useEffect(() => {
-    console.log(imageIsLoaded);
-  });
-
   return (
-    bliblablub.current && (
-      <>
-        <BrowserRouter id="browwz">
-          <Navbar testLog={loadedLogo} />
-          <div id="realRoutesContainer" className="routesContainer">
-            <Routes id="routesContainer" className="routesContainer">
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/about" element={<About />} />
-              <Route exact path="/naechste-show" element={<NächsteShow />} />
-              <Route
-                exact
-                path="/vergangene-shows"
-                element={<VergangeneShows />}
-              />
-              <Route exact path="/calender" element={<Kalender />} />
-              <Route exact path="/fotos" element={<Fotos />} />
-              <Route exact path="/jingle" element={<Jingle />} />
-              <Route exact path="/kontakt" element={<Kontakt />} />
-              <Route exact path="/vienna-improv" element={<ViennaImprov />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </>
-    )
+    <>
+      <BrowserRouter id="browwz">
+        {imageLogo !== undefined && <Navbar logo={imageLogo} />}
+        <div id="realRoutesContainer" className="routesContainer">
+          <Routes id="routesContainer" className="routesContainer">
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/about" element={<About />} />
+            <Route exact path="/naechste-show" element={<NächsteShow />} />
+            <Route
+              exact
+              path="/vergangene-shows"
+              element={<VergangeneShows />}
+            />
+            <Route exact path="/calender" element={<Kalender />} />
+            <Route exact path="/fotos" element={<Fotos />} />
+            <Route exact path="/jingle" element={<Jingle />} />
+            <Route exact path="/kontakt" element={<Kontakt />} />
+            <Route exact path="/vienna-improv" element={<ViennaImprov />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </>
   );
 }
 

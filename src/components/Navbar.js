@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
-import logo from "../pictures/ZwischenspielLogo.png";
 
-const Navbar = (props) => {
+// import logo from "../pictures/ZwischenspielLogo.png";
+
+const Navbar = ({ logo }) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const dropdownHandling = (container, content) => {
     const button = document.getElementById(container),
       dropdown = document.getElementById(content);
@@ -16,107 +19,127 @@ const Navbar = (props) => {
   };
 
   React.useEffect(() => {
-    dropdownHandling("showsDropdownRoot", "showsDropdown");
-  }, []);
+    if (isLoading === false) {
+      dropdownHandling("showsDropdownRoot", "showsDropdown");
+    }
+  }, [isLoading]);
 
   React.useEffect(() => {
-    dropdownHandling("galerieDropdownRoot", "galerieDropdown");
-  }, []);
+    if (isLoading === false) {
+      dropdownHandling("galerieDropdownRoot", "galerieDropdown");
+    }
+  }, [isLoading]);
 
   React.useEffect(() => {
-    document.getElementById("navbarLogoContainer").appendChild(props.testLog);
-  }, []);
+    if (isLoading === false) {
+      document.getElementById("navbarLogoContainer").appendChild(logo);
+      console.log("i run??");
+    }
+  }, [isLoading, logo]);
+
+  React.useEffect(() => {
+    console.log(logo.complete);
+  });
+
+  React.useEffect(() => {
+    console.log(logo.complete);
+    if (logo.complete === true) {
+      setIsLoading(false);
+    }
+  }, [logo]);
 
   return (
-    <div id="navigationBar">
-      <div id="navbarLinks">
-        <NavLink to="/">
-          <div id="navbarLogoContainer">
-            {/* <img eager src={logo} id="navbarLogo" alt="logo" /> */}
-          </div>
-        </NavLink>
-        <NavLink to="/about" className="linkStyle">
-          Über uns
-        </NavLink>
+    isLoading === false && (
+      <div id="navigationBar">
+        <div id="navbarLinks">
+          <NavLink to="/">
+            <div id="navbarLogoContainer">
+              {/* <img eager="true" src={logo} id="navbarLogo" alt="logo" /> */}
+            </div>
+          </NavLink>
+          <NavLink to="/about" className="linkStyle">
+            Über uns
+          </NavLink>
 
-        <div id="showsDropdownRoot" className="dropdown linkStyle">
-          Shows
-          <div id="showsDropdown" className="dropdownContent">
-            <NavLink
-              to="/naechste-show"
-              className="linkStyle"
-              onClick={() => {
-                document
-                  .getElementById("showsDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
-            >
-              Nächste
-            </NavLink>
+          <div id="showsDropdownRoot" className="dropdown linkStyle">
+            Shows
+            <div id="showsDropdown" className="dropdownContent">
+              <NavLink
+                to="/naechste-show"
+                className="linkStyle"
+                onClick={() => {
+                  document
+                    .getElementById("showsDropdown")
+                    .classList.remove("showDropdownContent");
+                }}
+              >
+                Nächste
+              </NavLink>
 
-            <NavLink
-              to="/vergangene-shows"
-              className="linkStyle"
-              onClick={() => {
-                document
-                  .getElementById("showsDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
-            >
-              Vergangene
-            </NavLink>
-            <NavLink
-              to="/calender"
-              className="linkStyle"
-              onClick={() => {
-                document
-                  .getElementById("showsDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
-            >
-              Kalender
-            </NavLink>
+              <NavLink
+                to="/vergangene-shows"
+                className="linkStyle"
+                onClick={() => {
+                  document
+                    .getElementById("showsDropdown")
+                    .classList.remove("showDropdownContent");
+                }}
+              >
+                Vergangene
+              </NavLink>
+              <NavLink
+                to="/calender"
+                className="linkStyle"
+                onClick={() => {
+                  document
+                    .getElementById("showsDropdown")
+                    .classList.remove("showDropdownContent");
+                }}
+              >
+                Kalender
+              </NavLink>
+            </div>
           </div>
+
+          <div id="galerieDropdownRoot" className="dropdown linkStyle">
+            Galerie
+            <div id="galerieDropdown" className="dropdownContent">
+              <NavLink
+                to="/fotos"
+                className="linkStyle"
+                onClick={() => {
+                  document
+                    .getElementById("galerieDropdown")
+                    .classList.remove("showDropdownContent");
+                }}
+              >
+                Fotos
+              </NavLink>
+
+              <NavLink
+                to="/jingle"
+                className="linkStyle"
+                onClick={() => {
+                  document
+                    .getElementById("galerieDropdown")
+                    .classList.remove("showDropdownContent");
+                }}
+              >
+                Jingle
+              </NavLink>
+            </div>
+          </div>
+
+          <NavLink to="/kontakt" className="linkStyle">
+            Kontakt
+          </NavLink>
+
+          <NavLink to="vienna-improv" className="linkStyle">
+            Vienna Improv
+          </NavLink>
         </div>
-
-        <div id="galerieDropdownRoot" className="dropdown linkStyle">
-          Galerie
-          <div id="galerieDropdown" className="dropdownContent">
-            <NavLink
-              to="/fotos"
-              className="linkStyle"
-              onClick={() => {
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
-            >
-              Fotos
-            </NavLink>
-
-            <NavLink
-              to="/jingle"
-              className="linkStyle"
-              onClick={() => {
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
-            >
-              Jingle
-            </NavLink>
-          </div>
-        </div>
-
-        <NavLink to="/kontakt" className="linkStyle">
-          Kontakt
-        </NavLink>
-
-        <NavLink to="vienna-improv" className="linkStyle">
-          Vienna Improv
-        </NavLink>
       </div>
-    </div>
+    )
   );
 };
 
