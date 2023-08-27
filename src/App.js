@@ -31,6 +31,7 @@ function App() {
   }, []);
 
   const [imageLogo, setImageLogo] = React.useState();
+  const [appIsLoading, setAppIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     const promise = new Promise((resolve, reject) => {
@@ -42,12 +43,27 @@ function App() {
     });
 
     promise.then((result) => setImageLogo(result));
+    setAppIsLoading(false);
   }, []);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      console.log(imageLogo);
+    }, 2000);
+  });
+
+  const parentAppIsLoading = React.useRef(appIsLoading);
+
+  React.useEffect(() => {
+    parentAppIsLoading.current = appIsLoading;
+  }, [appIsLoading]);
 
   return (
     <>
       <BrowserRouter id="browwz">
-        {imageLogo !== undefined && <Navbar logo={imageLogo} />}
+        {imageLogo !== undefined && (
+          <Navbar logo={imageLogo} appIsLoading={parentAppIsLoading.current} />
+        )}
         <div id="realRoutesContainer" className="routesContainer">
           <Routes id="routesContainer" className="routesContainer">
             <Route exact path="/" element={<Home />} />

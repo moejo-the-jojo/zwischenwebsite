@@ -3,7 +3,7 @@ import React from "react";
 
 // import logo from "../pictures/ZwischenspielLogo.png";
 
-const Navbar = ({ logo }) => {
+const Navbar = ({ logo, appIsLoading }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const dropdownHandling = (container, content) => {
@@ -48,12 +48,26 @@ const Navbar = ({ logo }) => {
     }
   }, [logo]);
 
+  const theRealLoading = React.useRef(isLoading);
+
+  React.useEffect(() => {
+    theRealLoading.current = isLoading;
+  }, [isLoading]);
+
+  React.useEffect(() => {
+    console.log(
+      "i show, whenever isLoading is changing " + theRealLoading.current
+    );
+  });
+
   return (
-    isLoading === false && (
+    appIsLoading.current === false && (
       <div id="navigationBar">
         <div id="navbarLinks">
           <NavLink to="/">
             <div id="navbarLogoContainer">
+              {isLoading.toString()}
+              {appIsLoading.current.toString()}
               {/* <img eager="true" src={logo} id="navbarLogo" alt="logo" /> */}
             </div>
           </NavLink>
