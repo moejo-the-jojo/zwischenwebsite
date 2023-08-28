@@ -11,7 +11,7 @@ import Jingle from "./components/Jingle";
 import Kontakt from "./components/Kontakt";
 import ViennaImprov from "./components/ViennaImprov";
 import Kalender from "./components/Kalender";
-import logoSrc from "./pictures/ZwischenspielLogo.png";
+// import logoSrc from "./pictures/ZwischenspielLogo.png";
 
 function App() {
   React.useEffect(() => {
@@ -30,40 +30,32 @@ function App() {
     });
   }, []);
 
-  const [imageLogo, setImageLogo] = React.useState();
-  const [appIsLoading, setAppIsLoading] = React.useState(true);
+  // const [imageLogo, setImageLogo] = React.useState();
+  // const [appIsLoading, setAppIsLoading] = React.useState(true);
 
-  React.useEffect(() => {
-    const promise = new Promise((resolve, reject) => {
-      const logoImage = new Image();
-      logoImage.src = logoSrc;
-      logoImage.id = "navbarLogo";
-      logoImage.onload = resolve(logoImage);
-      logoImage.onerror = reject(new Error("something went wrong.."));
-    });
+  // React.useEffect(() => {
+  //   const promise = new Promise((resolve, reject) => {
+  //     const logoImage = new Image();
+  //     logoImage.src = logoSrc;
+  //     logoImage.id = "navbarLogo";
+  //     logoImage.onload = resolve(logoImage);
+  //     logoImage.onerror = reject(new Error("something went wrong.."));
+  //   });
 
-    promise.then((result) => setImageLogo(result));
-    setAppIsLoading(false);
-  }, []);
+  //   promise.then((result) => setImageLogo(result));
+  //   setAppIsLoading(false);
+  // }, []);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      console.log(imageLogo);
-    }, 2000);
-  });
+  // const parentAppIsLoading = React.useRef(appIsLoading);
 
-  const parentAppIsLoading = React.useRef(appIsLoading);
-
-  React.useEffect(() => {
-    parentAppIsLoading.current = appIsLoading;
-  }, [appIsLoading]);
+  // React.useEffect(() => {
+  //   parentAppIsLoading.current = appIsLoading;
+  // }, [appIsLoading]);
 
   return (
     <>
       <BrowserRouter id="browwz">
-        {imageLogo !== undefined && (
-          <Navbar logo={imageLogo} appIsLoading={parentAppIsLoading.current} />
-        )}
+        <Navbar />
         <div id="realRoutesContainer" className="routesContainer">
           <Routes id="routesContainer" className="routesContainer">
             <Route exact path="/" element={<Home />} />

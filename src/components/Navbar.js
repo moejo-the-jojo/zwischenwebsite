@@ -1,73 +1,103 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
+import logoSrc from "../pictures/ZwischenspielLogo.png";
 
-// import logo from "../pictures/ZwischenspielLogo.png";
-
-const Navbar = ({ logo, appIsLoading }) => {
+const Navbar = () => {
   const [isLoading, setIsLoading] = React.useState(true);
-
-  const dropdownHandling = (container, content) => {
-    const button = document.getElementById(container),
-      dropdown = document.getElementById(content);
-    button.addEventListener("mouseover", () => {
-      dropdown.classList.add("showDropdownContent");
-    });
-
-    button.addEventListener("mouseout", () => {
-      dropdown.classList.remove("showDropdownContent");
-    });
-  };
+  const [realLogo, setRealLogo] = React.useState();
 
   React.useEffect(() => {
-    if (isLoading === false) {
-      dropdownHandling("showsDropdownRoot", "showsDropdown");
+    const tempLogo = new Image();
+    tempLogo.src = logoSrc;
+    tempLogo.id = "navbarLogo";
+    setRealLogo(() => tempLogo);
+  }, []);
+
+  React.useEffect(() => {
+    if (realLogo !== undefined) {
+      document.getElementById("navbarLogoContainer").appendChild(realLogo);
     }
-  }, [isLoading]);
-
-  React.useEffect(() => {
-    if (isLoading === false) {
-      dropdownHandling("galerieDropdownRoot", "galerieDropdown");
-    }
-  }, [isLoading]);
-
-  React.useEffect(() => {
-    if (isLoading === false) {
-      document.getElementById("navbarLogoContainer").appendChild(logo);
-      console.log("i run??");
-    }
-  }, [isLoading, logo]);
-
-  React.useEffect(() => {
-    console.log(logo.complete);
   });
 
   React.useEffect(() => {
-    console.log(logo.complete);
-    if (logo.complete === true) {
-      setIsLoading(false);
+    if (document.getElementById("navbarLogo") !== null) {
+      console.log("hi");
+      setIsLoading((prev) => false);
     }
-  }, [logo]);
-
-  const theRealLoading = React.useRef(isLoading);
-
-  React.useEffect(() => {
-    theRealLoading.current = isLoading;
-  }, [isLoading]);
-
-  React.useEffect(() => {
-    console.log(
-      "i show, whenever isLoading is changing " + theRealLoading.current
-    );
   });
+
+  // const [imageLogo, setImageLogo] = React.useState();
+
+  // React.useEffect(() => {
+  //   const promise = new Promise((resolve, reject) => {
+  //     const logoImage = new Image();
+  //     logoImage.src = logoSrc;
+  //     logoImage.id = "navbarLogo";
+  //     logoImage.onload = resolve(logoImage);
+  //     logoImage.onerror = reject(new Error("something went wrong.."));
+  //   });
+
+  //   promise.then((result) => setImageLogo(result));
+  //   setIsLoading(false);
+  //   console.log(imageLogo);
+  // });
+
+  // const theRealLoading = React.useRef(isLoading);
+
+  // React.useEffect(() => {
+  //   theRealLoading.current = isLoading;
+  // }, [isLoading]);
+
+  // const dropdownHandling = (container, content) => {
+  //   const button = document.getElementById(container),
+  //     dropdown = document.getElementById(content);
+  //   button.addEventListener("mouseover", () => {
+  //     dropdown.classList.add("showDropdownContent");
+  //   });
+
+  //   button.addEventListener("mouseout", () => {
+  //     dropdown.classList.remove("showDropdownContent");
+  //   });
+  // };
+
+  // React.useEffect(() => {
+  //   if (theRealLoading.current === false) {
+  //     dropdownHandling("showsDropdownRoot", "showsDropdown");
+  //   }
+  // }, [isLoading]);
+
+  // React.useEffect(() => {
+  //   if (theRealLoading.current === false) {
+  //     dropdownHandling("galerieDropdownRoot", "galerieDropdown");
+  //   }
+  // }, [isLoading]);
+
+  // React.useEffect(() => {
+  //   if (theRealLoading.current === false && logo !== undefined) {
+  //     document.getElementById("navbarLogoContainer").appendChild(logo);
+  //     console.log("i run??");
+  //   }
+  // }, [isLoading, logo]);
+
+  // React.useEffect(() => {
+  //   if (logo.complete === true) {
+  //     setIsLoading(false);
+  //   }
+  // }, [logo]);
+
+  // React.useEffect(() => {
+  //   console.log(
+  //     "i show, whenever isLoading is changing " + theRealLoading.current
+  //   );
+  // });
 
   return (
-    appIsLoading.current === false && (
+    isLoading === false && (
       <div id="navigationBar">
         <div id="navbarLinks">
           <NavLink to="/">
             <div id="navbarLogoContainer">
               {isLoading.toString()}
-              {appIsLoading.current.toString()}
               {/* <img eager="true" src={logo} id="navbarLogo" alt="logo" /> */}
             </div>
           </NavLink>
