@@ -30,28 +30,6 @@ function App() {
     });
   }, []);
 
-  // const [imageLogo, setImageLogo] = React.useState();
-  // const [appIsLoading, setAppIsLoading] = React.useState(true);
-
-  // React.useEffect(() => {
-  //   const promise = new Promise((resolve, reject) => {
-  //     const logoImage = new Image();
-  //     logoImage.src = logoSrc;
-  //     logoImage.id = "navbarLogo";
-  //     logoImage.onload = resolve(logoImage);
-  //     logoImage.onerror = reject(new Error("something went wrong.."));
-  //   });
-
-  //   promise.then((result) => setImageLogo(result));
-  //   setAppIsLoading(false);
-  // }, []);
-
-  // const parentAppIsLoading = React.useRef(appIsLoading);
-
-  // React.useEffect(() => {
-  //   parentAppIsLoading.current = appIsLoading;
-  // }, [appIsLoading]);
-
   return (
     <>
       <BrowserRouter id="browwz">
