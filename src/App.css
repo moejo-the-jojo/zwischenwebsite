@@ -129,3 +129,8 @@
   border-radius: 10px;
   justify-content: center;
 }
+
+.calenderEvents {
+  color: green;
+  background-color: yellow;
+}

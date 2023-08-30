@@ -11,7 +11,6 @@ import Jingle from "./components/Jingle";
 import Kontakt from "./components/Kontakt";
 import ViennaImprov from "./components/ViennaImprov";
 import Kalender from "./components/Kalender";
-// import logoSrc from "./pictures/ZwischenspielLogo.png";
 
 function App() {
   React.useEffect(() => {
@@ -19,7 +18,6 @@ function App() {
       if (window.scrollY > 0) {
         document.getElementById("navigationBar").style.height = "10vh";
         document.getElementById("realRoutesContainer").style.minHeight = "90vh";
-        console.log(document.getElementById("navigationBar"));
       } else if (window.scrollY === 0) {
         setTimeout(() => {
           document.getElementById("navigationBar").style.height = "20vh";
