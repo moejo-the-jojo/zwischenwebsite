@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import logoSrc from "../pictures/ZwischenspielLogo.svg";
+// import miniLogo from "../pictures/miniLogo.svg";
 
 const Navbar = () => {
   const dropdownHandling = (container, content) => {
@@ -29,7 +30,6 @@ const Navbar = () => {
         <NavLink to="/">
           <div id="navbarLogoContainer">
             <img src={logoSrc} alt="zwischenspielLogo" id="navbarLogo"></img>
-            {/* <img eager="true" src={logo} id="navbarLogo" alt="logo" /> */}
           </div>
         </NavLink>
         <NavLink to="/about" className="linkStyle">

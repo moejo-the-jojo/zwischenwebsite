@@ -15,14 +15,20 @@ import Kalender from "./components/Kalender";
 function App() {
   React.useEffect(() => {
     window.addEventListener("scroll", () => {
+      const navBar = document.getElementById("navigationBar"),
+        navLogo = document.getElementById("navbarLogo"),
+        routesContainer = document.getElementById("realRoutesContainer");
       if (window.scrollY > 0) {
-        document.getElementById("navigationBar").style.height = "10vh";
-        document.getElementById("realRoutesContainer").style.minHeight = "90vh";
+        navBar.style.height = "10vh";
+        navLogo.style.marginTop = "10vh";
+        navLogo.style.height = "16.5vh";
+        routesContainer.style.minHeight = "90vh";
       } else if (window.scrollY === 0) {
         setTimeout(() => {
-          document.getElementById("navigationBar").style.height = "20vh";
-          document.getElementById("realRoutesContainer").style.minHeight =
-            "80vh";
+          navBar.style.height = "20vh";
+          navLogo.style.marginTop = "0";
+          navLogo.style.height = "20vh";
+          routesContainer.style.minHeight = "80vh";
         }, 10);
       }
     });

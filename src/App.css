@@ -17,14 +17,22 @@
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
+#navbarLogoContainer {
+  height: 20vh;
+  min-height: 20vh;
+  overflow: hidden;
+  position: relative;
+  transition: all 500ms;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 #navbarLogo {
   height: 20vh;
-  /*
-  aspect-ratio: 2;
-  */
-  display: flex;
-  align-items: center;
+  min-height: 15vh;
   justify-content: center;
+  position: relative;
+  transition: all 500ms;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 #navbarLinks {
@@ -77,7 +85,7 @@
 }
 
 .showDropdownContent {
-  /* mehr compatibilitystuff! */
+  /* mehr compatibilitystuff einfügen!*/
   /* height: 120px; */
   height: 15vh;
   transition: all 0.3s;
