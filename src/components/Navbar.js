@@ -9,11 +9,20 @@ const Navbar = () => {
       dropdown = document.getElementById(content);
     button.addEventListener("mouseover", () => {
       dropdown.classList.add("showDropdownContent");
+      if (container === "galerieDropdownRoot") {
+        dropdown.classList.add("showDropdownContentSmallSize");
+      }
     });
 
-    button.addEventListener("mouseout", () => {
+    const clearOutDropdown = () => {
       dropdown.classList.remove("showDropdownContent");
-    });
+      if (container === "galerieDropdownRoot") {
+        dropdown.classList.remove("showDropdownContentSmallSize");
+      }
+    };
+
+    button.addEventListener("mouseout", clearOutDropdown);
+    button.addEventListener("onclick", clearOutDropdown);
   };
 
   React.useEffect(() => {
@@ -86,6 +95,9 @@ const Navbar = () => {
                 document
                   .getElementById("galerieDropdown")
                   .classList.remove("showDropdownContent");
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContentSmallSize");
               }}
             >
               Fotos
@@ -98,6 +110,9 @@ const Navbar = () => {
                 document
                   .getElementById("galerieDropdown")
                   .classList.remove("showDropdownContent");
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContentSmallSize");
               }}
             >
               Jingle

@@ -2,6 +2,7 @@
 import * as React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 const Calendar = () => {
   React.useEffect(() => {}, []);
@@ -24,9 +25,11 @@ const Calendar = () => {
         <h1 style={{ textAlign: "center" }}>Show-Termine</h1>
         <FullCalendar
           id="mahKalender"
-          plugins={[dayGridPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           weekends={true}
+          selectable={true}
+          unselectAuto={true}
           eventMouseEnter={handleEventEnter}
           eventMouseLeave={handleEventLeave}
           eventClassNames="calenderEvents"

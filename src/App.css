@@ -42,10 +42,13 @@
   align-items: flex-end;
   background-color: orange;
   text-align: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .linkStyle {
-  background-color:yellow;
+  background-color: yellow;
   /* height: 40px; */
   height: 5vh;
   width: 100%;
@@ -94,6 +97,10 @@
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
+.showDropdownContentSmallSize {
+  height: 10vh;
+}
+
 .routesContainer {
   position: relative;
   height: 100vh;
@@ -136,9 +143,19 @@
   background-color: white;
   border-radius: 10px;
   justify-content: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: auto;
+  min-width: 500px;
 }
 
 .calenderEvents {
   color: green;
   background-color: yellow;
+}
+
+.fc-header-toolbar {
+  margin-left: 20px;
+  margin-right: 20px;
 }
