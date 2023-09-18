@@ -4,7 +4,7 @@
 }
 
 #navigationBar {
-  background-color: yellow;
+  background-color: #FFEA00;
   height: 20vh;
   display: flex;
   cursor: default;
@@ -15,6 +15,19 @@
   z-index: 30;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+
+#navbarLinks {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  background-color: #FFEA00;
+  text-align: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #navbarLogoContainer {
@@ -35,20 +48,9 @@
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-#navbarLinks {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  background-color: orange;
-  text-align: center;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
 
 .linkStyle {
-  background-color: yellow;
+  background-color: #FFEA00;
   /* height: 40px; */
   height: 5vh;
   width: 100%;
@@ -58,11 +60,18 @@
   color: black;
   /* line-height: 40px; */
   line-height: 5vh;
+  border-radius: 10px;
+  margin-bottom: 1vh;
 }
 
 .linkStyle:hover {
   cursor: default;
-  background-color: orange;
+  background-color: black;
+  color: #FFEA00;
+}
+
+#placeholderLink {
+  pointer-events: none;
 }
 
 .dropdown {
@@ -85,6 +94,17 @@
   transition: all 0.05s;
   -moz-transition: all 0.05s;
   /* mehr compatibilitystuff! */
+  border-radius: 5px;
+}
+
+#galerieDropdown .linkStyle {
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+
+#showsDropdown .linkStyle {
+  margin-bottom: 0px;
+  border-radius: 0px;
 }
 
 .showDropdownContent {

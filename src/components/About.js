@@ -1,7 +1,9 @@
 const About = () => {
   return (
     <div className="contentContainer">
-      <div className="content">This is the page about us!</div>
+      <div className="content">
+        Der Gründungsmythos, unsere wundervollen Spieler:innen, muuuch more
+      </div>
     </div>
   );
 };

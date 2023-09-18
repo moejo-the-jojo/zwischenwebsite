@@ -41,10 +41,10 @@ const Navbar = () => {
             <img src={logoSrc} alt="zwischenspielLogo" id="navbarLogo"></img>
           </div>
         </NavLink>
+        <div className="linkStyle" id="placeholderLink" />
         <NavLink to="/about" className="linkStyle">
           Über uns
         </NavLink>
-
         <div id="showsDropdownRoot" className="dropdown linkStyle">
           Shows
           <div id="showsDropdown" className="dropdownContent">
@@ -125,7 +125,7 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink to="vienna-improv" className="linkStyle">
-          Vienna Improv
+          Vienna Improv (?)
         </NavLink>
       </div>
     </div>

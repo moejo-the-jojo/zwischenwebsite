@@ -16,6 +16,8 @@ const Calendar = () => {
   };
 
   return (
+    // Liste von Shows links im Bild??
+
     <div className="contentContainer">
       <div
         id="kalenderContainer"

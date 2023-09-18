@@ -6,10 +6,13 @@ const Home = () => {
   return (
     <div className="contentContainer">
       <div className="content">
-        <h2>U ok?</h2>
-        <button onClick={() => navigate("/about")}>About</button>
-        <button onClick={() => navigate("/ueber-uns")}>
+        {/* <button onClick={() => navigate("/ueber-uns")}>
           zur testpage bitte hier
+        </button> */}
+        {"Willkommen beim Zwischenspiel! <3"}
+        <br></br>
+        <button onClick={() => navigate("/naechste-show")}>
+          Nächsten Show!
         </button>
       </div>
     </div>
