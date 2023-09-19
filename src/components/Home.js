@@ -10,7 +10,9 @@ const Home = () => {
           zur testpage bitte hier
         </button> */}
         {"Willkommen beim Zwischenspiel! <3"}
-        <br></br>
+        <br />
+        <br />
+        <br />
         <button onClick={() => navigate("/naechste-show")}>
           Nächsten Show!
         </button>

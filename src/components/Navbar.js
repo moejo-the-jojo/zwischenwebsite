@@ -59,7 +59,6 @@ const Navbar = () => {
             >
               Nächste
             </NavLink>
-
             <NavLink
               to="/vergangene-shows"
               className="linkStyle"
