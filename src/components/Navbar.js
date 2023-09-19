@@ -3,6 +3,21 @@ import React from "react";
 import logoSrc from "../pictures/ZwischenspielLogo.svg";
 // import miniLogo from "../pictures/miniLogo.svg";
 
+const displayMobileNavigation = {
+  "--navbarHeight": "15vh",
+  "--showNavbarLinks": "none",
+  "--hideNavbarLogo": "flex",
+  "--navbarFlexDirection": "row",
+  "--navbarFlexAlign": "flex-end",
+};
+const hideMobileNavigation = {
+  "--navbarHeight": "100vh",
+  "--showNavbarLinks": "flex",
+  "--hideNavbarLogo": "none",
+  "--navbarFlexDirection": "column",
+  "--navbarFlexAlign": "flex-end",
+};
+
 const Navbar = () => {
   const dropdownHandling = (container, content) => {
     const button = document.getElementById(container),
@@ -33,8 +48,33 @@ const Navbar = () => {
     dropdownHandling("galerieDropdownRoot", "galerieDropdown");
   }, []);
 
+  const [showMobileNav, setShowMobileNav] = React.useState(false);
+
+  React.useEffect(() => {
+    let currentSettings;
+    if (showMobileNav === true) {
+      currentSettings = hideMobileNavigation;
+    } else {
+      currentSettings = displayMobileNavigation;
+    }
+
+    for (let pair in currentSettings) {
+      document.body.style.setProperty(pair, currentSettings[pair]);
+    }
+  }, [showMobileNav]);
+
+  React.useEffect(() => {
+    console.log(showMobileNav.toString());
+  });
+
   return (
     <div id="navigationBar">
+      <button
+        id="mobileNavbarToggle"
+        onClick={() => setShowMobileNav((prev) => !prev)}
+      >
+        Test
+      </button>
       <div id="navbarLinks">
         <NavLink to="/">
           <div id="navbarLogoContainer">

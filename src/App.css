@@ -13,6 +13,29 @@ breakpoints: < 1024px tablet/phone landscape
   }
 }
 
+body {
+  -ms-overflow-style: none;
+}
+
+html {
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+#mobileNavbarToggle {
+  display: none;
+}
+
+@media screen and (max-width: 540px) {
+  #mobileNavbarToggle {
+    display: flex;
+
+  }
+}
+
 #navigationBar {
   background-color: #FFEA00;
   height: 20vh;
@@ -34,16 +57,29 @@ breakpoints: < 1024px tablet/phone landscape
   }
 }
 
+@media screen and (max-width: 540px) {
+  #navigationBar {
+  height: var(--navbarHeight);
+
+  }
+}
+
 #navbarLinks {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
-  align-items: flex-end;
   background-color: #FFEA00;
   text-align: center;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@media screen and (max-width: 540px) {
+  #navbarLinks {
+  flex-direction: var(--navbarFlexDirection);
+height: 100%;
+}
 }
 
 
@@ -72,8 +108,8 @@ breakpoints: < 1024px tablet/phone landscape
   #navbarLogo {
     width: 33vw;
     height: auto;
-    margin-top: 5vh;
-    justify-self: right;
+    margin-top: auto;
+    display: var(--hideNavbarLogo)
   }
 }
 
@@ -96,7 +132,7 @@ breakpoints: < 1024px tablet/phone landscape
 
 @media screen and (max-width: 540px){
   .linkStyle {
-display: none;
+display: var(--showNavbarLinks);
   }
 }
 
