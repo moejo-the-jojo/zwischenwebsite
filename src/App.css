@@ -7,6 +7,11 @@ breakpoints: < 1024px tablet/phone landscape
   overflow: auto;
   --showDropdown: none;
 }
+@media screen and (max-width: 1024px){
+  :root {
+    width: 100vw;
+  }
+}
 
 #navigationBar {
   background-color: #FFEA00;
@@ -25,9 +30,9 @@ breakpoints: < 1024px tablet/phone landscape
 @media screen and (max-width: 1024px){
   #navigationBar {
     width: 100%;
+    font-size: 12px;
   }
 }
-
 
 #navbarLinks {
   display: flex;
@@ -41,6 +46,7 @@ breakpoints: < 1024px tablet/phone landscape
   user-select: none;
 }
 
+
 #navbarLogoContainer {
   height: 20vh;
   min-height: 20vh;
@@ -48,6 +54,7 @@ breakpoints: < 1024px tablet/phone landscape
   position: relative;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  display: flex;
 }
 
 #navbarLogo {
@@ -57,6 +64,17 @@ breakpoints: < 1024px tablet/phone landscape
   position: relative;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  display: flex;
+
+}
+
+@media screen and (max-width: 540px){
+  #navbarLogo {
+    width: 33vw;
+    height: auto;
+    margin-top: 5vh;
+    justify-self: right;
+  }
 }
 
 
@@ -74,6 +92,14 @@ breakpoints: < 1024px tablet/phone landscape
   border-radius: 10px;
   margin-bottom: 1vh;
 }
+
+
+@media screen and (max-width: 540px){
+  .linkStyle {
+display: none;
+  }
+}
+
 
 .linkStyle:hover {
   cursor: default;
