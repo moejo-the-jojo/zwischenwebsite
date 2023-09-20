@@ -4,18 +4,18 @@ import logoSrc from "../pictures/ZwischenspielLogo.svg";
 // import miniLogo from "../pictures/miniLogo.svg";
 
 const displayMobileNavigation = {
-  "--navbarHeight": "15vh",
-  "--showNavbarLinks": "none",
-  "--hideNavbarLogo": "flex",
-  "--navbarFlexDirection": "row",
-  "--navbarFlexAlign": "flex-end",
-};
-const hideMobileNavigation = {
   "--navbarHeight": "100vh",
   "--showNavbarLinks": "flex",
   "--hideNavbarLogo": "none",
   "--navbarFlexDirection": "column",
-  "--navbarFlexAlign": "flex-end",
+  "--navbarFlexAlign": "flex-start",
+};
+const hideMobileNavigation = {
+  "--navbarHeight": "15vh",
+  "--showNavbarLinks": "none",
+  "--hideNavbarLogo": "flex",
+  "--navbarFlexDirection": "row",
+  "--navbarFlexAlign": "space-evenly",
 };
 
 const Navbar = () => {
@@ -52,7 +52,7 @@ const Navbar = () => {
 
   React.useEffect(() => {
     let currentSettings;
-    if (showMobileNav === true) {
+    if (showMobileNav === false) {
       currentSettings = hideMobileNavigation;
     } else {
       currentSettings = displayMobileNavigation;
@@ -86,7 +86,7 @@ const Navbar = () => {
           Über uns
         </NavLink>
         <div id="showsDropdownRoot" className="dropdown linkStyle">
-          Shows
+          Shows &#9662;
           <div id="showsDropdown" className="dropdownContent">
             <NavLink
               to="/naechste-show"
@@ -125,7 +125,7 @@ const Navbar = () => {
         </div>
 
         <div id="galerieDropdownRoot" className="dropdown linkStyle">
-          Galerie
+          Galerie &#9662;
           <div id="galerieDropdown" className="dropdownContent">
             <NavLink
               to="/fotos"
