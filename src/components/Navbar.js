@@ -29,6 +29,21 @@ const Navbar = () => {
       }
     });
 
+    if (window.innerWidth <= 540 && container === "showsDropdownRoot") {
+      dropdown.addEventListener("onclick", () => {
+        setShowShowsDropdown((prev) => !prev);
+      });
+    } else if (
+      window.innerWidth <= 540 &&
+      container === "galerieDropdownRoot"
+    ) {
+      dropdown.addEventListener("onclick", () => {
+        setShowGalerieDropdown((prev) => !prev);
+      });
+    }
+
+    console.log(window.innerWidth);
+
     const clearOutDropdown = () => {
       dropdown.classList.remove("showDropdownContent");
       if (container === "galerieDropdownRoot") {
@@ -48,7 +63,9 @@ const Navbar = () => {
     dropdownHandling("galerieDropdownRoot", "galerieDropdown");
   }, []);
 
-  const [showMobileNav, setShowMobileNav] = React.useState(false);
+  const [showMobileNav, setShowMobileNav] = React.useState(false),
+    [showShowsDropdown, setShowShowsDropdown] = React.useState(false),
+    [showGalerieDropdown, setShowGalerieDropdown] = React.useState(false);
 
   React.useEffect(() => {
     let currentSettings;
@@ -62,10 +79,6 @@ const Navbar = () => {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
   }, [showMobileNav]);
-
-  React.useEffect(() => {
-    console.log(showMobileNav.toString());
-  });
 
   return (
     <div id="navigationBar">
@@ -90,7 +103,7 @@ const Navbar = () => {
           <div id="showsDropdown" className="dropdownContent">
             <NavLink
               to="/naechste-show"
-              className="linkStyle"
+              className="linkStyle dropdownLink"
               onClick={() => {
                 document
                   .getElementById("showsDropdown")
@@ -101,7 +114,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               to="/vergangene-shows"
-              className="linkStyle"
+              className="linkStyle dropdownLink"
               onClick={() => {
                 document
                   .getElementById("showsDropdown")
@@ -112,7 +125,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               to="/calender"
-              className="linkStyle"
+              className="linkStyle dropdownLink"
               onClick={() => {
                 document
                   .getElementById("showsDropdown")
@@ -129,7 +142,7 @@ const Navbar = () => {
           <div id="galerieDropdown" className="dropdownContent">
             <NavLink
               to="/fotos"
-              className="linkStyle"
+              className="linkStyle dropdownLink"
               onClick={() => {
                 document
                   .getElementById("galerieDropdown")
@@ -144,7 +157,7 @@ const Navbar = () => {
 
             <NavLink
               to="/jingle"
-              className="linkStyle"
+              className="linkStyle dropdownLink"
               onClick={() => {
                 document
                   .getElementById("galerieDropdown")

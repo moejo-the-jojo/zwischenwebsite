@@ -81,6 +81,7 @@ body::-webkit-scrollbar{
   flex-direction: var(--navbarFlexDirection);
   height: 100%;
   justify-content: var(--navbarFlexAlign);
+  gap: 3vh;
 }
 }
 
@@ -171,9 +172,16 @@ body::-webkit-scrollbar{
   position: relative;
 }
 
+#showsDropdownRoot {
+  margin-bottom: var(--showShowsDropdown);
+}
+
+#galerieDropdown {
+  margin-bottom: var(--showGalerieDropdown);
+}
+
 .dropdownContent {
   position: absolute;
-  /* top: 40px; */
   top: 5vh;
   height: 0;
   width: 100%;
@@ -190,6 +198,8 @@ body::-webkit-scrollbar{
   border-radius: 5px;
 }
 
+
+
 #galerieDropdown .linkStyle {
   margin-bottom: 0px;
   border-radius: 0px;
@@ -202,7 +212,6 @@ body::-webkit-scrollbar{
 
 .showDropdownContent {
   /* mehr compatibilitystuff einfügen!*/
-  /* height: 120px; */
   height: 15vh;
   transition: all 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
@@ -210,9 +219,24 @@ body::-webkit-scrollbar{
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
-.showDropdownContentSmallSize {
-  height: 10vh;
+@media screen and (max-width: 540px) {
+  .showDropdownContent {
+    height: 22vh;
+  }
 }
+
+@media screen and (max-width: 540px) {
+  .showDropdownContentSmallSize {
+    height: 17vh;
+  }  
+}
+
+@media screen and (max-width: 540px) {
+  .dropdownLink {
+  }
+}
+
+
 
 .routesContainer {
   position: relative;
