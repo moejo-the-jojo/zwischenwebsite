@@ -19,49 +19,67 @@ const hideMobileNavigation = {
 };
 
 const Navbar = () => {
-  const dropdownHandling = (container, content) => {
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    console.log(windowWidth);
+  }, [windowWidth]);
+
+  const addDropdownHandling = (container, content) => {
     const button = document.getElementById(container),
       dropdown = document.getElementById(content);
-    button.addEventListener("mouseover", () => {
-      dropdown.classList.add("showDropdownContent");
+
+    const addFullSizeDropdown = () => {
       if (container === "galerieDropdownRoot") {
         dropdown.classList.add("showDropdownContentSmallSize");
-      }
-    });
-
-    if (window.innerWidth <= 540 && container === "showsDropdownRoot") {
-      dropdown.addEventListener("onclick", () => {
-        setShowShowsDropdown((prev) => !prev);
-      });
-    } else if (
-      window.innerWidth <= 540 &&
-      container === "galerieDropdownRoot"
-    ) {
-      dropdown.addEventListener("onclick", () => {
-        setShowGalerieDropdown((prev) => !prev);
-      });
-    }
-
-    console.log(window.innerWidth);
-
-    const clearOutDropdown = () => {
-      dropdown.classList.remove("showDropdownContent");
-      if (container === "galerieDropdownRoot") {
-        dropdown.classList.remove("showDropdownContentSmallSize");
+        dropdown.classList.add("showDropdownContent");
+      } else {
+        dropdown.classList.add("showDropdownContent");
       }
     };
 
-    button.addEventListener("mouseout", clearOutDropdown);
-    button.addEventListener("onclick", clearOutDropdown);
+    const clearFullSizeDropdown = () => {
+      if (container === "galerieDropdownRoot") {
+        dropdown.classList.remove("showDropdownContentSmallSize");
+        dropdown.classList.remove("showDropdownContent");
+      } else {
+        dropdown.classList.remove("showDropdownContent");
+      }
+    };
+
+    button.addEventListener("mouseover", addFullSizeDropdown);
+    button.addEventListener("mouseout", clearFullSizeDropdown);
+    button.addEventListener("onclick", clearFullSizeDropdown);
+    global.fullSizeEventlistener = true;
   };
 
-  React.useEffect(() => {
-    dropdownHandling("showsDropdownRoot", "showsDropdown");
-  }, []);
+  // if (window.innerWidth <= 540 && container === "showsDropdownRoot") {
+  //   dropdown.addEventListener("onclick", () => {
+  //     setShowShowsDropdown((prev) => !prev);
+  //   });
+  // } else if (
+  //   window.innerWidth <= 540 &&
+  //   container === "galerieDropdownRoot"
+  // ) {
+  //   dropdown.addEventListener("onclick", () => {
+  //     setShowGalerieDropdown((prev) => !prev);
+  //   });
+  // }
 
   React.useEffect(() => {
-    dropdownHandling("galerieDropdownRoot", "galerieDropdown");
-  }, []);
+    if (window.innerWidth > 540) {
+      addDropdownHandling("showsDropdownRoot", "showsDropdown");
+      addDropdownHandling("galerieDropdownRoot", "galerieDropdown");
+      console.log(global.fullSizeEventlistener);
+    } else {
+    }
+  }, [windowWidth]);
 
   const [showMobileNav, setShowMobileNav] = React.useState(false),
     [showShowsDropdown, setShowShowsDropdown] = React.useState(false),

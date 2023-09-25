@@ -14,7 +14,7 @@ const Home = () => {
         <br />
         <br />
         <button onClick={() => navigate("/naechste-show")}>
-          Nächsten Show!
+          Nächste Show!
         </button>
       </div>
     </div>
