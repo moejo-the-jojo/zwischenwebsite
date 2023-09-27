@@ -7,7 +7,7 @@ breakpoints: < 1024px tablet/phone landscape
   overflow: auto;
   --showDropdown: none;
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
   :root {
     width: 100vw;
   }
@@ -21,7 +21,7 @@ html {
   scrollbar-width: none;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   display: none;
 }
 
@@ -32,12 +32,11 @@ body::-webkit-scrollbar{
 @media screen and (max-width: 540px) {
   #mobileNavbarToggle {
     display: flex;
-
   }
 }
 
 #navigationBar {
-  background-color: #FFEA00;
+  background-color: #ffea00;
   height: 20vh;
   display: flex;
   cursor: default;
@@ -50,7 +49,7 @@ body::-webkit-scrollbar{
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
   #navigationBar {
     width: 100%;
     font-size: 12px;
@@ -59,8 +58,7 @@ body::-webkit-scrollbar{
 
 @media screen and (max-width: 540px) {
   #navigationBar {
-  height: var(--navbarHeight);
-
+    height: var(--navbarHeight);
   }
 }
 
@@ -68,7 +66,7 @@ body::-webkit-scrollbar{
   display: flex;
   width: 100%;
   justify-content: space-evenly;
-  background-color: #FFEA00;
+  background-color: #ffea00;
   text-align: center;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -78,13 +76,12 @@ body::-webkit-scrollbar{
 
 @media screen and (max-width: 540px) {
   #navbarLinks {
-  flex-direction: var(--navbarFlexDirection);
-  height: 100%;
-  justify-content: var(--navbarFlexAlign);
-  gap: 3vh;
+    flex-direction: var(--navbarFlexDirection);
+    height: 100%;
+    justify-content: var(--navbarFlexAlign);
+    gap: 3vh;
+  }
 }
-}
-
 
 #navbarLogoContainer {
   height: 20vh;
@@ -96,12 +93,11 @@ body::-webkit-scrollbar{
   display: flex;
 }
 
-@media screen and (max-width: 540px){
+@media screen and (max-width: 540px) {
   #navbarLogoContainer {
-    display: var(--hideNavbarLogo)
+    display: var(--hideNavbarLogo);
   }
 }
-
 
 #navbarLogo {
   height: 20vh;
@@ -113,18 +109,17 @@ body::-webkit-scrollbar{
   display: flex;
 }
 
-@media screen and (max-width: 540px){
+@media screen and (max-width: 540px) {
   #navbarLogo {
     width: 33vw;
     height: auto;
     margin-top: auto;
-    display: var(--hideNavbarLogo)
+    display: var(--hideNavbarLogo);
   }
 }
 
-
 .linkStyle {
-  background-color: #FFEA00;
+  background-color: #ffea00;
   height: 5vh;
   width: 100%;
   margin: 0;
@@ -138,8 +133,7 @@ body::-webkit-scrollbar{
   justify-content: center;
 }
 
-
-@media screen and (max-width: 540px){
+@media screen and (max-width: 540px) {
   .linkStyle {
     display: var(--showNavbarLinks);
     height: 5vh;
@@ -150,11 +144,10 @@ body::-webkit-scrollbar{
   }
 }
 
-
 .linkStyle:hover {
   cursor: default;
   background-color: black;
-  color: #FFEA00;
+  color: #ffea00;
 }
 
 #placeholderLink {
@@ -163,9 +156,8 @@ body::-webkit-scrollbar{
 
 @media screen and (max-width: 540px) {
   #placeholderLink {
-    display: none
+    display: none;
   }
-  
 }
 
 .dropdown {
@@ -173,11 +165,11 @@ body::-webkit-scrollbar{
 }
 
 #showsDropdownRoot {
-  margin-bottom: var(--showShowsDropdown);
+  margin-bottom: var(--desktopDropdownMargin);
 }
 
 #galerieDropdown {
-  margin-bottom: var(--showGalerieDropdown);
+  margin-bottom: var(--desktopDropdownMargin);
 }
 
 .dropdownContent {
@@ -197,8 +189,6 @@ body::-webkit-scrollbar{
   /* mehr compatibilitystuff! */
   border-radius: 5px;
 }
-
-
 
 #galerieDropdown .linkStyle {
   margin-bottom: 0px;
@@ -228,15 +218,13 @@ body::-webkit-scrollbar{
 @media screen and (max-width: 540px) {
   .showDropdownContentSmallSize {
     height: 17vh;
-  }  
+  }
 }
 
 @media screen and (max-width: 540px) {
   .dropdownLink {
   }
 }
-
-
 
 .routesContainer {
   position: relative;

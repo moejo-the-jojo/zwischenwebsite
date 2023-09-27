@@ -31,33 +31,118 @@ const Navbar = () => {
     console.log(windowWidth);
   }, [windowWidth]);
 
-  const addDropdownHandling = (container, content) => {
-    const button = document.getElementById(container),
-      dropdown = document.getElementById(content);
-
-    const addFullSizeDropdown = () => {
-      if (container === "galerieDropdownRoot") {
-        dropdown.classList.add("showDropdownContentSmallSize");
-        dropdown.classList.add("showDropdownContent");
-      } else {
-        dropdown.classList.add("showDropdownContent");
-      }
-    };
-
-    const clearFullSizeDropdown = () => {
-      if (container === "galerieDropdownRoot") {
-        dropdown.classList.remove("showDropdownContentSmallSize");
-        dropdown.classList.remove("showDropdownContent");
-      } else {
-        dropdown.classList.remove("showDropdownContent");
-      }
-    };
-
-    button.addEventListener("mouseover", addFullSizeDropdown);
-    button.addEventListener("mouseout", clearFullSizeDropdown);
-    button.addEventListener("onclick", clearFullSizeDropdown);
-    global.fullSizeEventlistener = true;
+  const addDropdownClasses = (container, content) => {
+    const dropdown = document.getElementById(content);
+    if (container === "galerieDropdownRoot") {
+      dropdown.classList.add("showDropdownContentSmallSize");
+      dropdown.classList.add("showDropdownContent");
+    } else {
+      dropdown.classList.add("showDropdownContent");
+    }
   };
+
+  const removeDropdownClasses = (container, content) => {
+    const dropdown = document.getElementById(content);
+    if (container === "galerieDropdownRoot") {
+      dropdown.classList.remove("showDropdownContentSmallSize");
+      dropdown.classList.remove("showDropdownContent");
+    } else {
+      dropdown.classList.remove("showDropdownContent");
+    }
+  };
+
+  const addDesktopDropdown = (container, content) => {
+    return addDropdownClasses(container, content);
+  };
+
+  const removeDesktopDropdown = (container, content) => {
+    return removeDropdownClasses(container, content);
+  };
+
+  const addDesktopDropdownListeners = (container, content) => {
+    global[container] = () => addDesktopDropdown(container, content);
+    console.log(global[container]);
+    global[`${container}remover`] = () =>
+      removeDesktopDropdown(container, content);
+    const button = document.getElementById(container);
+    button.addEventListener("mouseover", global[container]);
+    button.addEventListener("mouseout", global[`${container}remover`]);
+    button.addEventListener("onclick", global[`${container}remover`]);
+    global.desktopEventListener = true;
+  };
+
+  // const addMobileDropdownListeners = (container, content) => {
+  //   const button = document.getElementById(container),
+  //     lists = document.getElementsByClassName("linkStyle");
+
+  //   const addMobileDropdown = () => {
+  //     addDropdownClasses(container, content);
+  //   };
+  //   const removeMobileDropdown = () => {
+  //     removeDropdownClasses(container, content);
+  //   };
+
+  //   button.addEventListener("onclick", addMobileDropdown);
+  //   lists.map((a) => {
+  //     a.addEventListener("onclick", removeMobileDropdown);
+  //   });
+  //   global.mobileEventListener = true;
+  // };
+
+  React.useEffect(() => {
+    if (window.innerWidth > 540 && global.desktopEventListener !== true) {
+      addDesktopDropdownListeners("showsDropdownRoot", "showsDropdown");
+      addDesktopDropdownListeners("galerieDropdownRoot", "galerieDropdown");
+      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
+      console.log(global.desktopEventListener);
+    } else if (window.innerWidth <= 540) {
+      const eventListenerRemovalArr = [
+        {
+          html: document.getElementById("showsDropdownRoot"),
+          name: "showsDropdownRoot",
+        },
+        {
+          html: document.getElementById("galerieDropdownRoot"),
+          name: "galerieDropdownRoot",
+        },
+      ];
+      eventListenerRemovalArr.forEach((element) => {
+        element.html.removeEventListener("mouseover", global[element.name]);
+        element.html.removeEventListener(
+          "mouseout",
+          global[`${element.name}remover`]
+        );
+        element.html.removeEventListener(
+          "onclick",
+          global[`${element.name}remover`]
+        );
+      });
+      global.desktopEventListener = false;
+    }
+  }, [windowWidth]);
+
+  // const addMobileDropdown = (container, content) => {
+  //   const button = document.getElementById(container),
+  //     dropdown = document.getElementById(content);
+
+  //   const mobileDropdown = () => {
+  //     if (container === "galerieDropdownRoot") {
+  //       dropdown.classList.add("showDropdownContentSmallSize");
+  //       dropdown.classList.add("showDropdownContent");
+  //     } else {
+  //       dropdown.classList.add("showDropdownContent");
+  //     }
+  //   };
+
+  //   const clearmobileDropdown = () => {
+  //     if (container === "galerieDropdownRoot") {
+  //       dropdown.classList.remove("showDropdownContentSmallSize");
+  //       dropdown.classList.remove("showDropdownContent");
+  //     } else {
+  //       dropdown.classList.remove("showDropdownContent");
+  //     }
+  //   };
+  // };
 
   // if (window.innerWidth <= 540 && container === "showsDropdownRoot") {
   //   dropdown.addEventListener("onclick", () => {
@@ -71,15 +156,6 @@ const Navbar = () => {
   //     setShowGalerieDropdown((prev) => !prev);
   //   });
   // }
-
-  React.useEffect(() => {
-    if (window.innerWidth > 540) {
-      addDropdownHandling("showsDropdownRoot", "showsDropdown");
-      addDropdownHandling("galerieDropdownRoot", "galerieDropdown");
-      console.log(global.fullSizeEventlistener);
-    } else {
-    }
-  }, [windowWidth]);
 
   const [showMobileNav, setShowMobileNav] = React.useState(false),
     [showShowsDropdown, setShowShowsDropdown] = React.useState(false),
