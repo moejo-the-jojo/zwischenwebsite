@@ -209,6 +209,10 @@ body::-webkit-scrollbar {
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
+.showDropdownContentSmallSize {
+  height: 10vh;
+}
+
 @media screen and (max-width: 540px) {
   .showDropdownContent {
     height: 22vh;

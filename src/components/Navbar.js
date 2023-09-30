@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import logoSrc from "../pictures/ZwischenspielLogo.svg";
-// import miniLogo from "../pictures/miniLogo.svg";
 
 const displayMobileNavigation = {
   "--navbarHeight": "100vh",
@@ -17,6 +16,17 @@ const hideMobileNavigation = {
   "--navbarFlexDirection": "row",
   "--navbarFlexAlign": "space-evenly",
 };
+
+const eventListenerRemovalArr = [
+  {
+    container: "showsDropdownRoot",
+    content: "showsDropdown",
+  },
+  {
+    container: "galerieDropdownRoot",
+    content: "galerieDropdown",
+  },
+];
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -51,36 +61,29 @@ const Navbar = () => {
     }
   };
 
-  const addDesktopDropdown = (container, content) => {
-    return addDropdownClasses(container, content);
-  };
-
-  const removeDesktopDropdown = (container, content) => {
-    return removeDropdownClasses(container, content);
-  };
-
-  const addDesktopDropdownListeners = (container, content) => {
-    global[container] = () => addDesktopDropdown(container, content);
+  const changeToDesktopEventListeners = (container, content) => {
+    const button = document.getElementById(container);
+    global[container] = () => addDropdownClasses(container, content);
     console.log(global[container]);
     global[`${container}remover`] = () =>
-      removeDesktopDropdown(container, content);
-    const button = document.getElementById(container);
+      removeDropdownClasses(container, content);
     button.addEventListener("mouseover", global[container]);
     button.addEventListener("mouseout", global[`${container}remover`]);
     button.addEventListener("onclick", global[`${container}remover`]);
     global.desktopEventListener = true;
   };
 
-  // const addMobileDropdownListeners = (container, content) => {
-  //   const button = document.getElementById(container),
-  //     lists = document.getElementsByClassName("linkStyle");
+  const changeToMobileEventListeners = (container, content) => {
+    const button = document.getElementById(container);
+    button.removeEventListener("mouseover", global[container]);
+    button.removeEventListener("mouseout", global[`${container}remover`]);
+    button.removeEventListener("onclick", global[`${container}remover`]);
+  };
+  //   button.addEventListener("mousedown", global[`${container}`]);
 
-  //   const addMobileDropdown = () => {
-  //     addDropdownClasses(container, content);
-  //   };
-  //   const removeMobileDropdown = () => {
-  //     removeDropdownClasses(container, content);
-  //   };
+  //   //     lists = document.getElementsByClassName("linkStyle");
+  //   // aka give all linkstyle elements the close dropdown functionality
+  // };
 
   //   button.addEventListener("onclick", addMobileDropdown);
   //   lists.map((a) => {
@@ -91,33 +94,30 @@ const Navbar = () => {
 
   React.useEffect(() => {
     if (window.innerWidth > 540 && global.desktopEventListener !== true) {
-      addDesktopDropdownListeners("showsDropdownRoot", "showsDropdown");
-      addDesktopDropdownListeners("galerieDropdownRoot", "galerieDropdown");
+      eventListenerRemovalArr.forEach((element) => {
+        console.log(element);
+        // remove Mobile Event Listeners here
+        changeToDesktopEventListeners(element.container, element.content);
+      });
       document.body.style.setProperty("--desktopDropdownMargin", "1vh");
       console.log(global.desktopEventListener);
     } else if (window.innerWidth <= 540) {
-      const eventListenerRemovalArr = [
-        {
-          html: document.getElementById("showsDropdownRoot"),
-          name: "showsDropdownRoot",
-        },
-        {
-          html: document.getElementById("galerieDropdownRoot"),
-          name: "galerieDropdownRoot",
-        },
-      ];
       eventListenerRemovalArr.forEach((element) => {
-        element.html.removeEventListener("mouseover", global[element.name]);
-        element.html.removeEventListener(
-          "mouseout",
-          global[`${element.name}remover`]
-        );
-        element.html.removeEventListener(
-          "onclick",
-          global[`${element.name}remover`]
-        );
+        const button = document.getElementById(element.container);
+        console.log(button);
+        // button.removeEventListener("mouseover", global[element.container]);
+        // button.removeEventListener(
+        //   "mouseout",
+        //   global[`${element.container}remover`]
+        // );
+        // button.removeEventListener(
+        //   "onclick",
+        //   global[`${element.container}remover`]
+        // );
+        // changeToMobileEventListeners(element.container, element.content);
       });
       global.desktopEventListener = false;
+      console.log(global.desktopEventListener);
     }
   }, [windowWidth]);
 
