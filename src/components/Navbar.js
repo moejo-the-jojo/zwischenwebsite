@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 import logoSrc from "../pictures/ZwischenspielLogo.svg";
+import * as RRD from "react-router-dom";
 
 const displayMobileNavigation = {
   "--navbarHeight": "100vh",
@@ -61,12 +62,19 @@ const Navbar = () => {
     }
   };
 
+  React.useEffect(() => {
+    eventListenerRemovalArr.forEach((element) => {
+      global[element.container] = () =>
+        addDropdownClasses(element.container, element.content);
+      global[`${element.container}remover`] = () =>
+        removeDropdownClasses(element.container, element.content);
+    });
+  }, []);
+
   const changeToDesktopEventListeners = (container, content) => {
+    // remove Mobile Event Listeners here
+    global.mobileEventListeners = false;
     const button = document.getElementById(container);
-    global[container] = () => addDropdownClasses(container, content);
-    console.log(global[container]);
-    global[`${container}remover`] = () =>
-      removeDropdownClasses(container, content);
     button.addEventListener("mouseover", global[container]);
     button.addEventListener("mouseout", global[`${container}remover`]);
     button.addEventListener("onclick", global[`${container}remover`]);
@@ -75,91 +83,39 @@ const Navbar = () => {
 
   const changeToMobileEventListeners = (container, content) => {
     const button = document.getElementById(container);
-    button.removeEventListener("mouseover", global[container]);
-    button.removeEventListener("mouseout", global[`${container}remover`]);
-    button.removeEventListener("onclick", global[`${container}remover`]);
+    button.addEventListener("mousedown", global[container]);
+
+    // add mobile listeners here
+    // mousedown? onclick?
   };
-  //   button.addEventListener("mousedown", global[`${container}`]);
 
-  //   //     lists = document.getElementsByClassName("linkStyle");
-  //   // aka give all linkstyle elements the close dropdown functionality
-  // };
-
-  //   button.addEventListener("onclick", addMobileDropdown);
-  //   lists.map((a) => {
-  //     a.addEventListener("onclick", removeMobileDropdown);
-  //   });
-  //   global.mobileEventListener = true;
-  // };
+  const location = RRD.useLocation();
+  React.useEffect(() => {
+    setShowMobileNav(false);
+  }, [location]);
 
   React.useEffect(() => {
     if (window.innerWidth > 540 && global.desktopEventListener !== true) {
+      // remove mobile listeners here
       eventListenerRemovalArr.forEach((element) => {
-        console.log(element);
-        // remove Mobile Event Listeners here
         changeToDesktopEventListeners(element.container, element.content);
       });
       document.body.style.setProperty("--desktopDropdownMargin", "1vh");
-      console.log(global.desktopEventListener);
+      global.desktopEventListener = true;
+      global.mobileEventListeners = false;
     } else if (window.innerWidth <= 540) {
+      // remove desktop listeners here
       eventListenerRemovalArr.forEach((element) => {
         const button = document.getElementById(element.container);
-        console.log(button);
-        // button.removeEventListener("mouseover", global[element.container]);
-        // button.removeEventListener(
-        //   "mouseout",
-        //   global[`${element.container}remover`]
-        // );
-        // button.removeEventListener(
-        //   "onclick",
-        //   global[`${element.container}remover`]
-        // );
         // changeToMobileEventListeners(element.container, element.content);
       });
+      changeToMobileEventListeners();
       global.desktopEventListener = false;
-      console.log(global.desktopEventListener);
+      global.mobileEventListeners = true;
     }
   }, [windowWidth]);
 
-  // const addMobileDropdown = (container, content) => {
-  //   const button = document.getElementById(container),
-  //     dropdown = document.getElementById(content);
-
-  //   const mobileDropdown = () => {
-  //     if (container === "galerieDropdownRoot") {
-  //       dropdown.classList.add("showDropdownContentSmallSize");
-  //       dropdown.classList.add("showDropdownContent");
-  //     } else {
-  //       dropdown.classList.add("showDropdownContent");
-  //     }
-  //   };
-
-  //   const clearmobileDropdown = () => {
-  //     if (container === "galerieDropdownRoot") {
-  //       dropdown.classList.remove("showDropdownContentSmallSize");
-  //       dropdown.classList.remove("showDropdownContent");
-  //     } else {
-  //       dropdown.classList.remove("showDropdownContent");
-  //     }
-  //   };
-  // };
-
-  // if (window.innerWidth <= 540 && container === "showsDropdownRoot") {
-  //   dropdown.addEventListener("onclick", () => {
-  //     setShowShowsDropdown((prev) => !prev);
-  //   });
-  // } else if (
-  //   window.innerWidth <= 540 &&
-  //   container === "galerieDropdownRoot"
-  // ) {
-  //   dropdown.addEventListener("onclick", () => {
-  //     setShowGalerieDropdown((prev) => !prev);
-  //   });
-  // }
-
-  const [showMobileNav, setShowMobileNav] = React.useState(false),
-    [showShowsDropdown, setShowShowsDropdown] = React.useState(false),
-    [showGalerieDropdown, setShowGalerieDropdown] = React.useState(false);
+  const [showMobileNav, setShowMobileNav] = React.useState(false);
 
   React.useEffect(() => {
     let currentSettings;
