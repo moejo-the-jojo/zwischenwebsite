@@ -30,7 +30,17 @@ const eventListenerRemovalArr = [
 ];
 
 const Navbar = () => {
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth),
+    [desktopEventListener, setDesktopEventListener] = React.useState(false);
+
+  const desktopListeners = React.useRef();
+
+  React.useEffect(() => {
+    desktopListeners.current = desktopEventListener;
+    console.log(
+      "i am the current and i am now active: " + desktopListeners.current
+    );
+  }, [desktopEventListener]);
 
   React.useEffect(() => {
     window.addEventListener("resize", () => {
@@ -90,18 +100,21 @@ const Navbar = () => {
     // remove Mobile Event Listeners here
     global.mobileEventListeners = false;
     const button = document.getElementById(container);
+    console.log("i run (im the changeToD btw)");
     button.addEventListener("mouseover", global[container]);
     button.addEventListener("mouseout", global[`${container}remover`]);
     button.addEventListener("onclick", global[`${container}remover`]);
-    global.desktopEventListener = true;
+    setDesktopEventListener(true);
   };
 
   const changeToMobileEventListeners = (container) => {
     console.log("i am the changed event");
     const button = document.getElementById(container);
     button.removeEventListener("mouseover", global[container]);
+    button.removeEventListener("mouseover", global[container]);
     button.removeEventListener("mouseout", global[`${container}remover`]);
     button.removeEventListener("onclick", global[`${container}remover`]);
+    console.log(button);
 
     //button.addEventListener("mousedown", global[`${container}MobileToggle`]);
 
@@ -121,7 +134,9 @@ const Navbar = () => {
   }, []);
 
   React.useEffect(() => {
-    if (window.innerWidth > 540 && global.desktopEventListener !== true) {
+    if (window.innerWidth > 540 && desktopListeners.current !== true) {
+      console.log("starter is running");
+      console.log(desktopListeners.current);
       setShowMobileNav(false);
       // remove mobile listeners here
       eventListenerRemovalArr.forEach((element) => {
