@@ -18,7 +18,7 @@ const hideMobileNavigation = {
   "--navbarFlexAlign": "space-evenly",
 };
 
-const eventListenerRemovalArr = [
+const eventListenersParentsArray = [
   {
     container: "showsDropdownRoot",
     content: "showsDropdown",
@@ -31,22 +31,10 @@ const eventListenerRemovalArr = [
 
 const Navbar = () => {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth),
-    [desktopEventListener, setDesktopEventListener] = React.useState(false);
+    [showMobileNav, setShowMobileNav] = React.useState(false);
 
-  const desktopListeners = React.useRef();
-
-  React.useEffect(() => {
-    desktopListeners.current = desktopEventListener;
-    console.log(
-      "i am the current and i am now active: " + desktopListeners.current
-    );
-  }, [desktopEventListener]);
-
-  React.useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(window.innerWidth);
-    });
-  }, []);
+  const desktopListeners = React.useRef(false),
+    mobileListeners = React.useRef(false);
 
   React.useEffect(() => {
     console.log(windowWidth);
@@ -73,7 +61,7 @@ const Navbar = () => {
   };
 
   React.useEffect(() => {
-    eventListenerRemovalArr.forEach((element) => {
+    eventListenersParentsArray.forEach((element) => {
       global[element.container] = () => {
         addDropdownClasses(element.container, element.content);
       };
@@ -92,74 +80,107 @@ const Navbar = () => {
         }
       };
     });
-    global.desktopEventListener = false;
-    global.mobileEventListeners = false;
   }, []);
 
-  const changeToDesktopEventListeners = (container) => {
-    // remove Mobile Event Listeners here
-    global.mobileEventListeners = false;
+  const addDesktopEventListeners = (container) => {
     const button = document.getElementById(container);
-    console.log("i run (im the changeToD btw)");
     button.addEventListener("mouseover", global[container]);
     button.addEventListener("mouseout", global[`${container}remover`]);
     button.addEventListener("onclick", global[`${container}remover`]);
-    setDesktopEventListener(true);
+    desktopListeners.current = true;
   };
 
-  const changeToMobileEventListeners = (container) => {
-    console.log("i am the changed event");
+  const removeDesktopEventListeners = (container) => {
     const button = document.getElementById(container);
-    button.removeEventListener("mouseover", global[container]);
     button.removeEventListener("mouseover", global[container]);
     button.removeEventListener("mouseout", global[`${container}remover`]);
     button.removeEventListener("onclick", global[`${container}remover`]);
-    console.log(button);
+  };
 
+  const addMobileEventListeners = (container) => {
+    const button = document.getElementById(container);
+    // add Mobile Listeners here
+    // mousedown? onclick?
     //button.addEventListener("mousedown", global[`${container}MobileToggle`]);
 
     // add mobile listeners here
-    // mousedown? onclick?
   };
+
+  const removeMobileEventListeners = (container) => {
+    // remove Mobile Event Listeners here
+  };
+
+  // ????
+  // React.useEffect(() => {
+  //   eventListenersParentsArray.forEach((element) => {
+  //     global[`${element.container}MobileStatus`] = false;
+  //   });
+  // }, []);
+
+  React.useEffect(() => {
+    if (windowWidth > 540) {
+      console.log("i run at the start for");
+      eventListenersParentsArray.forEach((element) => {
+        addDesktopEventListeners(element.container, element.content);
+      });
+      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
+      desktopListeners.current = true;
+    } else {
+      eventListenersParentsArray.forEach((element) => {
+        addMobileEventListeners(element.container, element.content);
+        mobileListeners.current = true;
+      });
+    }
+    return () => {
+      eventListenersParentsArray.forEach((element) => {
+        const button = document.getElementById(element.container);
+        button.removeEventListener("mouseover", global[element.container]);
+        button.removeEventListener(
+          "mouseout",
+          global[`${element.container}remover`]
+        );
+        button.removeEventListener(
+          "onclick",
+          global[`${element.container}remover`]
+        );
+      });
+    };
+  }, []);
+
+  // React.useEffect(() => {
+  //   desktopListeners.current = desktopEventListener;
+  //   mobileListeners.current = mobileEventListener;
+  //   console.log(
+  //     "i am the current and i am now active: " + desktopListeners.current
+  //   );
+  //   console.log(desktopEventListener);
+  // }, [desktopEventListener, mobileEventListener]);
+
+  React.useEffect(() => {
+    if (window.innerWidth > 540 && desktopListeners.current !== true) {
+      console.log("starter is running");
+      console.log("im a the current: " + desktopListeners.current);
+      setShowMobileNav(false);
+      // remove mobile listeners here
+      eventListenersParentsArray.forEach((element) => {
+        addDesktopEventListeners(element.container, element.content);
+      });
+      document.body.style.setProperty("--desktopDropdownMargin", "1vh"); // double this??
+      // set listerners.current
+    } else if (window.innerWidth <= 540 && mobileListeners.current !== true) {
+      // remove desktop listeners here
+      eventListenersParentsArray.forEach((element) => {
+        console.log("i am here to change events.");
+        addMobileEventListeners(element.container, element.content);
+      });
+      // set listeners.current
+    }
+  }, [windowWidth]);
 
   const location = RRD.useLocation();
   React.useEffect(() => {
     setShowMobileNav(false);
   }, [location]);
-
-  React.useEffect(() => {
-    eventListenerRemovalArr.forEach((element) => {
-      global[`${element.container}MobileStatus`] = false;
-    });
-  }, []);
-
-  React.useEffect(() => {
-    if (window.innerWidth > 540 && desktopListeners.current !== true) {
-      console.log("starter is running");
-      console.log(desktopListeners.current);
-      setShowMobileNav(false);
-      // remove mobile listeners here
-      eventListenerRemovalArr.forEach((element) => {
-        changeToDesktopEventListeners(element.container, element.content);
-      });
-      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
-      global.desktopEventListener = true;
-      global.mobileEventListeners = false;
-    } else if (
-      window.innerWidth <= 540 &&
-      global.mobileEventListeners === false
-    ) {
-      // remove desktop listeners here
-      eventListenerRemovalArr.forEach((element) => {
-        console.log("i am here to change events.");
-        changeToMobileEventListeners(element.container, element.content);
-      });
-      global.desktopEventListener = false;
-      global.mobileEventListeners = true;
-    }
-  }, [windowWidth]);
-
-  const [showMobileNav, setShowMobileNav] = React.useState(false);
 
   React.useEffect(() => {
     let currentSettings;
