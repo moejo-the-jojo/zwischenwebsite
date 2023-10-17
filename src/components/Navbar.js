@@ -72,7 +72,7 @@ const Navbar = () => {
       global[`${element.container}remover`] = () => {
         removeDropdownClasses(element.container, element.content);
       };
-      // MAKE THIS WORK
+      global[`${element.container}MobileStatus`] = false;
       global[`${element.container}MobileToggle`] = () => {
         console.log("yes im attached <3");
         if (global[`${element.container}MobileStatus`] === false) {
@@ -113,6 +113,7 @@ const Navbar = () => {
         global[`${element.container}remover`]
       );
     });
+    desktopListeners.current = false;
   };
 
   const addMobileEventListeners = () => {
@@ -123,7 +124,7 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
-    // add Mobile Listeners here
+    mobileListeners.current = true;
     // mousedown? onclick?
     //button.addEventListener("mousedown", global[`${container}MobileToggle`]);
   };
@@ -136,15 +137,8 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
-    // remove Mobile Event Listeners here
+    mobileListeners.current = false;
   };
-
-  // ????
-  // React.useEffect(() => {
-  //   eventListenersParentsArray.forEach((element) => {
-  //     global[`${element.container}MobileStatus`] = false;
-  //   });
-  // }, []);
 
   React.useEffect(() => {
     if (windowWidth > 540) {
@@ -164,32 +158,15 @@ const Navbar = () => {
     }
   }, []);
 
-  // React.useEffect(() => {
-  //   desktopListeners.current = desktopEventListener;
-  //   mobileListeners.current = mobileEventListener;
-  //   console.log(
-  //     "i am the current and i am now active: " + desktopListeners.current
-  //   );
-  //   console.log(desktopEventListener);
-  // }, [desktopEventListener, mobileEventListener]);
-
   React.useEffect(() => {
     if (windowWidth > 540 && desktopListeners.current !== true) {
       setShowMobileNav(false);
-      // remove mobile listeners here
       removeMobileEventListeners();
       addDesktopEventListeners();
       document.body.style.setProperty("--desktopDropdownMargin", "1vh"); // double this??
-      desktopListeners.current = true;
-      mobileListeners.current = false;
-      // set listerners.current
     } else if (windowWidth <= 540 && mobileListeners.current !== true) {
-      // remove desktop listeners here
       removeDesktopEventListeners();
       addMobileEventListeners();
-      desktopListeners.current = false;
-      mobileListeners.current = true;
-      // set listeners.current
     }
   }, [windowWidth]);
 
