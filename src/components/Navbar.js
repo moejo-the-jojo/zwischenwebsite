@@ -40,9 +40,10 @@ const Navbar = () => {
     window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
   }, []);
 
-  React.useEffect(() => {
-    console.log("im the width: " + windowWidth);
-  }, [windowWidth]);
+  // just test
+  // React.useEffect(() => {
+  //   console.log("im the width: " + windowWidth);
+  // }, [windowWidth]);
 
   const addDropdownClasses = (container, content) => {
     const dropdown = document.getElementById(content);
@@ -145,6 +146,7 @@ const Navbar = () => {
       console.log("i run at the start for");
       addDesktopEventListeners();
       desktopListeners.current = true;
+      // DOUBLE THIS?
       document.body.style.setProperty("--desktopDropdownMargin", "1vh");
       return () => {
         removeDesktopEventListeners();
@@ -152,6 +154,7 @@ const Navbar = () => {
     } else {
       addMobileEventListeners();
       mobileListeners.current = true;
+      document.body.style.setProperty("--desktopDropdownMargin", "15vh");
       return () => {
         removeMobileEventListeners();
       };
@@ -161,12 +164,17 @@ const Navbar = () => {
   React.useEffect(() => {
     if (windowWidth > 540 && desktopListeners.current !== true) {
       setShowMobileNav(false);
+      eventListenersParentsArray.forEach((element) => {
+        global[`${element.container}MobileStatus`] = false;
+      });
       removeMobileEventListeners();
       addDesktopEventListeners();
-      document.body.style.setProperty("--desktopDropdownMargin", "1vh"); // double this??
+      // double this??
+      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
     } else if (windowWidth <= 540 && mobileListeners.current !== true) {
       removeDesktopEventListeners();
       addMobileEventListeners();
+      document.body.style.setProperty("--desktopDropdownMargin", "5vh");
     }
   }, [windowWidth]);
 
@@ -179,6 +187,10 @@ const Navbar = () => {
     let currentSettings;
     if (showMobileNav === false) {
       currentSettings = hideMobileNavigation;
+      eventListenersParentsArray.forEach((element) => {
+        global[`${element.container}MobileStatus`] = false;
+        removeDropdownClasses(element.container, element.content);
+      });
     } else {
       currentSettings = displayMobileNavigation;
     }
@@ -212,11 +224,11 @@ const Navbar = () => {
             <NavLink
               to="/naechste-show"
               className="linkStyle dropdownLink"
-              onClick={() => {
-                document
-                  .getElementById("showsDropdown")
-                  .classList.remove("showDropdownContent");
-              }}
+              // onClick={() => {
+              //   document
+              //     .getElementById("showsDropdown")
+              //     .classList.remove("showDropdownContent");
+              // }}
             >
               Nächste
             </NavLink>
@@ -251,14 +263,15 @@ const Navbar = () => {
             <NavLink
               to="/fotos"
               className="linkStyle dropdownLink"
-              onClick={() => {
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContent");
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContentSmallSize");
-              }}
+              // onClick={() => {
+              //   document
+              //     .getElementById("galerieDropdown")
+              //     .classList.remove("showDropdownContent");
+              //   document
+              //     .getElementById("galerieDropdown")
+              //     .classList.remove("showDropdownContentSmallSize");
+              //   console.log("im clicked");
+              // }}
             >
               Fotos
             </NavLink>

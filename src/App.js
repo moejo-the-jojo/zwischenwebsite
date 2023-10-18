@@ -42,13 +42,9 @@ function App() {
           <Routes id="routesContainer" className="routesContainer">
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
-            <Route exact path="/naechste-show" element={<NächsteShow />} />
-            <Route
-              exact
-              path="/vergangene-shows"
-              element={<VergangeneShows />}
-            />
-            <Route exact path="/calender" element={<Kalender />} />
+            <Route path="/naechste-show" element={<NächsteShow />} />
+            <Route path="/vergangene-shows" element={<VergangeneShows />} />
+            <Route path="/calender" element={<Kalender />} />
             <Route exact path="/fotos" element={<Fotos />} />
             <Route exact path="/jingle" element={<Jingle />} />
             <Route exact path="/kontakt" element={<Kontakt />} />

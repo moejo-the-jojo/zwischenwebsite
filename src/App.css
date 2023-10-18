@@ -169,6 +169,7 @@ body::-webkit-scrollbar {
 }
 
 #galerieDropdown {
+  z-index: 99;
   margin-bottom: var(--desktopDropdownMargin);
 }
 
