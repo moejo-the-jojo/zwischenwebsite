@@ -53,11 +53,6 @@ const Navbar = () => {
     } else {
       dropdown.classList.add("showDropdownContent");
     }
-    if (windowWidth > 540) {
-      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
-    } else {
-      // document.body.style.setProperty("--desktopDropdownMargin", "18vh");
-    }
   };
 
   const removeDropdownClasses = (container, content) => {
@@ -68,6 +63,9 @@ const Navbar = () => {
     } else {
       dropdown.classList.remove("showDropdownContent");
     }
+    document
+      .getElementById(container)
+      .style.setProperty("margin-bottom", "1vh");
   };
 
   React.useEffect(() => {
@@ -82,8 +80,18 @@ const Navbar = () => {
       global[`${element.container}MobileToggle`] = () => {
         console.log("yes im attached <3");
         if (global[`${element.container}MobileStatus`] === false) {
+          let bottomMargin;
           addDropdownClasses(element.container, element.content);
           global[`${element.container}MobileStatus`] = true;
+          if (element.container === "showsDropdownRoot") {
+            bottomMargin = "15vh";
+          } else {
+            bottomMargin = "10vh";
+          }
+          document
+            .getElementById(element.container)
+            .style.setProperty("margin-bottom", bottomMargin);
+
           console.log("i run");
         } else {
           removeDropdownClasses(element.container, element.content);
@@ -148,6 +156,8 @@ const Navbar = () => {
 
   React.useEffect(() => {
     if (windowWidth > 540) {
+      document.body.style.setProperty("--dropdownLinkBGColor", "black");
+
       console.log("i run at the start for");
       addDesktopEventListeners();
       desktopListeners.current = true;
@@ -156,6 +166,7 @@ const Navbar = () => {
         removeDesktopEventListeners();
       };
     } else {
+      document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
       addMobileEventListeners();
       mobileListeners.current = true;
       return () => {
@@ -166,6 +177,7 @@ const Navbar = () => {
 
   React.useEffect(() => {
     if (windowWidth > 540 && desktopListeners.current !== true) {
+      document.body.style.setProperty("--dropdownLinkBGColor", "black");
       setShowMobileNav(false);
       eventListenersParentsArray.forEach((element) => {
         global[`${element.container}MobileStatus`] = false;
@@ -175,6 +187,7 @@ const Navbar = () => {
       // double this??
       // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
     } else if (windowWidth <= 540 && mobileListeners.current !== true) {
+      document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
       removeDesktopEventListeners();
       addMobileEventListeners();
       // document.body.style.setProperty("--desktopDropdownMargin", "5vh");
@@ -227,13 +240,10 @@ const Navbar = () => {
               to="/naechste-show"
               className="linkStyle dropdownLink"
               onClick={() => {
-                console.log("i am clicked");
+                document
+                  .getElementById("showsDropdown")
+                  .classList.remove("showDropdownContent");
               }}
-              // onClick={() => {
-              //   document
-              //     .getElementById("showsDropdown")
-              //     .classList.remove("showDropdownContent");
-              // }}
             >
               <div>Nächste</div>
             </NavLink>
