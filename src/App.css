@@ -38,6 +38,7 @@ body::-webkit-scrollbar {
 #navigationBar {
   background-color: #ffea00;
   height: 20vh;
+  width: 100%;
   display: flex;
   cursor: default;
   position: sticky;
@@ -51,7 +52,6 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 1024px) {
   #navigationBar {
-    width: 100%;
     font-size: 12px;
   }
 }
@@ -79,7 +79,7 @@ body::-webkit-scrollbar {
     flex-direction: var(--navbarFlexDirection);
     height: 100%;
     justify-content: var(--navbarFlexAlign);
-    gap: 3vh;
+    gap: 7vh;
   }
 }
 
@@ -122,7 +122,7 @@ body::-webkit-scrollbar {
   background-color: #ffea00;
   height: 5vh;
   width: 100%;
-  margin: 0;
+  /* margin: 0; */
   padding: 0;
   text-decoration: none;
   color: black;
@@ -139,8 +139,8 @@ body::-webkit-scrollbar {
     height: 5vh;
     justify-content: center;
     align-items: center;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
+    /* margin-top: 2vh;
+    margin-bottom: 2vh; */
   }
 }
 
@@ -165,13 +165,13 @@ body::-webkit-scrollbar {
 }
 
 #showsDropdownRoot {
-  margin-bottom: var(--desktopDropdownMargin);
+  margin-bottom: 22vh;
+  /* margin-bottom: var(--desktopDropdownMargin); */
 }
-
-#galerieDropdown {
-  z-index: 99;
+/* 
+#galerieDropdownRoot {
   margin-bottom: var(--desktopDropdownMargin);
-}
+} */
 
 .dropdownContent {
   position: absolute;

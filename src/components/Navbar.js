@@ -15,7 +15,7 @@ const hideMobileNavigation = {
   "--showNavbarLinks": "none",
   "--hideNavbarLogo": "flex",
   "--navbarFlexDirection": "row",
-  "--navbarFlexAlign": "space-evenly",
+  "--navbarFlexAlign": "center",
 };
 
 const eventListenersParentsArray = [
@@ -48,10 +48,15 @@ const Navbar = () => {
   const addDropdownClasses = (container, content) => {
     const dropdown = document.getElementById(content);
     if (container === "galerieDropdownRoot") {
-      dropdown.classList.add("showDropdownContentSmallSize");
       dropdown.classList.add("showDropdownContent");
+      dropdown.classList.add("showDropdownContentSmallSize");
     } else {
       dropdown.classList.add("showDropdownContent");
+    }
+    if (windowWidth > 540) {
+      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
+    } else {
+      // document.body.style.setProperty("--desktopDropdownMargin", "18vh");
     }
   };
 
@@ -146,15 +151,13 @@ const Navbar = () => {
       console.log("i run at the start for");
       addDesktopEventListeners();
       desktopListeners.current = true;
-      // DOUBLE THIS?
-      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
+      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
       return () => {
         removeDesktopEventListeners();
       };
     } else {
       addMobileEventListeners();
       mobileListeners.current = true;
-      document.body.style.setProperty("--desktopDropdownMargin", "15vh");
       return () => {
         removeMobileEventListeners();
       };
@@ -170,11 +173,11 @@ const Navbar = () => {
       removeMobileEventListeners();
       addDesktopEventListeners();
       // double this??
-      document.body.style.setProperty("--desktopDropdownMargin", "1vh");
+      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
     } else if (windowWidth <= 540 && mobileListeners.current !== true) {
       removeDesktopEventListeners();
       addMobileEventListeners();
-      document.body.style.setProperty("--desktopDropdownMargin", "5vh");
+      // document.body.style.setProperty("--desktopDropdownMargin", "5vh");
     }
   }, [windowWidth]);
 
@@ -194,7 +197,6 @@ const Navbar = () => {
     } else {
       currentSettings = displayMobileNavigation;
     }
-
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
