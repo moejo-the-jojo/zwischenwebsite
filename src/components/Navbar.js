@@ -224,13 +224,16 @@ const Navbar = () => {
             <NavLink
               to="/naechste-show"
               className="linkStyle dropdownLink"
+              onClick={() => {
+                console.log("i am clicked");
+              }}
               // onClick={() => {
               //   document
               //     .getElementById("showsDropdown")
               //     .classList.remove("showDropdownContent");
               // }}
             >
-              Nächste
+              <div>Nächste</div>
             </NavLink>
             <NavLink
               to="/vergangene-shows"
