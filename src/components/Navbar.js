@@ -30,6 +30,12 @@ const eventListenersParentsArray = [
 ];
 
 const Navbar = () => {
+  const [showMobileNav, setShowMobileNav] = React.useState(false);
+  const mobileNavigation = React.useRef(showMobileNav);
+  React.useEffect(() => {
+    mobileNavigation.current = showMobileNav;
+  }, [showMobileNav]);
+
   const handleScroll = () => {
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
@@ -48,16 +54,19 @@ const Navbar = () => {
       wantedLogoOffset = "10.5vh";
       wantedRoutesHeight = "95vh";
     }
-    // console.log(window.scrollY);
     if (window.scrollY > 0) {
       setTimeout(() => {
         navBar.style.height = wantedNavHeight;
         navLogo.style.marginTop = wantedLogoOffset;
         navLogo.style.height = wantedLogoHeight;
         routesContainer.style.minHeight = wantedRoutesHeight;
-        // console.log(window.scrollY);
         if (currentWindowWidth.current <= 540) {
           navLogo.style.width = "auto";
+        }
+        if (mobileNavigation.current === true) {
+          navBar.style.height = "100vh";
+        } else {
+          navBar.style.height = wantedNavHeight;
         }
       }, 50);
     } else if (window.scrollY === 0) {
@@ -73,31 +82,41 @@ const Navbar = () => {
             wantedLogoHeight = "auto";
             navLogo.style.width = "33vw";
             wantedLogoOffset = "auto";
-            wantedRoutesHeight = "15vh";
+            wantedRoutesHeight = "85";
           }
 
           navBar.style.height = wantedNavHeight;
           navLogo.style.height = wantedLogoHeight;
           navLogo.style.marginTop = wantedLogoOffset;
           routesContainer.style.minHeight = wantedRoutesHeight;
+
+          if (mobileNavigation.current === true) {
+            navBar.style.height = "100vh";
+          } else {
+            navBar.style.height = wantedNavHeight;
+          }
         }
       }, 50);
     }
   };
 
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth),
-    [showMobileNav, setShowMobileNav] = React.useState(false);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
   const desktopListeners = React.useRef(false),
     mobileListeners = React.useRef(false),
     currentWindowWidth = React.useRef(windowWidth);
+
+  const updateWindowSize = () => {
+    setWindowWidth(window.innerWidth);
+  };
 
   React.useEffect(() => {
     currentWindowWidth.current = windowWidth;
   }, [windowWidth]);
 
   React.useEffect(() => {
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+    window.addEventListener("resize", updateWindowSize);
+    return () => window.removeEventListener("resize", updateWindowSize);
   }, []);
 
   const addDropdownClasses = (container, content) => {
@@ -262,8 +281,9 @@ const Navbar = () => {
   }, [location]);
 
   React.useEffect(() => {
+    console.log("now im the switch and i work");
     let currentSettings;
-    if (showMobileNav === false) {
+    if (mobileNavigation.current === false) {
       currentSettings = hideMobileNavigation;
       eventListenersParentsArray.forEach((element) => {
         global[`${element.container}MobileStatus`] = false;
@@ -275,6 +295,14 @@ const Navbar = () => {
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
+    // if (mobileNavigation.current === true) {
+    //   window.removeEventListener("scroll", handleScroll);
+    //   window.removeEventListener("touchmove", handleScroll);
+    // } else if (currentWindowWidth.current <= 540) {
+    //   window.addEventListener("scroll", handleScroll);
+    // } else {
+    //   window.addEventListener("touchmove", handleScroll);
+    // }
   }, [showMobileNav]);
 
   return (
@@ -340,15 +368,14 @@ const Navbar = () => {
             <NavLink
               to="/fotos"
               className="linkStyle dropdownLink"
-              // onClick={() => {
-              //   document
-              //     .getElementById("galerieDropdown")
-              //     .classList.remove("showDropdownContent");
-              //   document
-              //     .getElementById("galerieDropdown")
-              //     .classList.remove("showDropdownContentSmallSize");
-              //   console.log("im clicked");
-              // }}
+              onClick={() => {
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContent");
+                document
+                  .getElementById("galerieDropdown")
+                  .classList.remove("showDropdownContentSmallSize");
+              }}
             >
               Fotos
             </NavLink>
