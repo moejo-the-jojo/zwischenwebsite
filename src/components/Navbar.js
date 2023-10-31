@@ -30,6 +30,56 @@ const eventListenersParentsArray = [
 ];
 
 const Navbar = () => {
+  const handleDesktopScroll = () => {
+    const navBar = document.getElementById("navigationBar"),
+      navLogo = document.getElementById("navbarLogo"),
+      routesContainer = document.getElementById("realRoutesContainer");
+    if (window.scrollY > 0) {
+      navBar.style.height = "10vh";
+      navLogo.style.marginTop = "10vh";
+      navLogo.style.height = "16.5vh";
+      routesContainer.style.minHeight = "90vh";
+    } else if (window.scrollY === 0) {
+      setTimeout(() => {
+        navBar.style.height = "20vh";
+        navLogo.style.marginTop = "0";
+        navLogo.style.height = "20vh";
+        routesContainer.style.minHeight = "80vh";
+      }, 10);
+    }
+    global.handleDesktopScroll = true;
+  };
+
+  const handleMobileScroll = () => {
+    const navBar = document.getElementById("navigationBar"),
+      navLogo = document.getElementById("navbarLogo"),
+      routesContainer = document.getElementById("realRoutesContainer");
+    if (window.scrollY > 0) {
+      console.log("heyho");
+    }
+  };
+
+  // React.useEffect(() => {
+  //   window.addEventListener("scroll", () => {
+  //     const navBar = document.getElementById("navigationBar"),
+  //       navLogo = document.getElementById("navbarLogo"),
+  //       routesContainer = document.getElementById("realRoutesContainer");
+  //     if (window.scrollY > 0) {
+  //       navBar.style.height = "10vh";
+  //       navLogo.style.marginTop = "10vh";
+  //       navLogo.style.height = "16.5vh";
+  //       routesContainer.style.minHeight = "90vh";
+  //     } else if (window.scrollY === 0) {
+  //       setTimeout(() => {
+  //         navBar.style.height = "20vh";
+  //         navLogo.style.marginTop = "0";
+  //         navLogo.style.height = "20vh";
+  //         routesContainer.style.minHeight = "80vh";
+  //       }, 10);
+  //     }
+  //   });
+  // }, []);
+
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth),
     [showMobileNav, setShowMobileNav] = React.useState(false);
 
@@ -110,8 +160,9 @@ const Navbar = () => {
         global[`${element.container}remover`]
       );
       button.addEventListener("onclick", global[`${element.container}remover`]);
-      desktopListeners.current = true;
     });
+    window.addEventListener("scroll", handleDesktopScroll);
+    desktopListeners.current = true;
   };
 
   const removeDesktopEventListeners = () => {
@@ -127,6 +178,7 @@ const Navbar = () => {
         global[`${element.container}remover`]
       );
     });
+    window.removeEventListener("scroll", handleDesktopScroll);
     desktopListeners.current = false;
   };
 
@@ -138,9 +190,8 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
+    window.addEventListener("touchmove", handleMobileScroll);
     mobileListeners.current = true;
-    // mousedown? onclick?
-    //button.addEventListener("mousedown", global[`${container}MobileToggle`]);
   };
 
   const removeMobileEventListeners = () => {

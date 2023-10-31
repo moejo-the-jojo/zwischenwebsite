@@ -13,27 +13,6 @@ import ViennaImprov from "./components/ViennaImprov";
 import Kalender from "./components/Kalender";
 
 function App() {
-  React.useEffect(() => {
-    window.addEventListener("scroll", () => {
-      const navBar = document.getElementById("navigationBar"),
-        navLogo = document.getElementById("navbarLogo"),
-        routesContainer = document.getElementById("realRoutesContainer");
-      if (window.scrollY > 0) {
-        navBar.style.height = "10vh";
-        navLogo.style.marginTop = "10vh";
-        navLogo.style.height = "16.5vh";
-        routesContainer.style.minHeight = "90vh";
-      } else if (window.scrollY === 0) {
-        setTimeout(() => {
-          navBar.style.height = "20vh";
-          navLogo.style.marginTop = "0";
-          navLogo.style.height = "20vh";
-          routesContainer.style.minHeight = "80vh";
-        }, 10);
-      }
-    });
-  }, []);
-
   return (
     <>
       <BrowserRouter id="browwz">
