@@ -30,70 +30,75 @@ const eventListenersParentsArray = [
 ];
 
 const Navbar = () => {
-  const handleDesktopScroll = () => {
+  const handleScroll = () => {
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
       routesContainer = document.getElementById("realRoutesContainer");
+    let wantedNavHeight, wantedLogoHeight, wantedLogoOffset, wantedRoutesHeight;
+    if (currentWindowWidth.current > 540) {
+      wantedNavHeight = "10vh";
+      wantedLogoHeight = "16.5vh";
+      wantedLogoOffset = "10vh";
+      wantedRoutesHeight = "90vh";
+      console.log("i am the bad boy hehe");
+      console.log(currentWindowWidth.current);
+    } else if (currentWindowWidth.current <= 540) {
+      wantedNavHeight = "5vh";
+      wantedLogoHeight = "15vh";
+      wantedLogoOffset = "10.5vh";
+      wantedRoutesHeight = "95vh";
+    }
+    // console.log(window.scrollY);
     if (window.scrollY > 0) {
-      navBar.style.height = "10vh";
-      navLogo.style.marginTop = "10vh";
-      navLogo.style.height = "16.5vh";
-      routesContainer.style.minHeight = "90vh";
+      setTimeout(() => {
+        navBar.style.height = wantedNavHeight;
+        navLogo.style.marginTop = wantedLogoOffset;
+        navLogo.style.height = wantedLogoHeight;
+        routesContainer.style.minHeight = wantedRoutesHeight;
+        // console.log(window.scrollY);
+        if (currentWindowWidth.current <= 540) {
+          navLogo.style.width = "auto";
+        }
+      }, 50);
     } else if (window.scrollY === 0) {
       setTimeout(() => {
-        navBar.style.height = "20vh";
-        navLogo.style.marginTop = "0";
-        navLogo.style.height = "20vh";
-        routesContainer.style.minHeight = "80vh";
-      }, 10);
-    }
-    global.handleDesktopScroll = true;
-  };
+        if (window.scrollY === 0) {
+          if (currentWindowWidth.current > 540) {
+            wantedNavHeight = "20vh";
+            wantedLogoHeight = "20vh";
+            wantedLogoOffset = "0";
+            wantedRoutesHeight = "80vh";
+          } else if (currentWindowWidth.current <= 540) {
+            wantedNavHeight = "15vh";
+            wantedLogoHeight = "auto";
+            navLogo.style.width = "33vw";
+            wantedLogoOffset = "auto";
+            wantedRoutesHeight = "15vh";
+          }
 
-  const handleMobileScroll = () => {
-    const navBar = document.getElementById("navigationBar"),
-      navLogo = document.getElementById("navbarLogo"),
-      routesContainer = document.getElementById("realRoutesContainer");
-    if (window.scrollY > 0) {
-      console.log("heyho");
+          navBar.style.height = wantedNavHeight;
+          navLogo.style.height = wantedLogoHeight;
+          navLogo.style.marginTop = wantedLogoOffset;
+          routesContainer.style.minHeight = wantedRoutesHeight;
+        }
+      }, 50);
     }
   };
-
-  // React.useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     const navBar = document.getElementById("navigationBar"),
-  //       navLogo = document.getElementById("navbarLogo"),
-  //       routesContainer = document.getElementById("realRoutesContainer");
-  //     if (window.scrollY > 0) {
-  //       navBar.style.height = "10vh";
-  //       navLogo.style.marginTop = "10vh";
-  //       navLogo.style.height = "16.5vh";
-  //       routesContainer.style.minHeight = "90vh";
-  //     } else if (window.scrollY === 0) {
-  //       setTimeout(() => {
-  //         navBar.style.height = "20vh";
-  //         navLogo.style.marginTop = "0";
-  //         navLogo.style.height = "20vh";
-  //         routesContainer.style.minHeight = "80vh";
-  //       }, 10);
-  //     }
-  //   });
-  // }, []);
 
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth),
     [showMobileNav, setShowMobileNav] = React.useState(false);
 
   const desktopListeners = React.useRef(false),
-    mobileListeners = React.useRef(false);
+    mobileListeners = React.useRef(false),
+    currentWindowWidth = React.useRef(windowWidth);
+
+  React.useEffect(() => {
+    currentWindowWidth.current = windowWidth;
+  }, [windowWidth]);
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
   }, []);
-
-  // just test
-  // React.useEffect(() => {
-  //   console.log("im the width: " + windowWidth);
-  // }, [windowWidth]);
 
   const addDropdownClasses = (container, content) => {
     const dropdown = document.getElementById(content);
@@ -161,7 +166,7 @@ const Navbar = () => {
       );
       button.addEventListener("onclick", global[`${element.container}remover`]);
     });
-    window.addEventListener("scroll", handleDesktopScroll);
+    window.addEventListener("scroll", handleScroll);
     desktopListeners.current = true;
   };
 
@@ -178,7 +183,7 @@ const Navbar = () => {
         global[`${element.container}remover`]
       );
     });
-    window.removeEventListener("scroll", handleDesktopScroll);
+    window.removeEventListener("scroll", handleScroll);
     desktopListeners.current = false;
   };
 
@@ -190,7 +195,7 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
-    window.addEventListener("touchmove", handleMobileScroll);
+    window.addEventListener("touchmove", handleScroll);
     mobileListeners.current = true;
   };
 
@@ -202,17 +207,17 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
+    window.removeEventListener("touchmove", handleScroll);
     mobileListeners.current = false;
   };
 
   React.useEffect(() => {
-    if (windowWidth > 540) {
+    if (currentWindowWidth.current > 540) {
       document.body.style.setProperty("--dropdownLinkBGColor", "black");
 
       console.log("i run at the start for");
       addDesktopEventListeners();
       desktopListeners.current = true;
-      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
       return () => {
         removeDesktopEventListeners();
       };
@@ -227,7 +232,7 @@ const Navbar = () => {
   }, []);
 
   React.useEffect(() => {
-    if (windowWidth > 540 && desktopListeners.current !== true) {
+    if (currentWindowWidth.current > 540 && desktopListeners.current !== true) {
       document.body.style.setProperty("--dropdownLinkBGColor", "black");
       setShowMobileNav(false);
       eventListenersParentsArray.forEach((element) => {
@@ -235,13 +240,19 @@ const Navbar = () => {
       });
       removeMobileEventListeners();
       addDesktopEventListeners();
-      // double this??
-      // document.body.style.setProperty("--desktopDropdownMargin", "1vh");
-    } else if (windowWidth <= 540 && mobileListeners.current !== true) {
+    } else if (
+      currentWindowWidth.current <= 540 &&
+      mobileListeners.current !== true
+    ) {
       document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
       removeDesktopEventListeners();
       addMobileEventListeners();
-      // document.body.style.setProperty("--desktopDropdownMargin", "5vh");
+    }
+
+    if (currentWindowWidth.current > 540) {
+      document
+        .getElementById("navigationBar")
+        .style.setProperty("height", "20vh");
     }
   }, [windowWidth]);
 
