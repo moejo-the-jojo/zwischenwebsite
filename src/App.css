@@ -32,12 +32,14 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 540px) {
   #mobileNavbarToggle {
     display: flex;
-    height: 7vh;
-    width: 7vh;
-    margin-top: 4vh;
-    margin-left: 2vh;
+    position: absolute;
+    top: 5vh;
+    left: 2vh;
+    height: 5vh;
+    width: auto;
     justify-content: center;
     align-items: center;
+    transition: all 500ms;
   }
 }
 
@@ -95,9 +97,9 @@ body::-webkit-scrollbar {
   min-height: 20vh;
   overflow: hidden;
   position: relative;
+  display: flex;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  display: flex;
 }
 
 @media screen and (max-width: 540px) {
@@ -111,9 +113,8 @@ body::-webkit-scrollbar {
   min-height: 15vh;
   justify-content: center;
   position: relative;
-  transition: all 500ms;
-  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   display: flex;
+  -webkit-transition: transform 200ms;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
