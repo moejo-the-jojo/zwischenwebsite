@@ -58,6 +58,7 @@ const Navbar = () => {
 
     if (window.scrollY > 0) {
       setTimeout(() => {
+        document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
         navBar.style.height = wantedNavHeight;
         navLogo.style.marginTop = wantedLogoOffset;
         navLogo.style.height = wantedLogoHeight;
@@ -84,7 +85,7 @@ const Navbar = () => {
               wantedNavHeight = "100vh";
             }
           }
-
+          document.getElementById("mobileNavbarToggle").style.top = "5vh";
           navBar.style.height = wantedNavHeight;
           navLogo.style.height = wantedLogoHeight;
           navLogo.style.marginTop = wantedLogoOffset;
@@ -308,15 +309,6 @@ const Navbar = () => {
     ) {
       document.getElementById("navigationBar").style.height = "15vh";
     }
-
-    // if (mobileNavigation.current === true) {
-    //   window.removeEventListener("scroll", handleScroll);
-    //   window.removeEventListener("touchmove", handleScroll);
-    // } else if (currentWindowWidth.current <= 540) {
-    //   window.addEventListener("scroll", handleScroll);
-    // } else {
-    //   window.addEventListener("touchmove", handleScroll);
-    // }
   }, [showMobileNav]);
 
   return (
