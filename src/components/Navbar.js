@@ -290,11 +290,22 @@ const Navbar = () => {
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
-    if (mobileNavigation.current === true) {
+    if (
+      mobileNavigation.current === true &&
+      currentWindowWidth.current <= 540
+    ) {
       document.getElementById("navigationBar").style.height = "100vh";
-    } else if (mobileNavigation.current === false && window.scrollY > 0) {
+    } else if (
+      mobileNavigation.current === false &&
+      window.scrollY > 0 &&
+      currentWindowWidth.current <= 540
+    ) {
       document.getElementById("navigationBar").style.height = "5vh";
-    } else {
+    } else if (
+      mobileNavigation.current === false &&
+      window.scrollY === 0 &&
+      currentWindowWidth.current <= 540
+    ) {
       document.getElementById("navigationBar").style.height = "15vh";
     }
 
