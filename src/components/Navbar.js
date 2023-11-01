@@ -4,14 +4,12 @@ import logoSrc from "../pictures/ZwischenspielLogo.svg";
 import * as RRD from "react-router-dom";
 
 const displayMobileNavigation = {
-  "--navbarHeight": "100vh",
   "--showNavbarLinks": "flex",
   "--hideNavbarLogo": "none",
   "--navbarFlexDirection": "column",
   "--navbarFlexAlign": "flex-start",
 };
 const hideMobileNavigation = {
-  "--navbarHeight": "15vh",
   "--showNavbarLinks": "none",
   "--hideNavbarLogo": "flex",
   "--navbarFlexDirection": "row",
@@ -53,7 +51,11 @@ const Navbar = () => {
       wantedLogoHeight = "15vh";
       wantedLogoOffset = "10.5vh";
       wantedRoutesHeight = "95vh";
+      if (mobileNavigation.current === true) {
+        wantedNavHeight = "100vh";
+      }
     }
+
     if (window.scrollY > 0) {
       setTimeout(() => {
         navBar.style.height = wantedNavHeight;
@@ -62,11 +64,6 @@ const Navbar = () => {
         routesContainer.style.minHeight = wantedRoutesHeight;
         if (currentWindowWidth.current <= 540) {
           navLogo.style.width = "auto";
-        }
-        if (mobileNavigation.current === true) {
-          navBar.style.height = "100vh";
-        } else {
-          navBar.style.height = wantedNavHeight;
         }
       }, 50);
     } else if (window.scrollY === 0) {
@@ -83,18 +80,15 @@ const Navbar = () => {
             navLogo.style.width = "33vw";
             wantedLogoOffset = "auto";
             wantedRoutesHeight = "85";
+            if (mobileNavigation.current === true) {
+              wantedNavHeight = "100vh";
+            }
           }
 
           navBar.style.height = wantedNavHeight;
           navLogo.style.height = wantedLogoHeight;
           navLogo.style.marginTop = wantedLogoOffset;
           routesContainer.style.minHeight = wantedRoutesHeight;
-
-          if (mobileNavigation.current === true) {
-            navBar.style.height = "100vh";
-          } else {
-            navBar.style.height = wantedNavHeight;
-          }
         }
       }, 50);
     }
@@ -288,6 +282,7 @@ const Navbar = () => {
       eventListenersParentsArray.forEach((element) => {
         global[`${element.container}MobileStatus`] = false;
         removeDropdownClasses(element.container, element.content);
+        console.log("i set the classes to nonnav");
       });
     } else {
       currentSettings = displayMobileNavigation;
@@ -295,6 +290,14 @@ const Navbar = () => {
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
+    if (mobileNavigation.current === true) {
+      document.getElementById("navigationBar").style.height = "100vh";
+    } else if (mobileNavigation.current === false && window.scrollY > 0) {
+      document.getElementById("navigationBar").style.height = "5vh";
+    } else {
+      document.getElementById("navigationBar").style.height = "15vh";
+    }
+
     // if (mobileNavigation.current === true) {
     //   window.removeEventListener("scroll", handleScroll);
     //   window.removeEventListener("touchmove", handleScroll);
