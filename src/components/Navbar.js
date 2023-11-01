@@ -80,7 +80,7 @@ const Navbar = () => {
             wantedLogoHeight = "auto";
             navLogo.style.width = "33vw";
             wantedLogoOffset = "auto";
-            wantedRoutesHeight = "85";
+            wantedRoutesHeight = "85vh";
             if (mobileNavigation.current === true) {
               wantedNavHeight = "100vh";
             }

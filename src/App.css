@@ -114,7 +114,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   position: relative;
   display: flex;
-  -webkit-transition: transform 200ms;
+  -webkit-transition: transform 500ms;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
@@ -233,13 +233,18 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 100vh;
+  height: 80vh;
   background-color: black;
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  height: auto;
   min-height: 80vh;
+}
+
+@media screen and (max-width: 540px) {
+  .routesContainer {
+    height: 85vh;
+  }
 }
 
 .contentContainer {
@@ -256,11 +261,27 @@ body::-webkit-scrollbar {
   height: auto;
 }
 
+@media screen and (max-width: 540px) {
+  .contentContainer {
+    width: 100vw;
+    text-align: center;
+  }
+}
 .content {
   margin: 0;
   grid-area: 1 / 2 / 1 / 2;
   margin-top: 10vh;
   height: auto;
+}
+
+@media screen and (max-width: 540px) {
+  .content {
+    grid-area: 1/ 1 / 1 / 1;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+  }
 }
 
 #mahKalender {
