@@ -43,14 +43,13 @@ const Navbar = () => {
       wantedNavHeight = "10vh";
       wantedLogoHeight = "16.5vh";
       wantedLogoOffset = "10vh";
-      wantedRoutesHeight = "90vh";
-      console.log("i am the bad boy hehe");
+      wantedRoutesHeight = "100%";
       console.log(currentWindowWidth.current);
     } else if (currentWindowWidth.current <= 540) {
       wantedNavHeight = "5vh";
       wantedLogoHeight = "15vh";
       wantedLogoOffset = "10.5vh";
-      wantedRoutesHeight = "95vh";
+      wantedRoutesHeight = "100%";
       if (mobileNavigation.current === true) {
         wantedNavHeight = "100vh";
       }
@@ -62,11 +61,11 @@ const Navbar = () => {
         navBar.style.height = wantedNavHeight;
         navLogo.style.marginTop = wantedLogoOffset;
         navLogo.style.height = wantedLogoHeight;
-        routesContainer.style.minHeight = wantedRoutesHeight;
+        routesContainer.style.height = wantedRoutesHeight;
         if (currentWindowWidth.current <= 540) {
           navLogo.style.width = "auto";
         }
-      }, 50);
+      }, 100);
     } else if (window.scrollY === 0) {
       setTimeout(() => {
         if (window.scrollY === 0) {
@@ -91,7 +90,7 @@ const Navbar = () => {
           navLogo.style.marginTop = wantedLogoOffset;
           routesContainer.style.minHeight = wantedRoutesHeight;
         }
-      }, 50);
+      }, 100);
     }
   };
 

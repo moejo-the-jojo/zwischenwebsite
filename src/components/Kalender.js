@@ -8,16 +8,40 @@ const Calendar = () => {
   React.useEffect(() => {}, []);
 
   const handleEventEnter = (arg) => {
-    console.log(arg.event.title);
+    if (!document.getElementById("displayEvent")) {
+      const topOffset = arg.el.getBoundingClientRect().x,
+        leftOffset = arg.el.getBoundingClientRect().y;
+      const displayEvent = document.createElement("div");
+      displayEvent.id = "displayEvent";
+      displayEvent.style.position = "absolute";
+      displayEvent.style.top = `${leftOffset - 100}px`;
+      displayEvent.style.left = `${topOffset + 200}px`;
+      displayEvent.style.height = "50px";
+      displayEvent.style.width = "30vw";
+      displayEvent.innerHTML = arg.event.extendedProps["description"];
+      displayEvent.style.color = "black";
+      displayEvent.style.backgroundColor = "LightGray";
+      displayEvent.style.borderStyle = "solid";
+      displayEvent.style.borderWidth = "2px";
+      displayEvent.style.borderColor = "black";
+      displayEvent.style.zIndex = "9999";
+      displayEvent.style.textAlign = "center";
+      displayEvent.addEventListener("mousedown", () => {
+        document.body.removeChild(document.getElementById("displayEvent"));
+      });
+
+      document.body.appendChild(displayEvent);
+    }
+    console.log(arg);
   };
 
   const handleEventLeave = (arg) => {
     console.log("i left " + arg.event.el);
+    // document.body.removeChild(document.getElementById("displayEvent"));
   };
 
   return (
     // Liste von Shows links im Bild??
-
     <div className="contentContainer">
       <div
         id="kalenderContainer"
@@ -26,7 +50,7 @@ const Calendar = () => {
       >
         <h1 style={{ textAlign: "center" }}>Show-Termine</h1>
         <FullCalendar
-          id="mahKalender"
+          // id="mahKalender"
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           weekends={true}
@@ -40,9 +64,11 @@ const Calendar = () => {
           events={[
             {
               id: "Armando",
-              title:
-                "Armando ist mein Lieblingsfabelwesen, es ist einfach AMAZING",
+              title: "Armando",
               date: "2023-08-01",
+              extendedProps: {
+                description: "We were playing Amando, we had se fun and stuff",
+              },
             },
           ]}
         />
