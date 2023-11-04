@@ -3,6 +3,7 @@ import * as React from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { NavLink } from "react-router-dom";
 
 const Calendar = () => {
   React.useEffect(() => {}, []);
@@ -18,7 +19,8 @@ const Calendar = () => {
       displayEvent.style.left = `${topOffset + 200}px`;
       displayEvent.style.height = "50px";
       displayEvent.style.width = "30vw";
-      displayEvent.innerHTML = arg.event.extendedProps["description"];
+      displayEvent.innerHTML =
+        arg.event.extendedProps["description"] + "<br />";
       displayEvent.style.color = "black";
       displayEvent.style.backgroundColor = "LightGray";
       displayEvent.style.borderStyle = "solid";
@@ -26,6 +28,9 @@ const Calendar = () => {
       displayEvent.style.borderColor = "black";
       displayEvent.style.zIndex = "9999";
       displayEvent.style.textAlign = "center";
+      displayEvent.style.lineHeight = "50px";
+      displayEvent.style.verticalAlign = "center";
+
       displayEvent.addEventListener("mousedown", () => {
         document.body.removeChild(document.getElementById("displayEvent"));
       });
@@ -68,6 +73,14 @@ const Calendar = () => {
               date: "2023-08-01",
               extendedProps: {
                 description: "We were playing Amando, we had se fun and stuff",
+              },
+            },
+            {
+              id: "Armando Le 2nd",
+              title: "Armando Le 2nd",
+              date: "2023-11-14",
+              extendedProps: {
+                description: "The next awesome Armando",
               },
             },
           ]}

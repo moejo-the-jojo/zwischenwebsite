@@ -34,6 +34,14 @@ const Navbar = () => {
     mobileNavigation.current = showMobileNav;
   }, [showMobileNav]);
 
+  const [currentScrollPosition, setCurrentScrollPosition] = React.useState(
+    window.scrollY
+  );
+  const currentScrollP = React.useRef(currentScrollPosition);
+  React.useEffect(() => {
+    currentScrollP.current = currentScrollPosition;
+  }, [currentScrollPosition]);
+
   const handleScroll = () => {
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
@@ -55,43 +63,104 @@ const Navbar = () => {
       }
     }
 
-    if (window.scrollY > 0) {
-      setTimeout(() => {
-        document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
-        navBar.style.height = wantedNavHeight;
-        navLogo.style.marginTop = wantedLogoOffset;
-        navLogo.style.height = wantedLogoHeight;
-        routesContainer.style.height = wantedRoutesHeight;
-        if (currentWindowWidth.current <= 540) {
-          navLogo.style.width = "auto";
-        }
-      }, 100);
-    } else if (window.scrollY === 0) {
-      setTimeout(() => {
-        if (window.scrollY === 0) {
-          if (currentWindowWidth.current > 540) {
-            wantedNavHeight = "20vh";
-            wantedLogoHeight = "20vh";
-            wantedLogoOffset = "0";
-            wantedRoutesHeight = "80vh";
-          } else if (currentWindowWidth.current <= 540) {
-            wantedNavHeight = "15vh";
-            wantedLogoHeight = "auto";
-            navLogo.style.width = "33vw";
-            wantedLogoOffset = "auto";
-            wantedRoutesHeight = "85vh";
-            if (mobileNavigation.current === true) {
-              wantedNavHeight = "100vh";
-            }
-          }
-          document.getElementById("mobileNavbarToggle").style.top = "5vh";
+    let currentScrollPopo = window.scrollY;
+    let scrollDirection;
+
+    setTimeout(() => {
+      if (window.scrollY > currentScrollPopo) {
+        scrollDirection = "down";
+      } else if (window.scrollY === currentScrollPopo) {
+        scrollDirection = scrollDirection;
+      } else {
+        scrollDirection = "up";
+      }
+      currentScrollPopo = window.scrollY;
+      console.log(scrollDirection);
+      if (scrollDirection === "down") {
+        setTimeout(() => {
+          document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
           navBar.style.height = wantedNavHeight;
-          navLogo.style.height = wantedLogoHeight;
           navLogo.style.marginTop = wantedLogoOffset;
-          routesContainer.style.minHeight = wantedRoutesHeight;
-        }
-      }, 100);
-    }
+          navLogo.style.height = wantedLogoHeight;
+          routesContainer.style.height = wantedRoutesHeight;
+          if (currentWindowWidth.current <= 540) {
+            navLogo.style.width = "auto";
+          }
+        }, 100);
+      } else if (window.scrollY === 0) {
+        setTimeout(() => {
+          if (window.scrollY === 0) {
+            if (currentWindowWidth.current > 540) {
+              wantedNavHeight = "20vh";
+              wantedLogoHeight = "20vh";
+              wantedLogoOffset = "0";
+              //
+              wantedRoutesHeight = "80vh";
+              // wantedRoutesHeight = "100%";
+            } else if (currentWindowWidth.current <= 540) {
+              wantedNavHeight = "15vh";
+              wantedLogoHeight = "auto";
+              navLogo.style.width = "33vw";
+              wantedLogoOffset = "auto";
+              wantedRoutesHeight = "85vh";
+              // wantedRoutesHeight = "100%";
+
+              if (mobileNavigation.current === true) {
+                wantedNavHeight = "100vh";
+              }
+            }
+            document.getElementById("mobileNavbarToggle").style.top = "5vh";
+            navBar.style.height = wantedNavHeight;
+            navLogo.style.height = wantedLogoHeight;
+            navLogo.style.marginTop = wantedLogoOffset;
+            routesContainer.style.minHeight = wantedRoutesHeight;
+          }
+        }, 10);
+      }
+    }, 50);
+
+    // console.log(scrollDirection);
+    // if (window.scrollY > 0) {
+    //   setTimeout(() => {
+    //     document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
+    //     navBar.style.height = wantedNavHeight;
+    //     navLogo.style.marginTop = wantedLogoOffset;
+    //     navLogo.style.height = wantedLogoHeight;
+    //     routesContainer.style.height = wantedRoutesHeight;
+    //     if (currentWindowWidth.current <= 540) {
+    //       navLogo.style.width = "auto";
+    //     }
+    //   }, 100);
+    // } else if (window.scrollY === 0) {
+    //   setTimeout(() => {
+    //     if (window.scrollY === 0) {
+    //       if (currentWindowWidth.current > 540) {
+    //         wantedNavHeight = "20vh";
+    //         wantedLogoHeight = "20vh";
+    //         wantedLogoOffset = "0";
+    //         //
+    //         wantedRoutesHeight = "80vh";
+    //         // wantedRoutesHeight = "100%";
+    //       } else if (currentWindowWidth.current <= 540) {
+    //         wantedNavHeight = "15vh";
+    //         wantedLogoHeight = "auto";
+    //         navLogo.style.width = "33vw";
+    //         wantedLogoOffset = "auto";
+    //         wantedRoutesHeight = "85vh";
+    //         // wantedRoutesHeight = "100%";
+
+    //         if (mobileNavigation.current === true) {
+    //           wantedNavHeight = "100vh";
+    //         }
+    //       }
+    //       document.getElementById("mobileNavbarToggle").style.top = "5vh";
+    //       navBar.style.height = wantedNavHeight;
+    //       navLogo.style.height = wantedLogoHeight;
+    //       navLogo.style.marginTop = wantedLogoOffset;
+    //       routesContainer.style.minHeight = wantedRoutesHeight;
+    //     }
+    //   }, 100);
+    // }
   };
 
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
@@ -272,6 +341,9 @@ const Navbar = () => {
   const location = RRD.useLocation();
   React.useEffect(() => {
     setShowMobileNav(false);
+    if (document.getElementById("displayEvent")) {
+      document.body.removeChild(document.getElementById("displayEvent"));
+    }
   }, [location]);
 
   React.useEffect(() => {

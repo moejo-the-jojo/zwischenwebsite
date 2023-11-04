@@ -233,12 +233,12 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 80vh;
+  height: 100%;
   background-color: black;
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  /* min-height: 80vh; */
+  min-height: 80vh;
 }
 
 @media screen and (max-width: 540px) {
@@ -306,7 +306,7 @@ body::-webkit-scrollbar {
     width: 95%;
     min-width: 95%;
     height: 70vh;
-  }  
+  }
 }
 
 .calenderEvents {
