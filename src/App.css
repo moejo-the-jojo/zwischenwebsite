@@ -246,6 +246,7 @@ body::-webkit-scrollbar {
   width: 100%;
   z-index: 10;
   min-height: 80vh;
+  min-height: -webkit-fill-available;
 }
 
 @media screen and (max-width: 540px) {
