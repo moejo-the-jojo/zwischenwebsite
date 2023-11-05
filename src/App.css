@@ -73,7 +73,9 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   #navigationBar {
-    height: 15vh;
+    /* height: 15vh; */
+    height: 15%;
+    /* min-height: 15%; */
   }
 }
 
