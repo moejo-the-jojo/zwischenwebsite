@@ -251,19 +251,19 @@ body::-webkit-scrollbar {
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  min-height: 80vh;
-  min-height: 80dvh;
+  /* min-height: 80vh; */
+  /* min-height: 80dvh; */
   min-height: -webkit-fill-available;
   min-height: -moz-available;
 }
 
 @media screen and (max-width: 540px) {
   .routesContainer {
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
     /* min-height: 85vh; */
     height: 85vh;
     height: 85dvh;
-    min-height: -moz-available;
+    /* min-height: -moz-available; */
   }
 }
 
