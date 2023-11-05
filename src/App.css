@@ -73,9 +73,9 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   #navigationBar {
-    /* height: 15vh; */
-    height: 15%;
-    /* min-height: 15%; */
+    height: 15vh;
+    min-height: 15vh;
+    max-height: 15vh;
   }
 }
 
@@ -242,12 +242,13 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 85%;
+  height: 85vh;
   background-color: black;
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  min-height: 80vh;
+  min-height: 85vh;
+  max-height: 85vh;
   min-height: -webkit-fill-available;
   min-height: -moz-available;
 }
