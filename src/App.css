@@ -7,6 +7,7 @@ breakpoints: < 1024px tablet/phone landscape
   overflow: auto;
   --showDropdown: none;
   -webkit-tap-highlight-color: transparent;
+  --appHeight: 100%;
 }
 @media screen and (max-width: 1024px) {
   :root {
@@ -17,9 +18,19 @@ breakpoints: < 1024px tablet/phone landscape
 
 body {
   -ms-overflow-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 html {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   scrollbar-width: none;
 }
 
@@ -74,8 +85,6 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 540px) {
   #navigationBar {
     height: 15vh;
-    min-height: 15vh;
-    max-height: 15vh;
   }
 }
 
@@ -248,7 +257,6 @@ body::-webkit-scrollbar {
   width: 100%;
   z-index: 10;
   min-height: 85vh;
-  max-height: 85vh;
   min-height: -webkit-fill-available;
   min-height: -moz-available;
 }
