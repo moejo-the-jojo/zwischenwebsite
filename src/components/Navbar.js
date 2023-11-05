@@ -425,6 +425,7 @@ const Navbar = () => {
 
   return (
     <div id="navigationBar">
+      <div style={{ position: "sticky" }}></div>
       {dataURL !== null && (
         <img
           id="mobileNavbarToggle"
