@@ -6,6 +6,7 @@ breakpoints: < 1024px tablet/phone landscape
 :root {
   overflow: auto;
   --showDropdown: none;
+  -webkit-tap-highlight-color: transparent;
 }
 @media screen and (max-width: 1024px) {
   :root {
@@ -117,6 +118,7 @@ body::-webkit-scrollbar {
   -webkit-transition: transform 500ms;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media screen and (max-width: 540px) {
@@ -243,7 +245,9 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   .routesContainer {
-    height: 85vh;
+    min-height: 85vh;
+    height: -webkit-fill-available;
+    height: stretch;
   }
 }
 
