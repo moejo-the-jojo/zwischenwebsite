@@ -53,8 +53,8 @@ body::-webkit-scrollbar {
 
 #navigationBar {
   background-color: #ffea00;
-  height: 20vh;
-  height: 20dvh;
+  height: 15vh;
+  height: 15dvh;
   min-height: 10vh;
   min-height: 10dvh;
   width: 100%;
