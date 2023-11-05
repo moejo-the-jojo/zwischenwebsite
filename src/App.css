@@ -54,7 +54,9 @@ body::-webkit-scrollbar {
 #navigationBar {
   background-color: #ffea00;
   height: 20vh;
+  height: 20dvh;
   min-height: 10vh;
+  min-height: 10dvh;
   width: 100%;
   display: flex;
   cursor: default;
@@ -242,12 +244,14 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 85vh;
+  height: 80vh;
+  height: 80dvh;
   background-color: black;
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  min-height: 85vh;
+  min-height: 80vh;
+  min-height: 80dvh;
   min-height: -webkit-fill-available;
   min-height: -moz-available;
 }
