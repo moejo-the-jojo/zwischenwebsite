@@ -7,8 +7,9 @@ breakpoints: < 1024px tablet/phone landscape
   overflow: auto;
   --showDropdown: none;
   -webkit-tap-highlight-color: transparent;
-  --appHeight: 100%;
+  height: 100%;
 }
+
 @media screen and (max-width: 1024px) {
   :root {
     width: 100vw;
@@ -18,19 +19,9 @@ breakpoints: < 1024px tablet/phone landscape
 
 body {
   -ms-overflow-style: none;
-  padding: 0;
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
 }
 
 html {
-  padding: 0;
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
   scrollbar-width: none;
 }
 
