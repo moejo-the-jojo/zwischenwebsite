@@ -400,6 +400,7 @@ const Navbar = () => {
     document.body.appendChild(myCanvas);
     myCanvas.height = 100;
     myCanvas.width = 100;
+    myCanvas.style.display = "none";
     const ctx = myCanvas.getContext("2d");
     ctx.width = 100;
     ctx.height = 100;
