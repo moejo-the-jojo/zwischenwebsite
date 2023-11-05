@@ -11,6 +11,7 @@ breakpoints: < 1024px tablet/phone landscape
 @media screen and (max-width: 1024px) {
   :root {
     width: 100vw;
+    --fc-small-font-size: 0.8em;
   }
 }
 
@@ -35,13 +36,17 @@ body::-webkit-scrollbar {
     display: flex;
     position: absolute;
     top: 5vh;
-    left: 2vh;
+    left: 2.5vh;
     height: 5vh;
-    width: auto;
+    width: 5vh;
     justify-content: center;
     align-items: center;
-    transition: all 500ms;
+    transition: all 200ms;
   }
+}
+
+.rotated {
+  transform: rotate(180deg)
 }
 
 #navigationBar {
@@ -291,6 +296,7 @@ body::-webkit-scrollbar {
 #mahKalender {
   color: red;
   justify-content: center;
+  height: 70vh;
 }
 
 #kalenderContainer {
@@ -310,6 +316,7 @@ body::-webkit-scrollbar {
     width: 95%;
     min-width: 95%;
     height: 70vh;
+    font-size: 10px;
   }
 }
 

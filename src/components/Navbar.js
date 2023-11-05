@@ -344,6 +344,14 @@ const Navbar = () => {
     if (document.getElementById("displayEvent")) {
       document.body.removeChild(document.getElementById("displayEvent"));
     }
+    if (document.getElementById("mobileNavbarToggle")) {
+      setTimeout(() => {
+        document
+          .getElementById("mobileNavbarToggle")
+          .classList.remove("rotated");
+        setRotated(false);
+      }, 100);
+    }
   }, [location]);
 
   React.useEffect(() => {
@@ -367,29 +375,75 @@ const Navbar = () => {
       currentWindowWidth.current <= 540
     ) {
       document.getElementById("navigationBar").style.height = "100vh";
+      document.getElementById("navigationBar").style.position = "fixed";
     } else if (
       mobileNavigation.current === false &&
       window.scrollY > 0 &&
       currentWindowWidth.current <= 540
     ) {
       document.getElementById("navigationBar").style.height = "5vh";
+      document.getElementById("navigationBar").style.position = "sticky";
     } else if (
       mobileNavigation.current === false &&
       window.scrollY === 0 &&
       currentWindowWidth.current <= 540
     ) {
       document.getElementById("navigationBar").style.height = "15vh";
+      document.getElementById("navigationBar").style.position = "sticky";
     }
   }, [showMobileNav]);
 
+  const [dataURL, setDataURL] = React.useState(null);
+
+  React.useEffect(() => {
+    const myCanvas = document.createElement("canvas");
+    document.body.appendChild(myCanvas);
+    myCanvas.height = 100;
+    myCanvas.width = 100;
+    const ctx = myCanvas.getContext("2d");
+    ctx.width = 100;
+    ctx.height = 100;
+    ctx.moveTo(25, 0);
+    ctx.lineTo(75, 0);
+    ctx.moveTo(25, 100);
+    ctx.lineTo(75, 100);
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.lineWidth = 2;
+    ctx.moveTo(0, 50);
+    ctx.lineTo(100, 50);
+    ctx.stroke();
+    setDataURL(myCanvas.toDataURL());
+  }, []);
+
+  const [rotated, setRotated] = React.useState(false);
+  const currentRotation = React.useRef(rotated);
+  React.useEffect(() => {
+    currentRotation.current = rotated;
+  }, [rotated]);
+
   return (
     <div id="navigationBar">
-      <button
-        id="mobileNavbarToggle"
-        onClick={() => setShowMobileNav((prev) => !prev)}
-      >
-        Test
-      </button>
+      {dataURL !== null && (
+        <img
+          id="mobileNavbarToggle"
+          src={dataURL}
+          alt="optionsButton"
+          onClick={() => {
+            setShowMobileNav((prev) => !prev);
+            if (currentRotation.current === false) {
+              document
+                .getElementById("mobileNavbarToggle")
+                .classList.add("rotated");
+            } else {
+              document
+                .getElementById("mobileNavbarToggle")
+                .classList.remove("rotated");
+            }
+            setRotated((prev) => !prev);
+          }}
+        ></img>
+      )}
       <div id="navbarLinks">
         <NavLink to="/">
           <div id="navbarLogoContainer">
