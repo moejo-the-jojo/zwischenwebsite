@@ -240,7 +240,7 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 100%;
+  height: 85%;
   background-color: black;
   margin-top: 0;
   width: 100%;
@@ -252,9 +252,9 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   .routesContainer {
-    min-height: 85vh;
     height: -webkit-fill-available;
-    height: stretch;
+    min-height: 85vh;
+    min-height: -moz-available;
   }
 }
 
