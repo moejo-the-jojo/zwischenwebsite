@@ -80,7 +80,7 @@ body::-webkit-scrollbar {
   #navigationBar {
     height: 15vh;
     /* height: 15dvh; */
-  height: calc(var(--vh) * 15);
+  height: calc(var(--vh, 1vh) * 15);
   }
 }
 
@@ -266,7 +266,7 @@ body::-webkit-scrollbar {
     /* min-height: 85vh; */
     height: 85vh;
     /* height: 85dvh; */
-    height: calc(var(--vh) * 85);
+    height: calc(var(--vh, 1vh) * 85);
 
     /* min-height: -moz-available; */
   }
