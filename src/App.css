@@ -55,7 +55,7 @@ body::-webkit-scrollbar {
   background-color: #ffea00;
   height: 20vh;
   /* height: 20dvh; */
-  height: calc(var(--vh) * 20);
+  /* height: calc(var(--vh) * 20); */
   /* min-height: 10vh; */
   /* min-height: 10dvh; */
   width: 100%;
@@ -249,7 +249,7 @@ body::-webkit-scrollbar {
   position: relative;
   height: 80vh;
   /* height: 80dvh; */
-  height: calc(var(--vh) * 80);
+  /* height: calc(var(--vh) * 80); */
   background-color: black;
   margin-top: 0;
   width: 100%;
