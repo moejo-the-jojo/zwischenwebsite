@@ -43,6 +43,9 @@ const Navbar = () => {
   }, [currentScrollPosition]);
 
   const handleScroll = () => {
+    if (window.toolbar.visible === true) {
+      return;
+    }
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
       routesContainer = document.getElementById("realRoutesContainer");
