@@ -423,6 +423,13 @@ const Navbar = () => {
     currentRotation.current = rotated;
   }, [rotated]);
 
+  React.useEffect(() => {
+    window.addEventListener("resize", () => {
+      let vh = window.innerHeight;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    });
+  }, []);
+
   return (
     <div id="navigationBar">
       <div style={{ position: "sticky" }}></div>
