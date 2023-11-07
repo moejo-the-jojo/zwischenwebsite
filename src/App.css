@@ -53,7 +53,7 @@ body::-webkit-scrollbar {
 
 #navigationBar {
   background-color: #ffea00;
-  height: 20vh;
+  height: 20dvh;
   min-height: 10vh;
   width: 100%;
   display: flex;
@@ -75,7 +75,7 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   #navigationBar {
-    height: 15vh;
+    height: 15dvh;
   }
 }
 
@@ -248,7 +248,7 @@ body::-webkit-scrollbar {
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  min-height: 80vh;
+  min-height: 80dvh;
 }
 
 @media screen and (max-width: 540px) {
