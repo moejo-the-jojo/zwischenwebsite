@@ -273,7 +273,7 @@ const Navbar = () => {
         global[`${element.container}MobileToggle`]
       );
     });
-    window.addEventListener("touchmove", handleScroll);
+    // window.addEventListener("touchmove", handleScroll);
     mobileListeners.current = true;
   };
 
@@ -302,6 +302,12 @@ const Navbar = () => {
     } else {
       document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
       addMobileEventListeners();
+      if (
+        document.getElementById("realRoutesContainer").clientHeight >
+        window.innerHeight
+      ) {
+        window.addEventListener("touchmove", handleScroll);
+      }
       mobileListeners.current = true;
       return () => {
         removeMobileEventListeners();
@@ -347,6 +353,14 @@ const Navbar = () => {
           .classList.remove("rotated");
         setRotated(false);
       }, 100);
+    }
+    if (
+      document.getElementById("realRoutesContainer").clientHeight >
+      window.innerHeight
+    ) {
+      window.addEventListener("touchmove", handleScroll);
+    } else {
+      window.removeEventListener("touchmove", handleScroll);
     }
   }, [location]);
 
