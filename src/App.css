@@ -4,7 +4,7 @@ breakpoints: < 1024px tablet/phone landscape
 */
 
 :root {
-  overflow: auto;
+  /* overflow: auto; */
   --showDropdown: none;
   -webkit-tap-highlight-color: transparent;
   height: 100%;
@@ -54,10 +54,7 @@ body::-webkit-scrollbar {
 #navigationBar {
   background-color: #ffea00;
   height: 20vh;
-  /* height: 20dvh; */
-  /* height: calc(var(--vh) * 20); */
-  /* min-height: 10vh; */
-  /* min-height: 10dvh; */
+  min-height: 10vh;
   width: 100%;
   display: flex;
   cursor: default;
@@ -79,8 +76,6 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 540px) {
   #navigationBar {
     height: 15vh;
-    /* height: 15dvh; */
-  height: calc(var(--vh, 1vh) * 15);
   }
 }
 
@@ -247,28 +242,19 @@ body::-webkit-scrollbar {
 
 .routesContainer {
   position: relative;
-  height: 80vh;
-  /* height: 80dvh; */
-  /* height: calc(var(--vh) * 80); */
+  height: 100%;
   background-color: black;
+  margin-top: 0;
   margin-top: 0;
   width: 100%;
   z-index: 10;
-  /* min-height: 80vh; */
-  /* min-height: 80dvh; */
-  min-height: -webkit-fill-available;
-  min-height: -moz-available;
+  min-height: 80vh;
 }
 
 @media screen and (max-width: 540px) {
   .routesContainer {
-    /* height: -webkit-fill-available; */
-    /* min-height: 85vh; */
-    height: 85vh;
-    /* height: 85dvh; */
-    height: calc(var(--vh, 1vh) * 85);
+    min-height: 85vh;
 
-    /* min-height: -moz-available; */
   }
 }
 
@@ -284,12 +270,14 @@ body::-webkit-scrollbar {
   grid-template-columns: 1fr 2fr;
   overflow: auto;
   height: auto;
+  /* min-height: 80vh; */
 }
 
 @media screen and (max-width: 540px) {
   .contentContainer {
     width: 100vw;
     text-align: center;
+    min-height: 85vh;
   }
 }
 .content {

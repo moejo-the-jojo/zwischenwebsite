@@ -43,9 +43,6 @@ const Navbar = () => {
   }, [currentScrollPosition]);
 
   const handleScroll = () => {
-    if (windowWidth <= 540 && window.toolbar.visible === true) {
-      return;
-    }
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
       routesContainer = document.getElementById("realRoutesContainer");
@@ -55,7 +52,6 @@ const Navbar = () => {
       wantedLogoHeight = "16.5vh";
       wantedLogoOffset = "10vh";
       wantedRoutesHeight = "100%";
-      console.log(currentWindowWidth.current);
     } else if (currentWindowWidth.current <= 540) {
       wantedNavHeight = "5vh";
       wantedLogoHeight = "15vh";
@@ -97,16 +93,13 @@ const Navbar = () => {
               wantedNavHeight = "20vh";
               wantedLogoHeight = "20vh";
               wantedLogoOffset = "0";
-              //
               wantedRoutesHeight = "80vh";
-              // wantedRoutesHeight = "100%";
             } else if (currentWindowWidth.current <= 540) {
               wantedNavHeight = "15vh";
               wantedLogoHeight = "auto";
               navLogo.style.width = "33vw";
               wantedLogoOffset = "auto";
               wantedRoutesHeight = "85vh";
-              // wantedRoutesHeight = "100%";
 
               if (mobileNavigation.current === true) {
                 wantedNavHeight = "100vh";
@@ -118,7 +111,7 @@ const Navbar = () => {
             navLogo.style.marginTop = wantedLogoOffset;
             routesContainer.style.minHeight = wantedRoutesHeight;
           }
-        }, 10);
+        }, 50);
       }
     }, 50);
 
@@ -426,12 +419,12 @@ const Navbar = () => {
     currentRotation.current = rotated;
   }, [rotated]);
 
-  React.useEffect(() => {
-    window.addEventListener("resize", () => {
-      let vh = window.innerHeight;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   window.addEventListener("resize", () => {
+  //     let vh = window.innerHeight;
+  //     document.documentElement.style.setProperty("--vh", `${vh}px`);
+  //   });
+  // }, []);
 
   return (
     <div id="navigationBar">
