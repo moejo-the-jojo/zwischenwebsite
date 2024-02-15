@@ -159,19 +159,29 @@ const Navbar = () => {
     // }
   };
 
+  
+  
+  const [desktopListeners, setDesktopListeners] = React.useState(false)
+  const currentDesktopListeners = React.useRef(desktopListeners);
+  React.useEffect(() => {
+    currentDesktopListeners.current = desktopListeners
+  }, [desktopListeners]);
+  
+  const [mobileListeners, setMobileListeners] = React.useState(false);
+  const currentMobileListeners = React.useRef(mobileListeners)
+  React.useEffect(() => {
+    currentMobileListeners.current = mobileListeners
+  }, [mobileListeners])
+
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-  const desktopListeners = React.useRef(false),
-    mobileListeners = React.useRef(false),
-    currentWindowWidth = React.useRef(windowWidth);
-
-  const updateWindowSize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
+  const currentWindowWidth = React.useRef(windowWidth);
   React.useEffect(() => {
     currentWindowWidth.current = windowWidth;
   }, [windowWidth]);
+  
+  const updateWindowSize = () => {
+    setWindowWidth(window.innerWidth);
+  };
 
   React.useEffect(() => {
     window.addEventListener("resize", updateWindowSize);
@@ -216,11 +226,12 @@ const Navbar = () => {
           let bottomMargin;
           addDropdownClasses(element.container, element.content);
           global[`${element.container}MobileStatus`] = true;
-          if (element.container === "showsDropdownRoot") {
-            bottomMargin = "15vh";
-          } else {
-            bottomMargin = "10vh";
-          }
+          bottomMargin = (element.container === "showsDropdownRoot" ? "15vh" : "10vh")
+          // if (element.container === "showsDropdownRoot") {
+          //   bottomMargin = "15vh";
+          // } else {
+          //   bottomMargin = "10vh";
+          // }
           document
             .getElementById(element.container)
             .style.setProperty("margin-bottom", bottomMargin);
@@ -245,7 +256,7 @@ const Navbar = () => {
       button.addEventListener("onclick", global[`${element.container}remover`]);
     });
     window.addEventListener("scroll", handleScroll);
-    desktopListeners.current = true;
+    setDesktopListeners(true);
   };
 
   const removeDesktopEventListeners = () => {
@@ -262,7 +273,7 @@ const Navbar = () => {
       );
     });
     window.removeEventListener("scroll", handleScroll);
-    desktopListeners.current = false;
+    setDesktopListeners(false);
   };
 
   const addMobileEventListeners = () => {
@@ -274,7 +285,7 @@ const Navbar = () => {
       );
     });
     // window.addEventListener("touchmove", handleScroll);
-    mobileListeners.current = true;
+    setMobileListeners(true);
   };
 
   const removeMobileEventListeners = () => {
@@ -286,17 +297,16 @@ const Navbar = () => {
       );
     });
     window.removeEventListener("touchmove", handleScroll);
-    mobileListeners.current = false;
+    setMobileListeners(false);
   };
 
   React.useEffect(() => {
     if (currentWindowWidth.current > 540) {
       document.body.style.setProperty("--dropdownLinkBGColor", "black");
-
       console.log("i run at the start for");
       addDesktopEventListeners();
-      desktopListeners.current = true;
       return () => {
+        console.log("i run at end - removal")
         removeDesktopEventListeners();
       };
     } else {
@@ -308,7 +318,6 @@ const Navbar = () => {
       ) {
         window.addEventListener("touchmove", handleScroll);
       }
-      mobileListeners.current = true;
       return () => {
         removeMobileEventListeners();
       };
@@ -333,12 +342,15 @@ const Navbar = () => {
       addMobileEventListeners();
     }
 
+    // ???
     if (currentWindowWidth.current > 540) {
       document
         .getElementById("navigationBar")
         .style.setProperty("height", "20vh");
     }
-  }, [windowWidth]);
+    // ???
+
+  }, [currentWindowWidth.current]);
 
   const location = RRD.useLocation();
   React.useEffect(() => {
@@ -354,6 +366,8 @@ const Navbar = () => {
         setRotated(false);
       }, 100);
     }
+
+    //???
     if (
       document.getElementById("realRoutesContainer").clientHeight >
       window.innerHeight
@@ -362,6 +376,8 @@ const Navbar = () => {
     } else {
       window.removeEventListener("touchmove", handleScroll);
     }
+    // ???
+  
   }, [location]);
 
   React.useEffect(() => {
