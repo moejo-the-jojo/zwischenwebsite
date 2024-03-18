@@ -159,26 +159,24 @@ const Navbar = () => {
     // }
   };
 
-  
-  
-  const [desktopListeners, setDesktopListeners] = React.useState(false)
+  const [desktopListeners, setDesktopListeners] = React.useState(false);
   const currentDesktopListeners = React.useRef(desktopListeners);
   React.useEffect(() => {
-    currentDesktopListeners.current = desktopListeners
+    currentDesktopListeners.current = desktopListeners;
   }, [desktopListeners]);
-  
+
   const [mobileListeners, setMobileListeners] = React.useState(false);
-  const currentMobileListeners = React.useRef(mobileListeners)
+  const currentMobileListeners = React.useRef(mobileListeners);
   React.useEffect(() => {
-    currentMobileListeners.current = mobileListeners
-  }, [mobileListeners])
+    currentMobileListeners.current = mobileListeners;
+  }, [mobileListeners]);
 
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const currentWindowWidth = React.useRef(windowWidth);
   React.useEffect(() => {
     currentWindowWidth.current = windowWidth;
   }, [windowWidth]);
-  
+
   const updateWindowSize = () => {
     setWindowWidth(window.innerWidth);
   };
@@ -191,8 +189,10 @@ const Navbar = () => {
   const addDropdownClasses = (container, content) => {
     const dropdown = document.getElementById(content);
     if (container === "galerieDropdownRoot") {
-      dropdown.classList.add("showDropdownContent");
-      dropdown.classList.add("showDropdownContentSmallSize");
+      dropdown.classList.add(
+        "showDropdownContent",
+        "showDropdownContentSmallSize"
+      );
     } else {
       dropdown.classList.add("showDropdownContent");
     }
@@ -200,12 +200,10 @@ const Navbar = () => {
 
   const removeDropdownClasses = (container, content) => {
     const dropdown = document.getElementById(content);
-    if (container === "galerieDropdownRoot") {
-      dropdown.classList.remove("showDropdownContentSmallSize");
-      dropdown.classList.remove("showDropdownContent");
-    } else {
-      dropdown.classList.remove("showDropdownContent");
-    }
+    dropdown.classList.remove(
+      "showDropdownContentSmallSize",
+      "showDropdownContent"
+    );
     document
       .getElementById(container)
       .style.setProperty("margin-bottom", "1vh");
@@ -226,7 +224,8 @@ const Navbar = () => {
           let bottomMargin;
           addDropdownClasses(element.container, element.content);
           global[`${element.container}MobileStatus`] = true;
-          bottomMargin = (element.container === "showsDropdownRoot" ? "15vh" : "10vh")
+          bottomMargin =
+            element.container === "showsDropdownRoot" ? "15vh" : "10vh";
           // if (element.container === "showsDropdownRoot") {
           //   bottomMargin = "15vh";
           // } else {
@@ -306,7 +305,7 @@ const Navbar = () => {
       console.log("i run at the start for");
       addDesktopEventListeners();
       return () => {
-        console.log("i run at end - removal")
+        console.log("i run at end - removal");
         removeDesktopEventListeners();
       };
     } else {
@@ -349,7 +348,6 @@ const Navbar = () => {
         .style.setProperty("height", "20vh");
     }
     // ???
-
   }, [currentWindowWidth.current]);
 
   const location = RRD.useLocation();
@@ -377,17 +375,16 @@ const Navbar = () => {
       window.removeEventListener("touchmove", handleScroll);
     }
     // ???
-  
   }, [location]);
 
   React.useEffect(() => {
     console.log("now im the switch and i work");
     let currentSettings;
-    if (mobileNavigation.current === false) {
+    if (showMobileNav === false) {
       currentSettings = hideMobileNavigation;
       eventListenersParentsArray.forEach((element) => {
-        global[`${element.container}MobileStatus`] = false;
         removeDropdownClasses(element.container, element.content);
+        global[`${element.container}MobileStatus`] = false;
         console.log("i set the classes to nonnav");
       });
     } else {
@@ -396,24 +393,22 @@ const Navbar = () => {
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
-    if (
-      mobileNavigation.current === true &&
-      currentWindowWidth.current <= 540
-    ) {
+    if (showMobileNav === true && currentWindowWidth.current <= 540) {
       document.getElementById("navigationBar").style.height = "100vh";
       document.getElementById("navigationBar").style.position = "fixed";
-    } else if (
-      mobileNavigation.current === false &&
+    } /* else if (
+      showMobileNav === false &&
       window.scrollY > 0 &&
       currentWindowWidth.current <= 540
     ) {
       document.getElementById("navigationBar").style.height = "5vh";
       document.getElementById("navigationBar").style.position = "sticky";
-    } else if (
-      mobileNavigation.current === false &&
-      window.scrollY === 0 &&
+    } */ else if (
+      showMobileNav === false &&
+      // window.scrollY === 0 &&
       currentWindowWidth.current <= 540
     ) {
+      window.scrollTo(0, 0);
       document.getElementById("navigationBar").style.height = "15vh";
       document.getElementById("navigationBar").style.position = "sticky";
     }
@@ -448,13 +443,6 @@ const Navbar = () => {
   React.useEffect(() => {
     currentRotation.current = rotated;
   }, [rotated]);
-
-  // React.useEffect(() => {
-  //   window.addEventListener("resize", () => {
-  //     let vh = window.innerHeight;
-  //     document.documentElement.style.setProperty("--vh", `${vh}px`);
-  //   });
-  // }, []);
 
   return (
     <div id="navigationBar">
