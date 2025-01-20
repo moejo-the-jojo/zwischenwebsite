@@ -232,11 +232,15 @@ body::-webkit-scrollbar {
   height: 10vh;
 }
 
+.dropdownLink {
+  background-color: #ffea00;
+}
+
 @media screen and (max-width: 540px) {
   .dropdownLink {
     margin: 0;
     border-radius: 0;
-    background-color: var(--dropdownLinkBGColor);
+    background-color: #efcc00;
   }
 }
 

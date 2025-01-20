@@ -28,12 +28,14 @@ const eventListenersParentsArray = [
 ];
 
 const Navbar = () => {
+  // set up showing mobile navigation, update  when mobile Nav changed
   const [showMobileNav, setShowMobileNav] = React.useState(false);
   const mobileNavigation = React.useRef(showMobileNav);
   React.useEffect(() => {
     mobileNavigation.current = showMobileNav;
   }, [showMobileNav]);
 
+  // set scroll position, update when change
   const [currentScrollPosition, setCurrentScrollPosition] = React.useState(
     window.scrollY
   );
@@ -159,28 +161,28 @@ const Navbar = () => {
     // }
   };
 
-  const [desktopListeners, setDesktopListeners] = React.useState(false);
-  const currentDesktopListeners = React.useRef(desktopListeners);
-  React.useEffect(() => {
-    currentDesktopListeners.current = desktopListeners;
-  }, [desktopListeners]);
+  // const [desktopListeners, setDesktopListeners] = React.useState(false);
+  // const currentDesktopListeners = React.useRef(desktopListeners);
+  // React.useEffect(() => {
+  //   currentDesktopListeners.current = desktopListeners;
+  // }, [desktopListeners]);
 
-  const [mobileListeners, setMobileListeners] = React.useState(false);
-  const currentMobileListeners = React.useRef(mobileListeners);
-  React.useEffect(() => {
-    currentMobileListeners.current = mobileListeners;
-  }, [mobileListeners]);
+  // const [mobileListeners, setMobileListeners] = React.useState(false);
+  // const currentMobileListeners = React.useRef(mobileListeners);
+  // React.useEffect(() => {
+  //   currentMobileListeners.current = mobileListeners;
+  // }, [mobileListeners]);
 
+  // width and update width
+  // do i need width??
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const currentWindowWidth = React.useRef(windowWidth);
   React.useEffect(() => {
     currentWindowWidth.current = windowWidth;
   }, [windowWidth]);
-
   const updateWindowSize = () => {
     setWindowWidth(window.innerWidth);
   };
-
   React.useEffect(() => {
     window.addEventListener("resize", updateWindowSize);
     return () => window.removeEventListener("resize", updateWindowSize);
@@ -209,6 +211,7 @@ const Navbar = () => {
       .style.setProperty("margin-bottom", "1vh");
   };
 
+  // handle add/remove droppdown classes
   React.useEffect(() => {
     eventListenersParentsArray.forEach((element) => {
       global[element.container] = () => {
@@ -219,6 +222,7 @@ const Navbar = () => {
       };
       global[`${element.container}MobileStatus`] = false;
       global[`${element.container}MobileToggle`] = () => {
+        console.log(global[`${element.container}MobileStatus`]);
         console.log("yes im attached <3");
         if (global[`${element.container}MobileStatus`] === false) {
           let bottomMargin;
@@ -255,7 +259,7 @@ const Navbar = () => {
       button.addEventListener("onclick", global[`${element.container}remover`]);
     });
     window.addEventListener("scroll", handleScroll);
-    setDesktopListeners(true);
+    // setDesktopListeners(true);
   };
 
   const removeDesktopEventListeners = () => {
@@ -272,9 +276,10 @@ const Navbar = () => {
       );
     });
     window.removeEventListener("scroll", handleScroll);
-    setDesktopListeners(false);
+    // setDesktopListeners(false);
   };
 
+  // CHECK FOR MOBILE DEVICE, NOT WIDTH
   const addMobileEventListeners = () => {
     eventListenersParentsArray.forEach((element) => {
       const button = document.getElementById(element.container);
@@ -284,7 +289,7 @@ const Navbar = () => {
       );
     });
     // window.addEventListener("touchmove", handleScroll);
-    setMobileListeners(true);
+    // setMobileListeners(true);
   };
 
   const removeMobileEventListeners = () => {
@@ -296,60 +301,62 @@ const Navbar = () => {
       );
     });
     window.removeEventListener("touchmove", handleScroll);
-    setMobileListeners(false);
+    // setMobileListeners(false);
   };
 
+  //handle add/remove event listeners
   React.useEffect(() => {
+    // CHECK FOR DEVICE, NOT WIDTH
     if (currentWindowWidth.current > 540) {
-      document.body.style.setProperty("--dropdownLinkBGColor", "black");
+      // document.body.style.setProperty("--dropdownLinkBGColor", "black");
       console.log("i run at the start for");
       addDesktopEventListeners();
       return () => {
-        console.log("i run at end - removal");
         removeDesktopEventListeners();
       };
     } else {
-      document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
+      // document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
       addMobileEventListeners();
-      if (
-        document.getElementById("realRoutesContainer").clientHeight >
-        window.innerHeight
-      ) {
-        window.addEventListener("touchmove", handleScroll);
-      }
+      // if (
+      //   document.getElementById("realRoutesContainer").clientHeight >
+      //   window.innerHeight
+      // ) {
+      //   window.addEventListener("touchmove", handleScroll);
+      // }
       return () => {
         removeMobileEventListeners();
       };
     }
   }, []);
 
-  React.useEffect(() => {
-    if (currentWindowWidth.current > 540 && desktopListeners.current !== true) {
-      document.body.style.setProperty("--dropdownLinkBGColor", "black");
-      setShowMobileNav(false);
-      eventListenersParentsArray.forEach((element) => {
-        global[`${element.container}MobileStatus`] = false;
-      });
-      removeMobileEventListeners();
-      addDesktopEventListeners();
-    } else if (
-      currentWindowWidth.current <= 540 &&
-      mobileListeners.current !== true
-    ) {
-      document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
-      removeDesktopEventListeners();
-      addMobileEventListeners();
-    }
+  // React.useEffect(() => {
+  //   if (currentWindowWidth.current > 540 && desktopListeners.current !== true) {
+  //     document.body.style.setProperty("--dropdownLinkBGColor", "black");
+  //     setShowMobileNav(false);
+  //     eventListenersParentsArray.forEach((element) => {
+  //       global[`${element.container}MobileStatus`] = false;
+  //     });
+  //     removeMobileEventListeners();
+  //     addDesktopEventListeners();
+  //   } else if (
+  //     currentWindowWidth.current <= 540 &&
+  //     mobileListeners.current !== true
+  //   ) {
+  //     document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
+  //     removeDesktopEventListeners();
+  //     addMobileEventListeners();
+  //   }
 
-    // ???
-    if (currentWindowWidth.current > 540) {
-      document
-        .getElementById("navigationBar")
-        .style.setProperty("height", "20vh");
-    }
-    // ???
-  }, [currentWindowWidth.current]);
+  //   // ???
+  //   if (currentWindowWidth.current > 540) {
+  //     document
+  //       .getElementById("navigationBar")
+  //       .style.setProperty("height", "20vh");
+  //   }
+  //   // ???
+  // }, [currentWindowWidth.current]);
 
+  //handle links
   const location = RRD.useLocation();
   React.useEffect(() => {
     setShowMobileNav(false);
@@ -365,21 +372,24 @@ const Navbar = () => {
       }, 100);
     }
 
-    //???
-    if (
-      document.getElementById("realRoutesContainer").clientHeight >
-      window.innerHeight
-    ) {
-      window.addEventListener("touchmove", handleScroll);
-    } else {
-      window.removeEventListener("touchmove", handleScroll);
-    }
+    // ???
+    // if (
+    //   document.getElementById("realRoutesContainer").clientHeight >
+    //   window.innerHeight
+    // ) {
+    //   window.addEventListener("touchmove", handleScroll);
+    // } else {
+    //   window.removeEventListener("touchmove", handleScroll);
+    // }
     // ???
   }, [location]);
 
+  // show/hide mobile nav
   React.useEffect(() => {
     console.log("now im the switch and i work");
     let currentSettings;
+    // if (windowWidth.current <= 540) {
+    console.log(currentWindowWidth.current);
     if (showMobileNav === false) {
       currentSettings = hideMobileNavigation;
       eventListenersParentsArray.forEach((element) => {
@@ -393,29 +403,30 @@ const Navbar = () => {
     for (let pair in currentSettings) {
       document.body.style.setProperty(pair, currentSettings[pair]);
     }
-    if (showMobileNav === true && currentWindowWidth.current <= 540) {
+    if (showMobileNav === true) {
       document.getElementById("navigationBar").style.height = "100vh";
       document.getElementById("navigationBar").style.position = "fixed";
     } /* else if (
+        showMobileNav === false &&
+        window.scrollY > 0 &&
+        currentWindowWidth.current <= 540
+      ) {
+        document.getElementById("navigationBar").style.height = "5vh";
+        document.getElementById("navigationBar").style.position = "sticky";
+      } */ else if (
       showMobileNav === false &&
-      window.scrollY > 0 &&
-      currentWindowWidth.current <= 540
-    ) {
-      document.getElementById("navigationBar").style.height = "5vh";
-      document.getElementById("navigationBar").style.position = "sticky";
-    } */ else if (
-      showMobileNav === false &&
-      // window.scrollY === 0 &&
       currentWindowWidth.current <= 540
     ) {
       window.scrollTo(0, 0);
       document.getElementById("navigationBar").style.height = "15vh";
       document.getElementById("navigationBar").style.position = "sticky";
     }
+    // }
   }, [showMobileNav]);
 
   const [dataURL, setDataURL] = React.useState(null);
 
+  // create settings icon
   React.useEffect(() => {
     const myCanvas = document.createElement("canvas");
     document.body.appendChild(myCanvas);
@@ -443,6 +454,13 @@ const Navbar = () => {
   React.useEffect(() => {
     currentRotation.current = rotated;
   }, [rotated]);
+
+  // set navbar to 20vh with widthchange
+  React.useEffect(() => {
+    if (currentWindowWidth.current > 540) {
+      document.getElementById("navigationBar").style.height = "20vh";
+    }
+  }, [currentWindowWidth.current]);
 
   return (
     <div id="navigationBar">
