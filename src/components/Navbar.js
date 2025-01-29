@@ -28,13 +28,6 @@ const eventListenersParentsArray = [
 ];
 
 const Navbar = () => {
-  // set up showing mobile navigation, update  when mobile Nav changed
-  const [showMobileNav, setShowMobileNav] = React.useState(false);
-  const mobileNavigation = React.useRef(showMobileNav);
-  React.useEffect(() => {
-    mobileNavigation.current = showMobileNav;
-  }, [showMobileNav]);
-
   // set scroll position, update when change
   const [currentScrollPosition, setCurrentScrollPosition] = React.useState(
     window.scrollY
@@ -211,15 +204,23 @@ const Navbar = () => {
       .style.setProperty("margin-bottom", "1vh");
   };
 
+  const [dropDownShowsState, setDropDownShowsState] = React.useState(false);
+  const [dropDownGalerieState, setDropDownGalerieState] = React.useState(false);
+
+  /*
+  if dropdownshowstate is false and mouseover => add dropdown - change state
+  and reverse
+  */
+
   // handle add/remove droppdown classes
   React.useEffect(() => {
     eventListenersParentsArray.forEach((element) => {
-      global[element.container] = () => {
-        addDropdownClasses(element.container, element.content);
-      };
-      global[`${element.container}remover`] = () => {
-        removeDropdownClasses(element.container, element.content);
-      };
+      // global[element.container] = () => {
+      //   addDropdownClasses(element.container, element.content);
+      // };
+      // global[`${element.container}remover`] = () => {
+      //   removeDropdownClasses(element.container, element.content);
+      // };
       global[`${element.container}MobileStatus`] = false;
       global[`${element.container}MobileToggle`] = () => {
         console.log(global[`${element.container}MobileStatus`]);
@@ -251,11 +252,15 @@ const Navbar = () => {
   const addDesktopEventListeners = () => {
     eventListenersParentsArray.forEach((element) => {
       const button = document.getElementById(element.container);
-      button.addEventListener("mouseover", global[element.container]);
-      button.addEventListener(
-        "mouseout",
-        global[`${element.container}remover`]
-      );
+      //function direkt hier??
+      //button.addEventListener("mouseover", global[element.container]);
+      button.addEventListener("mouseover", () => {
+        addDropdownClasses(element.container, element.content);
+      });
+
+      button.addEventListener("mouseout", () => {
+        removeDropdownClasses(element.container, element.content);
+      });
       button.addEventListener("onclick", global[`${element.container}remover`]);
     });
     window.addEventListener("scroll", handleScroll);
@@ -279,7 +284,6 @@ const Navbar = () => {
     // setDesktopListeners(false);
   };
 
-  // CHECK FOR MOBILE DEVICE, NOT WIDTH
   const addMobileEventListeners = () => {
     eventListenersParentsArray.forEach((element) => {
       const button = document.getElementById(element.container);
@@ -384,6 +388,13 @@ const Navbar = () => {
     // ???
   }, [location]);
 
+  // set up showMobileNav, update  when mobile Nav changed
+  const [showMobileNav, setShowMobileNav] = React.useState(false);
+  const mobileNavigation = React.useRef(showMobileNav);
+  React.useEffect(() => {
+    mobileNavigation.current = showMobileNav;
+  }, [showMobileNav]);
+
   // show/hide mobile nav
   React.useEffect(() => {
     console.log("now im the switch and i work");
@@ -424,9 +435,8 @@ const Navbar = () => {
     // }
   }, [showMobileNav]);
 
-  const [dataURL, setDataURL] = React.useState(null);
-
   // create settings icon
+  const [dataURL, setDataURL] = React.useState(null);
   React.useEffect(() => {
     const myCanvas = document.createElement("canvas");
     document.body.appendChild(myCanvas);
@@ -464,38 +474,66 @@ const Navbar = () => {
 
   return (
     <div id="navigationBar">
-      <div style={{ position: "sticky" }}></div>
-      {dataURL !== null && (
-        <img
-          id="mobileNavbarToggle"
-          src={dataURL}
-          alt="optionsButton"
-          onClick={() => {
-            setShowMobileNav((prev) => !prev);
-            if (currentRotation.current === false) {
-              document
-                .getElementById("mobileNavbarToggle")
-                .classList.add("rotated");
-            } else {
-              document
-                .getElementById("mobileNavbarToggle")
-                .classList.remove("rotated");
-            }
-            setRotated((prev) => !prev);
-          }}
-        ></img>
-      )}
       <div id="navbarLinks">
+        {dataURL !== null && (
+          <img
+            id="mobileNavbarToggle"
+            src={dataURL}
+            alt="optionsButton"
+            onClick={() => {
+              setShowMobileNav((prev) => !prev);
+              if (currentRotation.current === false) {
+                document
+                  .getElementById("mobileNavbarToggle")
+                  .classList.add("rotated");
+              } else {
+                document
+                  .getElementById("mobileNavbarToggle")
+                  .classList.remove("rotated");
+              }
+              setRotated((prev) => !prev);
+            }}
+          ></img>
+        )}
         <NavLink to="/">
           <div id="navbarLogoContainer">
             <img src={logoSrc} alt="zwischenspielLogo" id="navbarLogo"></img>
           </div>
         </NavLink>
+
+        {/*so the links stay on the right side*/}
         <div className="linkStyle" id="placeholderLink" />
         <NavLink to="/about" className="linkStyle">
           Über uns
         </NavLink>
-        <div id="showsDropdownRoot" className="dropdown linkStyle">
+
+        <div
+          id="showsDropdownRoot"
+          className="dropdown linkStyle"
+          onMouseDown={(event) => {
+            setDropDownShowsState((prev) => !prev);
+            if (dropDownShowsState === true) {
+              addDropdownClasses(event.target);
+
+              // let bottomMargin;
+              // addDropdownClasses(element.container, element.content);
+              // global[`${element.container}MobileStatus`] = true;
+              // bottomMargin =
+              //   element.container === "showsDropdownRoot" ? "15vh" : "10vh";
+              // // if (element.container === "showsDropdownRoot") {
+              // //   bottomMargin = "15vh";
+              // // } else {
+              // //   bottomMargin = "10vh";
+              // // }
+              // document
+              //   .getElementById(element.container)
+              //   .style.setProperty("margin-bottom", bottomMargin);
+
+              // console.log("i run");
+            }
+            //put mobile dropdown here??!
+          }}
+        >
           Shows &#9662;
           <div id="showsDropdown" className="dropdownContent">
             <NavLink
