@@ -48,7 +48,7 @@ body::-webkit-scrollbar {
 }
 
 .rotated {
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
 #navigationBar {
@@ -208,12 +208,21 @@ body::-webkit-scrollbar {
   border-radius: 10px;
 }
 
-#galerieDropdown .linkStyle {
-  margin-bottom: 0px;
-  border-radius: 0px;
+#showsDropdown {
+  margin-top: 5vh;
+  height: 15vh;
+  transition: all 0.3s;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  -moz-transition: all 0.3s;
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  border-radius: 10px;
 }
 
 #showsDropdown .linkStyle {
+  margin-bottom: 0px;
+  border-radius: 0px;
+}
+#galerieDropdown .linkStyle {
   margin-bottom: 0px;
   border-radius: 0px;
 }
@@ -258,7 +267,6 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 540px) {
   .routesContainer {
     min-height: 85vh;
-
   }
 }
 
