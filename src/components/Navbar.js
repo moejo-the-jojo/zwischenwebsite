@@ -431,7 +431,7 @@ const Navbar = () => {
         <NavLink
           to="/kontakt"
           className="linkStyle"
-          onClick={(event) => {
+          onMouseDown={(event) => {
             event.stopPropagation();
             console.log(showMobileNav);
             setShowMobileNav(false);
