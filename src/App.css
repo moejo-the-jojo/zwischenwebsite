@@ -67,15 +67,14 @@ body::-webkit-scrollbar {
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-@media screen and (max-width: 1024px) {
-  #navigationBar {
-    font-size: 12px;
-  }
-}
-
 @media screen and (max-width: 540px) {
   #navigationBar {
     height: 15dvh;
+  }
+
+  #navigationBar.showMobileNavNavbar {
+    height: 100vh;
+    position: fixed;
   }
 }
 
@@ -93,10 +92,17 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   #navbarLinks {
-    flex-direction: var(--navbarFlexDirection);
+    flex-direction: row;
     height: 100%;
-    justify-content: var(--navbarFlexAlign);
-    gap: 7vh;
+    justify-content: center;
+    gap: 10vh;
+  }
+
+  #navbarLinks.showMobileNavNavLinks {
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+    gap: 10vh;
   }
 }
 
@@ -112,7 +118,11 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   #navbarLogoContainer {
-    display: var(--hideNavbarLogo);
+    display: flex;
+  }
+
+  #navbarLogoContainer.showMobileNavLogo {
+    display: none;
   }
 }
 
@@ -153,12 +163,17 @@ body::-webkit-scrollbar {
 
 @media screen and (max-width: 540px) {
   .linkStyle {
-    display: var(--showNavbarLinks);
+    display: none;
     height: 5vh;
     justify-content: center;
     align-items: center;
+    position: relative;
     /* margin-top: 2vh;
     margin-bottom: 2vh; */
+  }
+
+  .showMobileNavLinkStyle {
+    display: flex;
   }
 }
 
@@ -216,7 +231,7 @@ body::-webkit-scrollbar {
   border-radius: 10px;
 }
 
-#showsDropdown {
+.dropDownMenu {
   position: absolute;
   top: 5vh;
   height: 15vh;
@@ -231,47 +246,14 @@ body::-webkit-scrollbar {
   overflow: hidden;
 }
 
-#galerieDropdown {
-  position: absolute;
-  top: 5vh;
+.dropDownMenuSmall {
   height: 10vh;
-  width: 100%;
-  padding-left: 2px;
-  padding-right: 2px;
-  transition: all 0.3s;
-  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
-  -moz-transition: all 0.3s;
-  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
-  border-radius: 10px;
-  overflow: hidden;
 }
 
-#showsDropdown .linkStyle {
+.dropDownMenu .linkStyle {
   margin-bottom: 0px;
   border-radius: 0px;
 }
-#galerieDropdown .linkStyle {
-  margin-bottom: 0px;
-  border-radius: 0px;
-}
-
-.showDropdownContent {
-  /* mehr compatibilitystuff einfügen!*/
-  height: 15vh;
-  transition: all 0.3s;
-  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
-  -moz-transition: all 0.3s;
-  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
-  border-radius: 10px;
-}
-
-.showDropdownContentSmallSize {
-  height: 10vh;
-}
-/* 
-.dropdownLink {
-  background-color: #ffea00;
-} */
 
 @media screen and (max-width: 540px) {
   .dropdownLink {

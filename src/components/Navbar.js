@@ -16,16 +16,8 @@ const hideMobileNavigation = {
   "--navbarFlexAlign": "center",
 };
 
-const eventListenersParentsArray = [
-  {
-    container: "showsDropdownRoot",
-    content: "showsDropdown",
-  },
-  {
-    container: "galerieDropdownRoot",
-    content: "galerieDropdown",
-  },
-];
+// // add/remove visible, depending on test conditional, i less than 10
+// div.classList.toggle("visible", i < 10);
 
 const Navbar = () => {
   // set scroll position, update when change
@@ -154,19 +146,7 @@ const Navbar = () => {
     // }
   };
 
-  // const [desktopListeners, setDesktopListeners] = React.useState(false);
-  // const currentDesktopListeners = React.useRef(desktopListeners);
-  // React.useEffect(() => {
-  //   currentDesktopListeners.current = desktopListeners;
-  // }, [desktopListeners]);
-
-  // const [mobileListeners, setMobileListeners] = React.useState(false);
-  // const currentMobileListeners = React.useRef(mobileListeners);
-  // React.useEffect(() => {
-  //   currentMobileListeners.current = mobileListeners;
-  // }, [mobileListeners]);
-
-  // width and update width
+  // width and width update
   // do i need width??
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const currentWindowWidth = React.useRef(windowWidth);
@@ -246,45 +226,44 @@ const Navbar = () => {
     mobileNavigation.current = showMobileNav;
   }, [showMobileNav]);
 
-  // show/hide mobile nav
   React.useEffect(() => {
-    console.log("now im the switch and i work");
-    let currentSettings;
-    // if (windowWidth.current <= 540) {
-    console.log(currentWindowWidth.current);
-    if (showMobileNav === false) {
-      currentSettings = hideMobileNavigation;
-      eventListenersParentsArray.forEach((element) => {
-        // removeDropdownClasses(element.container, element.content);
-        // global[`${element.container}MobileStatus`] = false;
-        console.log("i set the classes to nonnav");
-      });
-    } else {
-      currentSettings = displayMobileNavigation;
+    let navbarElement = document.getElementById("navigationBar"),
+      navLinksElement = document.getElementById("navbarLinks"),
+      navLinksLogo = document.getElementById("navbarLogoContainer"),
+      linkStyleChildren = navLinksElement.children;
+
+    navbarElement.classList.toggle("showMobileNavNavbar");
+    navLinksElement.classList.toggle("showMobileNavNavLinks");
+    navLinksLogo.classList.toggle("showMobileNavLogo");
+    for (let child of linkStyleChildren) {
+      child.classList.toggle("showMobileNavLinkStyle");
     }
-    for (let pair in currentSettings) {
-      document.body.style.setProperty(pair, currentSettings[pair]);
-    }
-    if (showMobileNav === true) {
-      document.getElementById("navigationBar").style.height = "100vh";
-      document.getElementById("navigationBar").style.position = "fixed";
-    } /* else if (
-        showMobileNav === false &&
-        window.scrollY > 0 &&
-        currentWindowWidth.current <= 540
-      ) {
-        document.getElementById("navigationBar").style.height = "5vh";
-        document.getElementById("navigationBar").style.position = "sticky";
-      } */ else if (
-      showMobileNav === false &&
-      currentWindowWidth.current <= 540
-    ) {
-      window.scrollTo(0, 0);
-      document.getElementById("navigationBar").style.height = "15vh";
-      document.getElementById("navigationBar").style.position = "sticky";
-    }
-    // }
   }, [showMobileNav]);
+
+  // show/hide mobile nav
+  // // // React.useEffect(() => {
+  //   console.log("now im the switch and i work");
+  //   let currentSettings;
+  //   // if (windowWidth.current <= 540) {
+  //   console.log(currentWindowWidth.current);
+  //   if (showMobileNav === false) {
+  //     currentSettings = hideMobileNavigation;
+  //   } else {
+  //     currentSettings = displayMobileNavigation;
+  //   }
+  //   for (let pair in currentSettings) {
+  //     document.body.style.setProperty(pair, currentSettings[pair]);
+  //   }
+  //   if (showMobileNav === true) {
+  //     document.getElementById("navigationBar").style.height = "100vh";
+  //     document.getElementById("navigationBar").style.position = "fixed";
+  //   } else if (showMobileNav === false && currentWindowWidth.current <= 540) {
+  //     window.scrollTo(0, 0);
+  //     document.getElementById("navigationBar").style.height = "15vh";
+  //     document.getElementById("navigationBar").style.position = "sticky";
+  //   }
+  //   // }
+  // }, [showMobileNav]);
 
   // create settings icon
   const [dataURL, setDataURL] = React.useState(null);
@@ -301,9 +280,10 @@ const Navbar = () => {
     ctx.lineTo(75, 0);
     ctx.moveTo(25, 100);
     ctx.lineTo(75, 100);
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
     ctx.stroke();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.moveTo(0, 50);
     ctx.lineTo(100, 50);
     ctx.stroke();
@@ -325,7 +305,7 @@ const Navbar = () => {
 
   return (
     <div id="navigationBar">
-      <div id="navbarLinks">
+      <div id="navbarLinks" className="hideMobileNav">
         {dataURL !== null && (
           <img
             id="mobileNavbarToggle"
@@ -371,7 +351,7 @@ const Navbar = () => {
         >
           Shows {String.fromCharCode(0x25be)}
           {dropDownShowsState && (
-            <div id="showsDropdown">
+            <div id="showsDropdown" className="dropDownMenu">
               <NavLink
                 to="/naechste-show"
                 className="linkStyle dropdownLink"
@@ -419,7 +399,10 @@ const Navbar = () => {
         >
           Galerie {String.fromCharCode(0x25be)}
           {dropDownGalerieState && (
-            <div id="galerieDropdown">
+            <div
+              id="galerieDropdown"
+              className="dropDownMenu dropDownMenuSmall"
+            >
               <NavLink
                 to="/fotos"
                 className="linkStyle dropdownLink"
@@ -445,7 +428,16 @@ const Navbar = () => {
           )}
         </div>
 
-        <NavLink to="/kontakt" className="linkStyle">
+        <NavLink
+          to="/kontakt"
+          className="linkStyle"
+          onClick={(event) => {
+            event.stopPropagation();
+            console.log(showMobileNav);
+            setShowMobileNav(false);
+            console.log(showMobileNav);
+          }}
+        >
           Kontakt
         </NavLink>
 
