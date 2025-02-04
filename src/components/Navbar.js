@@ -406,39 +406,43 @@ const Navbar = () => {
           )}
         </div>
 
-        <div id="galerieDropdownRoot" className="dropdown linkStyle">
+        <div
+          id="galerieDropdownRoot"
+          className="dropdown linkStyle"
+          onClick={() => {
+            dropDownGalerieState
+              ? setDropDownGalerieState(false)
+              : setDropDownGalerieState(true);
+          }}
+          onMouseOver={() => setDropDownGalerieState(true)}
+          onMouseOut={() => setDropDownGalerieState(false)}
+        >
           Galerie {String.fromCharCode(0x25be)}
-          <div id="galerieDropdown" className="dropdownContent">
-            <NavLink
-              to="/fotos"
-              className="linkStyle dropdownLink"
-              onClick={() => {
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContent");
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContentSmallSize");
-              }}
-            >
-              Fotos
-            </NavLink>
+          {dropDownGalerieState && (
+            <div id="galerieDropdown">
+              <NavLink
+                to="/fotos"
+                className="linkStyle dropdownLink"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setDropDownGalerieState(false);
+                }}
+              >
+                Fotos
+              </NavLink>
 
-            <NavLink
-              to="/jingle"
-              className="linkStyle dropdownLink"
-              onClick={() => {
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContent");
-                document
-                  .getElementById("galerieDropdown")
-                  .classList.remove("showDropdownContentSmallSize");
-              }}
-            >
-              Jingle
-            </NavLink>
-          </div>
+              <NavLink
+                to="/jingle"
+                className="linkStyle dropdownLink"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setDropDownGalerieState(false);
+                }}
+              >
+                Jingle
+              </NavLink>
+            </div>
+          )}
         </div>
 
         <NavLink to="/kontakt" className="linkStyle">

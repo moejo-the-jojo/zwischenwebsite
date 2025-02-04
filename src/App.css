@@ -5,7 +5,7 @@ breakpoints: < 1024px tablet/phone landscape
 
 :root {
   /* overflow: auto; */
-  --showDropdown: none;
+  /* --showDropdown: none; */
   -webkit-tap-highlight-color: transparent;
   height: 100%;
 }
@@ -184,10 +184,18 @@ body::-webkit-scrollbar {
 
 #showsDropdownRoot {
   margin-bottom: var(--desktopDropdownMargin, 1vh);
+  transition: all 0.15s;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  -moz-transition: all 0.3s;
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
 #galerieDropdownRoot {
   margin-bottom: var(--desktopDropdownMargin, 1vh);
+  transition: all 0.15s;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  -moz-transition: all 0.3s;
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
 .dropdownContent {
@@ -209,13 +217,33 @@ body::-webkit-scrollbar {
 }
 
 #showsDropdown {
-  margin-top: 5vh;
+  position: absolute;
+  top: 5vh;
   height: 15vh;
+  width: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
   transition: all 0.3s;
   transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   -moz-transition: all 0.3s;
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   border-radius: 10px;
+  overflow: hidden;
+}
+
+#galerieDropdown {
+  position: absolute;
+  top: 5vh;
+  height: 10vh;
+  width: 100%;
+  padding-left: 2px;
+  padding-right: 2px;
+  transition: all 0.3s;
+  transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  -moz-transition: all 0.3s;
+  -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 #showsDropdown .linkStyle {
@@ -240,10 +268,10 @@ body::-webkit-scrollbar {
 .showDropdownContentSmallSize {
   height: 10vh;
 }
-
+/* 
 .dropdownLink {
   background-color: #ffea00;
-}
+} */
 
 @media screen and (max-width: 540px) {
   .dropdownLink {
