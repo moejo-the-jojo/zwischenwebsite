@@ -232,6 +232,7 @@ const Navbar = () => {
       navLinksLogo = document.getElementById("navbarLogoContainer"),
       linkStyleChildren = navLinksElement.children;
 
+    console.log(linkStyleChildren);
     navbarElement.classList.toggle("showMobileNavNavbar");
     navLinksElement.classList.toggle("showMobileNavNavLinks");
     navLinksLogo.classList.toggle("showMobileNavLogo");
@@ -334,14 +335,20 @@ const Navbar = () => {
 
         {/*so the links stay on the right side*/}
         <div className="linkStyle" id="placeholderLink" />
-        <NavLink to="/about" className="linkStyle">
+        <NavLink
+          to="/about"
+          className="linkStyle"
+          onClick={() => {
+            console.log("i run");
+          }}
+        >
           Über uns
         </NavLink>
 
         <div
           id="showsDropdownRoot"
           className="dropdown linkStyle"
-          onClick={() => {
+          onMouseDown={() => {
             dropDownShowsState
               ? setDropDownShowsState(false)
               : setDropDownShowsState(true);
@@ -356,8 +363,10 @@ const Navbar = () => {
                 to="/naechste-show"
                 className="linkStyle dropdownLink"
                 onClick={(event) => {
+                  console.log("i run");
                   event.stopPropagation();
                   setDropDownShowsState(false);
+                  setShowMobileNav(false);
                 }}
               >
                 Nächste
@@ -365,9 +374,10 @@ const Navbar = () => {
               <NavLink
                 to="/vergangene-shows"
                 className="linkStyle dropdownLink"
-                onClick={(event) => {
+                onMouseDown={(event) => {
                   event.stopPropagation();
                   setDropDownShowsState(false);
+                  setShowMobileNav(false);
                 }}
               >
                 Vergangene
@@ -375,9 +385,10 @@ const Navbar = () => {
               <NavLink
                 to="/calender"
                 className="linkStyle dropdownLink"
-                onClick={(event) => {
+                onMouseDown={(event) => {
                   event.stopPropagation();
                   setDropDownShowsState(false);
+                  setShowMobileNav(false);
                 }}
               >
                 Kalender
@@ -389,7 +400,7 @@ const Navbar = () => {
         <div
           id="galerieDropdownRoot"
           className="dropdown linkStyle"
-          onClick={() => {
+          onMouseDown={() => {
             dropDownGalerieState
               ? setDropDownGalerieState(false)
               : setDropDownGalerieState(true);
@@ -406,9 +417,10 @@ const Navbar = () => {
               <NavLink
                 to="/fotos"
                 className="linkStyle dropdownLink"
-                onClick={(event) => {
+                onMouseDown={(event) => {
                   event.stopPropagation();
                   setDropDownGalerieState(false);
+                  setShowMobileNav(false);
                 }}
               >
                 Fotos
@@ -417,9 +429,10 @@ const Navbar = () => {
               <NavLink
                 to="/jingle"
                 className="linkStyle dropdownLink"
-                onClick={(event) => {
+                onMouseDown={(event) => {
                   event.stopPropagation();
                   setDropDownGalerieState(false);
+                  setShowMobileNav(false);
                 }}
               >
                 Jingle
@@ -433,15 +446,20 @@ const Navbar = () => {
           className="linkStyle"
           onMouseDown={(event) => {
             event.stopPropagation();
-            console.log(showMobileNav);
             setShowMobileNav(false);
-            console.log(showMobileNav);
           }}
         >
           Kontakt
         </NavLink>
 
-        <NavLink to="vienna-improv" className="linkStyle">
+        <NavLink
+          to="vienna-improv"
+          className="linkStyle"
+          onMouseDown={(event) => {
+            event.stopPropagation();
+            setShowMobileNav(false);
+          }}
+        >
           Vienna Improv (?)
         </NavLink>
       </div>
