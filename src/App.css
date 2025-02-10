@@ -174,13 +174,16 @@ body::-webkit-scrollbar {
 
   .showMobileNavLinkStyle {
     display: flex;
+    flex-direction: column;
   }
 }
 
-.linkStyle:hover {
-  cursor: default;
-  background-color: black;
-  color: #ffea00;
+@media screen and (min-width: 540px) {
+  .linkStyle:hover {
+    cursor: default;
+    background-color: black;
+    color: #ffea00;
+  }
 }
 
 #placeholderLink {
@@ -213,28 +216,12 @@ body::-webkit-scrollbar {
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
-.dropdownContent {
-  position: absolute;
-  top: 5vh;
-  height: 0;
-  width: 100%;
-  z-index: 2;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  align-items: stretch;
-  transition: all 0.05s;
-  -moz-transition: all 0.05s;
-  /* mehr compatibilitystuff! */
-  border-radius: 10px;
-}
-
 .dropDownMenu {
-  position: absolute;
+  display: flex;
+  position: relative;
+  flex-direction: column;
   top: 5vh;
-  height: 15vh;
+  height: auto;
   width: 100%;
   padding-left: 2px;
   padding-right: 2px;
@@ -243,7 +230,7 @@ body::-webkit-scrollbar {
   -moz-transition: all 0.3s;
   -moz-transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
   border-radius: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .dropDownMenuSmall {
@@ -251,6 +238,7 @@ body::-webkit-scrollbar {
 }
 
 .dropDownMenu .linkStyle {
+  display: flex;
   margin-bottom: 0px;
   border-radius: 0px;
 }

@@ -206,6 +206,8 @@ const Navbar = () => {
         setRotated(false);
       }, 100);
     }
+    setDropDownShowsState(false);
+    setDropDownGalerieState(false);
 
     // ???
     // if (
@@ -232,12 +234,21 @@ const Navbar = () => {
       navLinksLogo = document.getElementById("navbarLogoContainer"),
       linkStyleChildren = navLinksElement.children;
 
-    console.log(linkStyleChildren);
-    navbarElement.classList.toggle("showMobileNavNavbar");
-    navLinksElement.classList.toggle("showMobileNavNavLinks");
-    navLinksLogo.classList.toggle("showMobileNavLogo");
-    for (let child of linkStyleChildren) {
-      child.classList.toggle("showMobileNavLinkStyle");
+    if (showMobileNav === true) {
+      navbarElement.classList.add("showMobileNavNavbar");
+      navLinksElement.classList.add("showMobileNavNavLinks");
+      navLinksLogo.classList.add("showMobileNavLogo");
+      for (let child of linkStyleChildren) {
+        child.classList.add("showMobileNavLinkStyle");
+      }
+    } else {
+      navbarElement.classList.remove("showMobileNavNavbar");
+      navLinksElement.classList.remove("showMobileNavNavLinks");
+      navLinksLogo.classList.remove("showMobileNavLogo");
+      for (let child of linkStyleChildren) {
+        child.classList.remove("showMobileNavLinkStyle");
+        child.classList.remove("active");
+      }
     }
   }, [showMobileNav]);
 
@@ -338,8 +349,9 @@ const Navbar = () => {
         <NavLink
           to="/about"
           className="linkStyle"
-          onClick={() => {
-            console.log("i run");
+          onClick={(event) => {
+            event.stopPropagation();
+            setShowMobileNav(false);
           }}
         >
           Über uns
@@ -348,7 +360,7 @@ const Navbar = () => {
         <div
           id="showsDropdownRoot"
           className="dropdown linkStyle"
-          onMouseDown={() => {
+          onClick={() => {
             dropDownShowsState
               ? setDropDownShowsState(false)
               : setDropDownShowsState(true);
@@ -363,9 +375,8 @@ const Navbar = () => {
                 to="/naechste-show"
                 className="linkStyle dropdownLink"
                 onClick={(event) => {
-                  console.log("i run");
+                  console.log(event.target);
                   event.stopPropagation();
-                  setDropDownShowsState(false);
                   setShowMobileNav(false);
                 }}
               >
@@ -374,9 +385,8 @@ const Navbar = () => {
               <NavLink
                 to="/vergangene-shows"
                 className="linkStyle dropdownLink"
-                onMouseDown={(event) => {
+                onClick={(event) => {
                   event.stopPropagation();
-                  setDropDownShowsState(false);
                   setShowMobileNav(false);
                 }}
               >
@@ -385,9 +395,8 @@ const Navbar = () => {
               <NavLink
                 to="/calender"
                 className="linkStyle dropdownLink"
-                onMouseDown={(event) => {
+                onClick={(event) => {
                   event.stopPropagation();
-                  setDropDownShowsState(false);
                   setShowMobileNav(false);
                 }}
               >
@@ -400,7 +409,7 @@ const Navbar = () => {
         <div
           id="galerieDropdownRoot"
           className="dropdown linkStyle"
-          onMouseDown={() => {
+          onClick={() => {
             dropDownGalerieState
               ? setDropDownGalerieState(false)
               : setDropDownGalerieState(true);
@@ -417,9 +426,8 @@ const Navbar = () => {
               <NavLink
                 to="/fotos"
                 className="linkStyle dropdownLink"
-                onMouseDown={(event) => {
+                onClick={(event) => {
                   event.stopPropagation();
-                  setDropDownGalerieState(false);
                   setShowMobileNav(false);
                 }}
               >
@@ -429,9 +437,8 @@ const Navbar = () => {
               <NavLink
                 to="/jingle"
                 className="linkStyle dropdownLink"
-                onMouseDown={(event) => {
+                onClick={(event) => {
                   event.stopPropagation();
-                  setDropDownGalerieState(false);
                   setShowMobileNav(false);
                 }}
               >
@@ -444,7 +451,7 @@ const Navbar = () => {
         <NavLink
           to="/kontakt"
           className="linkStyle"
-          onMouseDown={(event) => {
+          onClick={(event) => {
             event.stopPropagation();
             setShowMobileNav(false);
           }}
@@ -455,7 +462,7 @@ const Navbar = () => {
         <NavLink
           to="vienna-improv"
           className="linkStyle"
-          onMouseDown={(event) => {
+          onClick={(event) => {
             event.stopPropagation();
             setShowMobileNav(false);
           }}
