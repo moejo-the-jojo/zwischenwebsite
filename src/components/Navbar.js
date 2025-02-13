@@ -3,22 +3,6 @@ import React from "react";
 import logoSrc from "../pictures/ZwischenspielLogo.svg";
 import * as RRD from "react-router-dom";
 
-const displayMobileNavigation = {
-  "--showNavbarLinks": "flex",
-  "--hideNavbarLogo": "none",
-  "--navbarFlexDirection": "column",
-  "--navbarFlexAlign": "flex-start",
-};
-const hideMobileNavigation = {
-  "--showNavbarLinks": "none",
-  "--hideNavbarLogo": "flex",
-  "--navbarFlexDirection": "row",
-  "--navbarFlexAlign": "center",
-};
-
-// // add/remove visible, depending on test conditional, i less than 10
-// div.classList.toggle("visible", i < 10);
-
 const Navbar = () => {
   // set scroll position, update when change
   const [currentScrollPosition, setCurrentScrollPosition] = React.useState(
@@ -164,33 +148,6 @@ const Navbar = () => {
   const [dropDownShowsState, setDropDownShowsState] = React.useState(false);
   const [dropDownGalerieState, setDropDownGalerieState] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   if (currentWindowWidth.current > 540 && desktopListeners.current !== true) {
-  //     document.body.style.setProperty("--dropdownLinkBGColor", "black");
-  //     setShowMobileNav(false);
-  //     eventListenersParentsArray.forEach((element) => {
-  //       global[`${element.container}MobileStatus`] = false;
-  //     });
-  //     removeMobileEventListeners();
-  //     addDesktopEventListeners();
-  //   } else if (
-  //     currentWindowWidth.current <= 540 &&
-  //     mobileListeners.current !== true
-  //   ) {
-  //     document.body.style.setProperty("--dropdownLinkBGColor", "#efcc00");
-  //     removeDesktopEventListeners();
-  //     addMobileEventListeners();
-  //   }
-
-  //   // ???
-  //   if (currentWindowWidth.current > 540) {
-  //     document
-  //       .getElementById("navigationBar")
-  //       .style.setProperty("height", "20vh");
-  //   }
-  //   // ???
-  // }, [currentWindowWidth.current]);
-
   //handle links
   const location = RRD.useLocation();
   React.useEffect(() => {
@@ -208,17 +165,12 @@ const Navbar = () => {
     }
     setDropDownShowsState(false);
     setDropDownGalerieState(false);
-
-    // ???
-    // if (
-    //   document.getElementById("realRoutesContainer").clientHeight >
-    //   window.innerHeight
-    // ) {
-    //   window.addEventListener("touchmove", handleScroll);
-    // } else {
-    //   window.removeEventListener("touchmove", handleScroll);
-    // }
-    // ???
+    document
+      .getElementById("showsDropdownRoot")
+      .classList.remove("expandedDropDown");
+    document
+      .getElementById("galerieDropdownRoot")
+      .classList.remove("expandedDropDown");
   }, [location]);
 
   // set up showMobileNav, update  when mobile Nav changed
@@ -252,31 +204,6 @@ const Navbar = () => {
     }
   }, [showMobileNav]);
 
-  // show/hide mobile nav
-  // // // React.useEffect(() => {
-  //   console.log("now im the switch and i work");
-  //   let currentSettings;
-  //   // if (windowWidth.current <= 540) {
-  //   console.log(currentWindowWidth.current);
-  //   if (showMobileNav === false) {
-  //     currentSettings = hideMobileNavigation;
-  //   } else {
-  //     currentSettings = displayMobileNavigation;
-  //   }
-  //   for (let pair in currentSettings) {
-  //     document.body.style.setProperty(pair, currentSettings[pair]);
-  //   }
-  //   if (showMobileNav === true) {
-  //     document.getElementById("navigationBar").style.height = "100vh";
-  //     document.getElementById("navigationBar").style.position = "fixed";
-  //   } else if (showMobileNav === false && currentWindowWidth.current <= 540) {
-  //     window.scrollTo(0, 0);
-  //     document.getElementById("navigationBar").style.height = "15vh";
-  //     document.getElementById("navigationBar").style.position = "sticky";
-  //   }
-  //   // }
-  // }, [showMobileNav]);
-
   // create settings icon
   const [dataURL, setDataURL] = React.useState(null);
   React.useEffect(() => {
@@ -307,13 +234,6 @@ const Navbar = () => {
   React.useEffect(() => {
     currentRotation.current = rotated;
   }, [rotated]);
-
-  // set navbar to 20vh with widthchange
-  React.useEffect(() => {
-    if (currentWindowWidth.current > 540) {
-      document.getElementById("navigationBar").style.height = "20vh";
-    }
-  }, [currentWindowWidth.current]);
 
   return (
     <div id="navigationBar">
@@ -360,10 +280,18 @@ const Navbar = () => {
         <div
           id="showsDropdownRoot"
           className="dropdown linkStyle"
-          onClick={() => {
-            dropDownShowsState
-              ? setDropDownShowsState(false)
-              : setDropDownShowsState(true);
+          onClick={(event) => {
+            document
+              .getElementById("galerieDropdownRoot")
+              .classList.remove("expandedDropDown");
+
+            if (dropDownShowsState === true) {
+              setDropDownShowsState(false);
+              event.target.classList.remove("expandedDropDown");
+            } else {
+              setDropDownShowsState(true);
+              event.target.classList.add("expandedDropDown");
+            }
           }}
           onMouseOver={() => setDropDownShowsState(true)}
           onMouseOut={() => setDropDownShowsState(false)}
@@ -409,10 +337,18 @@ const Navbar = () => {
         <div
           id="galerieDropdownRoot"
           className="dropdown linkStyle"
-          onClick={() => {
-            dropDownGalerieState
-              ? setDropDownGalerieState(false)
-              : setDropDownGalerieState(true);
+          onClick={(event) => {
+            document
+              .getElementById("showsDropdownRoot")
+              .classList.remove("expandedDropDown");
+
+            if (dropDownGalerieState === true) {
+              setDropDownGalerieState(false);
+              event.target.classList.remove("expandedDropDown");
+            } else {
+              setDropDownGalerieState(true);
+              event.target.classList.add("expandedDropDown");
+            }
           }}
           onMouseOver={() => setDropDownGalerieState(true)}
           onMouseOut={() => setDropDownGalerieState(false)}
