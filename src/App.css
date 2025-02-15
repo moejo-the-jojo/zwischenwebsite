@@ -24,6 +24,7 @@ body {
 
 html {
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 
 body::-webkit-scrollbar {
@@ -66,6 +67,10 @@ body::-webkit-scrollbar {
   z-index: 30;
   transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+#navigationBar.scrolledDown {
+  height: 10vh;
 }
 
 @media screen and (max-width: 540px) {
@@ -254,8 +259,6 @@ body::-webkit-scrollbar {
   position: relative;
   height: 100%;
   background-color: black;
-  margin-top: 0;
-  margin-top: 0;
   width: 100%;
   z-index: 10;
   min-height: 80dvh;

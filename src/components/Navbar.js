@@ -13,6 +13,23 @@ const Navbar = () => {
     currentScrollP.current = currentScrollPosition;
   }, [currentScrollPosition]);
 
+  // React.useEffect(() => {
+  //   window.addEventListener("scroll", () => console.log(window.scrollY));
+  // });
+
+  React.useEffect(() => {
+    const doTheScroll = () => {
+      const navbarForScroll = document.getElementById("navigationBar");
+      if (window.scrollY >= 63) {
+        navbarForScroll.classList.add("scrolledDown");
+      } else {
+        navbarForScroll.classList.remove("scrolledDown");
+        console.log("hi");
+      }
+    };
+    window.addEventListener("scroll", doTheScroll);
+  }, []);
+
   const handleScroll = () => {
     const navBar = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
