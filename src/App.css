@@ -89,7 +89,7 @@ body::-webkit-scrollbar {
   }
 
   #navigationBar.routesContainerScrolledDown {
-    height: 5vh;
+    height: 7.5vh;
   }
 }
 
@@ -169,7 +169,7 @@ body::-webkit-scrollbar {
   #navbarLogo {
     width: 33vw;
     height: 15vh;
-    margin-top: 5vh;
+    top: 5.5vh;
     display: var(--hideNavbarLogo);
     transition: all 500ms;
     -webkit-transition: all 500ms;
@@ -179,9 +179,12 @@ body::-webkit-scrollbar {
   }
 
   #navbarLogo.scrolledLogoDown {
-    width: auto;
-    height: 15.5vh;
-    top: 5.5vh;
+    width: 70vw;
+    /* max-width: 50vw; */
+    height: 16vh;
+    top: 10vh;
+    margin-left: 35vw;
+    /* padding-left: 35vw; */
     transition: all 500ms;
     -webkit-transition: all 500ms;
     -moz-transition: all 500ms;
