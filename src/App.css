@@ -180,8 +180,8 @@ body::-webkit-scrollbar {
 
   #navbarLogo.scrolledLogoDown {
     width: auto;
-    height: 16.5vh;
-    margin-top: 10vh;
+    height: 15.5vh;
+    top: 5.5vh;
     transition: all 500ms;
     -webkit-transition: all 500ms;
     -moz-transition: all 500ms;
