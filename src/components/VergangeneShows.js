@@ -2,7 +2,7 @@ const VergangeneShows = () => {
   return (
     <div className="contentContainer">
       <div className="content">
-        alte Shows hier einfügen incl. Flyer und "Werbetext"
+        Alte Shows hier einfügen incl. Flyer und "Werbetext"
       </div>
     </div>
   );

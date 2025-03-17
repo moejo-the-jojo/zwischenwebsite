@@ -4,148 +4,30 @@ import logoSrc from "../pictures/ZwischenspielLogo.svg";
 import * as RRD from "react-router-dom";
 
 const Navbar = () => {
-  // set scroll position, update when change
-  const [currentScrollPosition, setCurrentScrollPosition] = React.useState(
-    window.scrollY
-  );
-  const currentScrollP = React.useRef(currentScrollPosition);
-  React.useEffect(() => {
-    currentScrollP.current = currentScrollPosition;
-  }, [currentScrollPosition]);
-
-  // React.useEffect(() => {
-  //   window.addEventListener("scroll", () => console.log(window.scrollY));
-  // });
-
-  React.useEffect(() => {
-    const doTheScroll = () => {
-      const navbarForScroll = document.getElementById("navigationBar");
-      if (window.scrollY >= 63) {
-        navbarForScroll.classList.add("scrolledDown");
-      } else {
-        navbarForScroll.classList.remove("scrolledDown");
-        console.log("hi");
-      }
-    };
-    window.addEventListener("scroll", doTheScroll);
-  }, []);
-
-  const handleScroll = () => {
-    const navBar = document.getElementById("navigationBar"),
+  const doTheScroll = () => {
+    const navbarForScroll = document.getElementById("navigationBar"),
       navLogo = document.getElementById("navbarLogo"),
-      routesContainer = document.getElementById("realRoutesContainer");
-    let wantedNavHeight, wantedLogoHeight, wantedLogoOffset, wantedRoutesHeight;
-    if (currentWindowWidth.current > 540) {
-      wantedNavHeight = "10vh";
-      wantedLogoHeight = "16.5vh";
-      wantedLogoOffset = "10vh";
-      wantedRoutesHeight = "100%";
-    } else if (currentWindowWidth.current <= 540) {
-      wantedNavHeight = "5vh";
-      wantedLogoHeight = "15vh";
-      wantedLogoOffset = "10.5vh";
-      wantedRoutesHeight = "100%";
-      if (mobileNavigation.current === true) {
-        wantedNavHeight = "100vh";
+      mobileNavbarHandle = document.getElementById("mobileNavbarToggle"),
+      routesContainerForScroll = document.getElementById("realRoutesContainer");
+    if (window.scrollY >= window.innerHeight * 0.1) {
+      navbarForScroll.classList.add("scrolledDown");
+      navLogo.classList.add("scrolledLogoDown");
+      if (mobileNavbarHandle) {
+        mobileNavbarHandle.classList.add("scrolledHandleDown");
+      }
+      routesContainerForScroll.classList.add("routesContainerScrolledDown");
+    } else {
+      navbarForScroll.classList.remove("scrolledDown");
+      navLogo.classList.remove("scrolledLogoDown");
+      routesContainerForScroll.classList.remove("routesContainerScrolledDown");
+      if (mobileNavbarHandle) {
+        mobileNavbarHandle.classList.remove("scrolledHandleDown");
       }
     }
-
-    let currentScrollPopo = window.scrollY;
-    let scrollDirection;
-
-    setTimeout(() => {
-      if (window.scrollY > currentScrollPopo) {
-        scrollDirection = "down";
-      } else if (window.scrollY === currentScrollPopo) {
-        scrollDirection = scrollDirection;
-      } else {
-        scrollDirection = "up";
-      }
-      currentScrollPopo = window.scrollY;
-      console.log(scrollDirection);
-      if (scrollDirection === "down") {
-        setTimeout(() => {
-          document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
-          navBar.style.height = wantedNavHeight;
-          navLogo.style.marginTop = wantedLogoOffset;
-          navLogo.style.height = wantedLogoHeight;
-          routesContainer.style.height = wantedRoutesHeight;
-          if (currentWindowWidth.current <= 540) {
-            navLogo.style.width = "auto";
-          }
-        }, 100);
-      } else if (window.scrollY === 0) {
-        setTimeout(() => {
-          if (window.scrollY === 0) {
-            if (currentWindowWidth.current > 540) {
-              wantedNavHeight = "20vh";
-              wantedLogoHeight = "20vh";
-              wantedLogoOffset = "0";
-              wantedRoutesHeight = "80vh";
-            } else if (currentWindowWidth.current <= 540) {
-              wantedNavHeight = "15vh";
-              wantedLogoHeight = "auto";
-              navLogo.style.width = "33vw";
-              wantedLogoOffset = "auto";
-              wantedRoutesHeight = "85vh";
-
-              if (mobileNavigation.current === true) {
-                wantedNavHeight = "100vh";
-              }
-            }
-            document.getElementById("mobileNavbarToggle").style.top = "5vh";
-            navBar.style.height = wantedNavHeight;
-            navLogo.style.height = wantedLogoHeight;
-            navLogo.style.marginTop = wantedLogoOffset;
-            routesContainer.style.minHeight = wantedRoutesHeight;
-          }
-        }, 50);
-      }
-    }, 50);
-
-    // console.log(scrollDirection);
-    // if (window.scrollY > 0) {
-    //   setTimeout(() => {
-    //     document.getElementById("mobileNavbarToggle").style.top = "2.5vh";
-    //     navBar.style.height = wantedNavHeight;
-    //     navLogo.style.marginTop = wantedLogoOffset;
-    //     navLogo.style.height = wantedLogoHeight;
-    //     routesContainer.style.height = wantedRoutesHeight;
-    //     if (currentWindowWidth.current <= 540) {
-    //       navLogo.style.width = "auto";
-    //     }
-    //   }, 100);
-    // } else if (window.scrollY === 0) {
-    //   setTimeout(() => {
-    //     if (window.scrollY === 0) {
-    //       if (currentWindowWidth.current > 540) {
-    //         wantedNavHeight = "20vh";
-    //         wantedLogoHeight = "20vh";
-    //         wantedLogoOffset = "0";
-    //         //
-    //         wantedRoutesHeight = "80vh";
-    //         // wantedRoutesHeight = "100%";
-    //       } else if (currentWindowWidth.current <= 540) {
-    //         wantedNavHeight = "15vh";
-    //         wantedLogoHeight = "auto";
-    //         navLogo.style.width = "33vw";
-    //         wantedLogoOffset = "auto";
-    //         wantedRoutesHeight = "85vh";
-    //         // wantedRoutesHeight = "100%";
-
-    //         if (mobileNavigation.current === true) {
-    //           wantedNavHeight = "100vh";
-    //         }
-    //       }
-    //       document.getElementById("mobileNavbarToggle").style.top = "5vh";
-    //       navBar.style.height = wantedNavHeight;
-    //       navLogo.style.height = wantedLogoHeight;
-    //       navLogo.style.marginTop = wantedLogoOffset;
-    //       routesContainer.style.minHeight = wantedRoutesHeight;
-    //     }
-    //   }, 100);
-    // }
   };
+  React.useEffect(() => {
+    window.addEventListener("scroll", doTheScroll);
+  }, []);
 
   // width and width update
   // do i need width??

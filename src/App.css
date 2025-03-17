@@ -8,7 +8,8 @@ breakpoints: < 1024px tablet/phone landscape
   /* --showDropdown: none; */
   -webkit-tap-highlight-color: transparent;
   height: 100%;
-  font-size: calc(12px + 0.6em);
+  font-size: calc(14px + 0.4em);
+  background-color: black;
 }
 
 @media screen and (max-width: 1024px) {
@@ -47,6 +48,10 @@ body::-webkit-scrollbar {
     align-items: center;
     transition: all 200ms;
   }
+
+  #mobileNavbarToggle.scrolledHandleDown {
+    top: 2.5vh;
+  }
 }
 
 .rotated {
@@ -60,7 +65,7 @@ body::-webkit-scrollbar {
   width: 100%;
   display: flex;
   cursor: default;
-  position: sticky;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -81,6 +86,10 @@ body::-webkit-scrollbar {
   #navigationBar.showMobileNavNavbar {
     height: 100vh;
     position: fixed;
+  }
+
+  #navigationBar.routesContainerScrolledDown {
+    height: 5vh;
   }
 }
 
@@ -120,6 +129,9 @@ body::-webkit-scrollbar {
   position: relative;
   display: flex;
   transition: all 500ms;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -o-transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -134,23 +146,47 @@ body::-webkit-scrollbar {
 }
 
 #navbarLogo {
+  top: 0;
   height: 20vh;
   min-height: 15vh;
   justify-content: center;
   position: relative;
   display: flex;
-  -webkit-transition: transform 500ms;
   transition: all 500ms;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -o-transition: all 500ms;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   -webkit-tap-highlight-color: transparent;
+}
+
+#navbarLogo.scrolledLogoDown {
+  height: 15vh;
+  top: 10.6vh;
 }
 
 @media screen and (max-width: 540px) {
   #navbarLogo {
     width: 33vw;
-    height: auto;
-    margin-top: auto;
+    height: 15vh;
+    margin-top: 5vh;
     display: var(--hideNavbarLogo);
+    transition: all 500ms;
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  #navbarLogo.scrolledLogoDown {
+    width: auto;
+    height: 16.5vh;
+    margin-top: 10vh;
+    transition: all 500ms;
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    -o-transition: all 500ms;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
 }
 
@@ -261,12 +297,24 @@ body::-webkit-scrollbar {
   background-color: black;
   width: 100%;
   z-index: 10;
+  padding-top: 20dvh;
   min-height: 80dvh;
+  transition: all 500ms;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.routesContainerScrolledDown {
+  padding-top: 15vh;
 }
 
 @media screen and (max-width: 540px) {
   .routesContainer {
+    padding-top: 15vh;
     min-height: 85vh;
+  }
+
+  .routesContainerScrolledDown {
+    padding-top: 10vh;
   }
 }
 
@@ -275,11 +323,11 @@ body::-webkit-scrollbar {
   background-color: black;
   margin-top: 0;
   color: white;
-  width: 66vw;
+  width: 85vw;
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  /* grid-template-columns: 1fr 4fr; */
   overflow: auto;
   height: auto;
   /* min-height: 80vh; */
@@ -293,8 +341,9 @@ body::-webkit-scrollbar {
   }
 }
 .content {
-  margin: 0;
-  grid-area: 1 / 2 / 1 / 2;
+  margin-left: 12.5vw;
+  margin-right: 5vw;
+  /* grid-area: 1 / 2 / 1 / 2; */
   margin-top: 10vh;
   height: auto;
 }

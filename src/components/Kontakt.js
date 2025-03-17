@@ -40,13 +40,6 @@ const Kontakt = () => {
           dignissim qui blandit praesent luptatum zzril delenit augue duis
           dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
         </p>
-        <button
-          onClick={() =>
-            console.log(
-              document.getElementById("realRoutesContainer").clientHeight
-            )
-          }
-        ></button>
       </div>
     </div>
   );
