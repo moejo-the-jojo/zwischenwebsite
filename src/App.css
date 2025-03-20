@@ -47,6 +47,7 @@ body::-webkit-scrollbar {
     justify-content: center;
     align-items: center;
     transition: all 200ms;
+    z-index: 9000;
   }
 
   #mobileNavbarToggle.scrolledHandleDown {
